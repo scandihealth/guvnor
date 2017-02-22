@@ -55,6 +55,13 @@ public class Metadata {
     private List<DiscussionRecord> discussion = new ArrayList<DiscussionRecord>();
     private List<VersionRecord>    version    = new ArrayList<VersionRecord>();
 
+    // lpr
+    private LprRuleType.RuleType lprRuleType;
+    private Long validFrom;
+    private Long validTo;
+    private boolean isDraft;
+    private boolean inProduction;
+
     public Metadata() {
 
     }
@@ -74,7 +81,12 @@ public class Metadata {
                      final List<String> tags,
                      final List<DiscussionRecord> discussion,
                      final List<VersionRecord> version,
-                     final LockInfo lockInfo) {
+                     final LockInfo lockInfo,
+                     final LprRuleType.RuleType lprRuleType,
+                     final Long validFrom,
+                     final Long validTo,
+                     final boolean isDraft,
+                     final boolean inProduction) {
         this.path = path;
         this.realPath = realPath;
         this.checkinComment = checkinComment;
@@ -91,6 +103,11 @@ public class Metadata {
         this.discussion = discussion;
         this.version = version;
         this.lockInfo = lockInfo;
+        this.setLprRuleType(lprRuleType);
+        this.setValidFrom(validFrom);
+        this.setValidTo(validTo);
+        this.setDraft(isDraft);
+        this.setInProduction(inProduction);
     }
 
     public Path getPath() {
@@ -293,5 +310,45 @@ public class Metadata {
         result = 31 * result + ( version != null ? version.hashCode() : 0 );
         result = ~~result;
         return result;
+    }
+
+    public LprRuleType.RuleType getLprRuleType() {
+        return lprRuleType;
+    }
+
+    public void setLprRuleType(LprRuleType.RuleType lprRuleType) {
+        this.lprRuleType = lprRuleType;
+    }
+
+    public Long getValidFrom() {
+        return validFrom;
+    }
+
+    public void setValidFrom(Long validFrom) {
+        this.validFrom = validFrom;
+    }
+
+    public Long getValidTo() {
+        return validTo;
+    }
+
+    public void setValidTo(Long validTo) {
+        this.validTo = validTo;
+    }
+
+    public boolean isDraft() {
+        return isDraft;
+    }
+
+    public void setDraft(boolean draft) {
+        isDraft = draft;
+    }
+
+    public boolean isInProduction() {
+        return inProduction;
+    }
+
+    public void setInProduction(boolean inProduction) {
+        this.inProduction = inProduction;
     }
 }

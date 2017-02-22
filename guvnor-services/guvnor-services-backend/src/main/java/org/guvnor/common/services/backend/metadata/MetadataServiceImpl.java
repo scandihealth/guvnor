@@ -26,12 +26,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.guvnor.common.services.backend.exceptions.ExceptionUtilities;
-import org.guvnor.common.services.backend.metadata.attribute.DiscussionAttributes;
-import org.guvnor.common.services.backend.metadata.attribute.DiscussionAttributesUtil;
-import org.guvnor.common.services.backend.metadata.attribute.DiscussionView;
-import org.guvnor.common.services.backend.metadata.attribute.OtherMetaAttributes;
-import org.guvnor.common.services.backend.metadata.attribute.OtherMetaAttributesUtil;
-import org.guvnor.common.services.backend.metadata.attribute.OtherMetaView;
+import org.guvnor.common.services.backend.metadata.attribute.*;
 import org.guvnor.common.services.shared.metadata.model.DiscussionRecord;
 import org.guvnor.common.services.shared.metadata.model.Metadata;
 import org.jboss.errai.bus.server.annotations.Service;
@@ -87,7 +82,8 @@ public class MetadataServiceImpl
                                         ioService.getFileAttributeView( path, DublinCoreView.class ),
                                         ioService.getFileAttributeView( path, DiscussionView.class ),
                                         ioService.getFileAttributeView( path, OtherMetaView.class ),
-                                        ioService.getFileAttributeView( path, VersionAttributeView.class ) ).create();
+                                        ioService.getFileAttributeView( path, VersionAttributeView.class ),
+                                        ioService.getFileAttributeView(path, LprMetaView.class)).create();
 
         } catch ( Exception e ) {
             throw ExceptionUtilities.handleException( e );
@@ -125,6 +121,7 @@ public class MetadataServiceImpl
             attrs = DublinCoreAttributesUtil.cleanup( attrs );
             attrs = DiscussionAttributesUtil.cleanup( attrs );
             attrs = OtherMetaAttributesUtil.cleanup( attrs );
+            attrs = LprMetaAttributesUtil.cleanup(attrs);
 
             attrs.putAll( DiscussionAttributesUtil.toMap(
                     new DiscussionAttributes() {
@@ -360,6 +357,8 @@ public class MetadataServiceImpl
                             return null;
                         }
                     }, "*" ) );
+
+            attrs.putAll( LprMetaAttributesUtil.toMap( new LprMetaAttributesImpl(metadata), "*"));
 
             return attrs;
 

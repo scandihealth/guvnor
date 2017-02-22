@@ -21,8 +21,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.guvnor.common.services.backend.metadata.attribute.DiscussionView;
+import org.guvnor.common.services.backend.metadata.attribute.LprMetaAttributes;
+import org.guvnor.common.services.backend.metadata.attribute.LprMetaView;
 import org.guvnor.common.services.backend.metadata.attribute.OtherMetaView;
 import org.guvnor.common.services.shared.metadata.model.DiscussionRecord;
+import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.guvnor.common.services.shared.metadata.model.Metadata;
 import org.uberfire.backend.server.util.Paths;
 import org.uberfire.backend.vfs.PathFactory;
@@ -47,16 +50,18 @@ public class MetadataCreator {
     private final DiscussionView discussView;
     private final OtherMetaView otherMetaView;
     private final VersionAttributeView versionAttributeView;
+    private final LprMetaView lprMetaView;
     private final IOService configIOService;
     private final SessionInfo sessionInfo;
 
-    public MetadataCreator( Path path,
-                            IOService configIOService,
-                            SessionInfo sessionInfo,
-                            DublinCoreView dublinCoreView,
-                            DiscussionView discussionView,
-                            OtherMetaView otherMetaView,
-                            VersionAttributeView versionAttributeView ) {
+    public MetadataCreator(Path path,
+                           IOService configIOService,
+                           SessionInfo sessionInfo,
+                           DublinCoreView dublinCoreView,
+                           DiscussionView discussionView,
+                           OtherMetaView otherMetaView,
+                           VersionAttributeView versionAttributeView,
+                           LprMetaView lprMetaView) {
         this.path = checkNotNull( "path", path );
         this.configIOService = checkNotNull( "configIOService", configIOService );
         this.sessionInfo = checkNotNull( "sessionInfo", sessionInfo );
@@ -64,6 +69,7 @@ public class MetadataCreator {
         this.discussView = checkNotNull( "discussionView", discussionView );
         this.otherMetaView = checkNotNull( "otherMetaView", otherMetaView );
         this.versionAttributeView = checkNotNull( "versionAttributeView", versionAttributeView );
+        this.lprMetaView = checkNotNull("lprMetaView", lprMetaView);
     }
 
     public Metadata create() {
@@ -84,6 +90,11 @@ public class MetadataCreator {
                 .withDiscussion( getDiscussion() )
                 .withLockInfo( retrieveLockInfo( Paths.convert( path ) ) )
                 .withVersion( getVersion() )
+                .withLprRuleType( getLprRuleType() )
+                .withInProduction( getInProduction() )
+                .withIsDraft( getIsDraft() )
+                .withValidFrom( getValidFrom() )
+                .withValidTo( getValidTo())
                 .build();
     }
 
@@ -174,4 +185,33 @@ public class MetadataCreator {
         }
     }
 
+    private LprRuleType.RuleType getLprRuleType() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        LprRuleType.RuleType lprRuleType = lprMetaAttributes.Type();
+        return lprRuleType;
+    }
+
+    private boolean getInProduction() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        boolean inProduction = lprMetaAttributes.inProduction();
+        return inProduction;
+    }
+
+    private boolean getIsDraft() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        boolean isDraft = lprMetaAttributes.isDraft();
+        return isDraft;
+    }
+
+    private Long getValidFrom() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        Long validFrom = lprMetaAttributes.ValidFrom();
+        return  validFrom;
+    }
+
+    private Long getValidTo() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        Long validTo = lprMetaAttributes.ValidTo();
+        return validTo;
+    }
 }

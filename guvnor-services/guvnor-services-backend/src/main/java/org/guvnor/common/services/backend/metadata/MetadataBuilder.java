@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.guvnor.common.services.shared.metadata.model.DiscussionRecord;
+import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.guvnor.common.services.shared.metadata.model.Metadata;
 import org.uberfire.backend.vfs.Path;
 import org.uberfire.backend.vfs.impl.LockInfo;
@@ -57,6 +58,13 @@ public final class MetadataBuilder {
     private List<String> tags = new ArrayList<String>();
     private List<DiscussionRecord> discussion = new ArrayList<DiscussionRecord>();
     private List<VersionRecord> version = new ArrayList<VersionRecord>();
+
+    // lpr
+    private LprRuleType.RuleType lprRuleType;
+    private Long validFrom;
+    private Long validTo;
+    private boolean isDraft;
+    private boolean inProduction;
 
     private MetadataBuilder() {
 
@@ -145,6 +153,27 @@ public final class MetadataBuilder {
         this.lockInfo = lockInfo;
         return this;
     }
+
+    public MetadataBuilder withLprRuleType( final LprRuleType.RuleType lprRuleType ) {
+        this.lprRuleType = lprRuleType;
+        return this;
+    }
+    public MetadataBuilder withValidFrom( final Long validFrom ) {
+        this.validFrom = validFrom;
+        return this;
+    }
+    public MetadataBuilder withValidTo( final Long validTo ) {
+        this.validTo = validTo;
+        return this;
+    }
+    public MetadataBuilder withIsDraft( final boolean isDraft ) {
+        this.isDraft = isDraft;
+        return this;
+    }
+    public MetadataBuilder withInProduction( final boolean inProduction ) {
+        this.inProduction = inProduction;
+        return this;
+    }
     
     public Metadata build() {
         return new Metadata( path,
@@ -162,7 +191,12 @@ public final class MetadataBuilder {
                              tags,
                              discussion,
                              version,
-                             lockInfo );
+                             lockInfo,
+                                lprRuleType,
+                                validFrom,
+                                validTo,
+                                isDraft,
+                                inProduction);
     }
 
 }

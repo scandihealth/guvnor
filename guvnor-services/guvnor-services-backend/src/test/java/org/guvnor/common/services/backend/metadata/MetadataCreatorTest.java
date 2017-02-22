@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.guvnor.common.services.backend.metadata.attribute.DiscussionView;
+import org.guvnor.common.services.backend.metadata.attribute.LprMetaView;
 import org.guvnor.common.services.backend.metadata.attribute.OtherMetaView;
 import org.guvnor.common.services.shared.metadata.model.Metadata;
 import org.junit.Before;
@@ -65,6 +66,8 @@ public class MetadataCreatorTest {
     private OtherMetaView otherMetaView;
     @Mock
     private VersionAttributeView versionAttributeView;
+    @Mock
+    private LprMetaView lprMetaView;
 
     private MetadataCreator service;
     private Path mainFilePath;
@@ -82,6 +85,7 @@ public class MetadataCreatorTest {
         when( dcoreView.readAttributes() ).thenReturn( new DublinCoreAttributesMock() );
         when( otherMetaView.readAttributes() ).thenReturn( new OtherMetaAttributesMock() );
         when( discussView.readAttributes() ).thenReturn( new DiscussionAttributesMock() );
+        //when( lprMetaView.readAttributes()).thenReturn( new LprMe)
 
         fileSystemProvider = new SimpleFileSystemProvider();
 
@@ -96,7 +100,8 @@ public class MetadataCreatorTest {
                                        dcoreView,
                                        discussView,
                                        otherMetaView,
-                                       versionAttributeView );
+                                       versionAttributeView,
+                lprMetaView);
     }
 
     @Test
