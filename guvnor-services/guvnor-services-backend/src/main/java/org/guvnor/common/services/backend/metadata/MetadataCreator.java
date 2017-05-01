@@ -25,6 +25,7 @@ import org.guvnor.common.services.backend.metadata.attribute.LprMetaAttributes;
 import org.guvnor.common.services.backend.metadata.attribute.LprMetaView;
 import org.guvnor.common.services.backend.metadata.attribute.OtherMetaView;
 import org.guvnor.common.services.shared.metadata.model.DiscussionRecord;
+import org.guvnor.common.services.shared.metadata.model.LprErrorType;
 import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.guvnor.common.services.shared.metadata.model.Metadata;
 import org.uberfire.backend.server.util.Paths;
@@ -93,8 +94,12 @@ public class MetadataCreator {
                 .withLprRuleType( getLprRuleType() )
                 .withInProduction( getInProduction() )
                 .withIsDraft( getIsDraft() )
-                .withValidFrom( getValidFrom() )
-                .withValidTo( getValidTo())
+                .withRecievedValidFromDate( getValidFrom() )
+                .withRecievedValidToDate( getRecievedValidToDate())
+                .withErrorNumber(getErrorNumber())
+                .withErrorText(getErrorText())
+                .withRuleGroup(getRuleGroup())
+                .withErrorType(getErrorType())
                 .build();
     }
 
@@ -205,13 +210,37 @@ public class MetadataCreator {
 
     private Long getValidFrom() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
-        Long validFrom = lprMetaAttributes.ValidFrom();
+        Long validFrom = lprMetaAttributes.recievedValidFromDate();
         return  validFrom;
     }
 
-    private Long getValidTo() {
+    private Long getRecievedValidToDate() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
-        Long validTo = lprMetaAttributes.ValidTo();
-        return validTo;
+        Long recievedValidToDate = lprMetaAttributes.recievedValidToDate();
+        return recievedValidToDate;
+    }
+
+    private Long getErrorNumber() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        Long errorNumber = lprMetaAttributes.errorNumber();
+        return errorNumber;
+    }
+
+    private String getErrorText() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        String errorText = lprMetaAttributes.errorText();
+        return errorText;
+    }
+
+    private String getRuleGroup() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        String ruleGroup = lprMetaAttributes.ruleGroup();
+        return ruleGroup;
+    }
+
+    private LprErrorType getErrorType() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        LprErrorType errorType = lprMetaAttributes.errorType();
+        return errorType;
     }
 }

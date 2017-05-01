@@ -1,22 +1,25 @@
 package org.guvnor.common.services.backend.metadata.attribute;
 
+import org.guvnor.common.services.shared.metadata.model.LprErrorType;
 import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.guvnor.common.services.shared.metadata.model.Metadata;
 import org.uberfire.java.nio.file.attribute.BasicFileAttributes;
 import org.uberfire.java.nio.file.attribute.FileTime;
-
-import java.util.Date;
 
 /**
  * Created by prc on 17-02-2017.
  */
 public class LprMetaAttributesImpl implements LprMetaAttributes {
     private LprRuleType.RuleType type = LprRuleType.RuleType.NORMAL;
-    private Long validFrom = 0L;
+    private Long recievedValidFromDate = 0L;
 
-    private Long validTo = 0L;
+    private Long recievedValidToDate = 0L;
     private boolean isDraft = false;
     private boolean inProduction = false;
+    private Long errorNumber = 0L;
+    private String errorText = "";
+    private String ruleGroup = "";
+    private LprErrorType errorType = LprErrorType.NONE;
     private final BasicFileAttributes fileAttrs;
 
     public LprMetaAttributesImpl(final BasicFileAttributes fileAttrs) {
@@ -25,8 +28,8 @@ public class LprMetaAttributesImpl implements LprMetaAttributes {
 
     public LprMetaAttributesImpl(final Metadata metadata) {
         this.type = metadata.getLprRuleType();
-        this.validFrom = metadata.getValidFrom();
-        this.validTo = metadata.getValidTo();
+        this.recievedValidFromDate = metadata.getRecievedValidFromDate();
+        this.recievedValidToDate = metadata.getRecievedValidToDate();
         this.isDraft = metadata.isDraft();
         this.inProduction = metadata.isInProduction();
         this.fileAttrs = new BasicFileAttributes() {
@@ -85,21 +88,26 @@ public class LprMetaAttributesImpl implements LprMetaAttributes {
         this.type = type;
     }
 
-    public Long getValidFrom() {
-        return validFrom;
+    public Long getRecievedValidFromDate() {
+        return recievedValidFromDate;
     }
 
-    public void setValidFrom(Long validFrom) {
-        this.validFrom = validFrom;
+    public void setRecievedValidFromDate(Long recievedValidFromDate) {
+        this.recievedValidFromDate = recievedValidFromDate;
     }
 
-    public Long getValidTo() {
-        return validTo;
+    public Long getRecievedValidToDate() {
+        return recievedValidToDate;
     }
 
-    public void setValidTo(Long validTo) {
-        this.validTo = validTo;
+    public void setRecievedValidToDate(Long recievedValidToDate) {
+        this.recievedValidToDate = recievedValidToDate;
     }
+
+    public Long errorNumber() {return getErrorNumber(); };
+    public String errorText() {return getErrorText(); };
+    public String ruleGroup() {return getRuleGroup(); };
+    public LprErrorType errorType() { return getErrorType();};
 
     @Override
     public LprRuleType.RuleType Type() {
@@ -107,13 +115,13 @@ public class LprMetaAttributesImpl implements LprMetaAttributes {
     }
 
     @Override
-    public Long ValidFrom() {
-        return getValidFrom();
+    public Long recievedValidFromDate() {
+        return getRecievedValidFromDate();
     }
 
     @Override
-    public Long ValidTo() {
-        return getValidTo();
+    public Long recievedValidToDate() {
+        return getRecievedValidToDate();
     }
 
     @Override
@@ -181,5 +189,37 @@ public class LprMetaAttributesImpl implements LprMetaAttributes {
     @Override
     public Object fileKey() {
         return fileAttrs.fileKey();
+    }
+
+    public Long getErrorNumber() {
+        return errorNumber;
+    }
+
+    public void setErrorNumber(Long errorNumber) {
+        this.errorNumber = errorNumber;
+    }
+
+    public String getErrorText() {
+        return errorText;
+    }
+
+    public void setErrorText(String errorText) {
+        this.errorText = errorText;
+    }
+
+    public String getRuleGroup() {
+        return ruleGroup;
+    }
+
+    public void setRuleGroup(String ruleGroup) {
+        this.ruleGroup = ruleGroup;
+    }
+
+    public LprErrorType getErrorType() {
+        return errorType;
+    }
+
+    public void setErrorType(LprErrorType errorType) {
+        this.errorType = errorType;
     }
 }

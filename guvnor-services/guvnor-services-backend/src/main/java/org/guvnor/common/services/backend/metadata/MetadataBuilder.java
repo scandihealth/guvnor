@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.guvnor.common.services.shared.metadata.model.DiscussionRecord;
+import org.guvnor.common.services.shared.metadata.model.LprErrorType;
 import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.guvnor.common.services.shared.metadata.model.Metadata;
 import org.uberfire.backend.vfs.Path;
@@ -61,10 +62,14 @@ public final class MetadataBuilder {
 
     // lpr
     private LprRuleType.RuleType lprRuleType;
-    private Long validFrom;
-    private Long validTo;
+    private Long recievedValidFromDate;
+    private Long recievedValidToDate;
     private boolean isDraft;
     private boolean inProduction;
+    private Long errorNumber;
+    private String errorText;
+    private String ruleGroup;
+    private LprErrorType errorType;
 
     private MetadataBuilder() {
 
@@ -158,12 +163,12 @@ public final class MetadataBuilder {
         this.lprRuleType = lprRuleType;
         return this;
     }
-    public MetadataBuilder withValidFrom( final Long validFrom ) {
-        this.validFrom = validFrom;
+    public MetadataBuilder withRecievedValidFromDate(final Long RecievedValidFromDate ) {
+        this.recievedValidFromDate = RecievedValidFromDate;
         return this;
     }
-    public MetadataBuilder withValidTo( final Long validTo ) {
-        this.validTo = validTo;
+    public MetadataBuilder withRecievedValidToDate(final Long RecievedValidToDate ) {
+        this.recievedValidToDate = RecievedValidToDate;
         return this;
     }
     public MetadataBuilder withIsDraft( final boolean isDraft ) {
@@ -174,7 +179,27 @@ public final class MetadataBuilder {
         this.inProduction = inProduction;
         return this;
     }
-    
+
+    public MetadataBuilder withErrorNumber( final Long errorNumber ) {
+        this.errorNumber = errorNumber;
+        return this;
+    }
+
+    public MetadataBuilder withErrorText( final String errorText ) {
+        this.errorText = errorText;
+        return this;
+    }
+
+    public MetadataBuilder withRuleGroup( final String ruleGroup ) {
+        this.ruleGroup = ruleGroup;
+        return this;
+    }
+
+    public MetadataBuilder withErrorType( final LprErrorType errorType ) {
+        this.errorType = errorType;
+        return this;
+    }
+
     public Metadata build() {
         return new Metadata( path,
                              realPath,
@@ -192,11 +217,14 @@ public final class MetadataBuilder {
                              discussion,
                              version,
                              lockInfo,
-                                lprRuleType,
-                                validFrom,
-                                validTo,
-                                isDraft,
-                                inProduction);
+                            lprRuleType,
+                            recievedValidFromDate,
+                            recievedValidToDate,
+                            isDraft,
+                            inProduction,
+                            errorNumber,
+                            errorText,
+                            ruleGroup,
+                            errorType);
     }
-
 }

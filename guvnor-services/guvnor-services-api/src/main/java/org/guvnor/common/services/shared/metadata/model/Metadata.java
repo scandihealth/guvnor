@@ -57,10 +57,14 @@ public class Metadata {
 
     // lpr
     private LprRuleType.RuleType lprRuleType;
-    private Long validFrom;
-    private Long validTo;
+    private Long recievedValidFromDate;
+    private Long recievedValidToDate;
     private boolean isDraft;
     private boolean inProduction;
+    private Long errorNumber;
+    private String errorText;
+    private String ruleGroup;
+    private LprErrorType errorType;
 
     public Metadata() {
 
@@ -83,10 +87,14 @@ public class Metadata {
                      final List<VersionRecord> version,
                      final LockInfo lockInfo,
                      final LprRuleType.RuleType lprRuleType,
-                     final Long validFrom,
-                     final Long validTo,
+                     final Long recievedValidFromDate,
+                     final Long recievedValidToDate,
                      final boolean isDraft,
-                     final boolean inProduction) {
+                     final boolean inProduction,
+                     final Long errorNumber,
+                     final String errorText,
+                     final String ruleGroup,
+                     final LprErrorType errorType) {
         this.path = path;
         this.realPath = realPath;
         this.checkinComment = checkinComment;
@@ -104,10 +112,14 @@ public class Metadata {
         this.version = version;
         this.lockInfo = lockInfo;
         this.setLprRuleType(lprRuleType);
-        this.setValidFrom(validFrom);
-        this.setValidTo(validTo);
+        this.setRecievedValidFromDate(recievedValidFromDate);
+        this.setRecievedValidToDate(recievedValidToDate);
         this.setDraft(isDraft);
         this.setInProduction(inProduction);
+        this.setErrorNumber(errorNumber);
+        this.setErrorText(errorText);
+        this.setRuleGroup(ruleGroup);
+        this.setErrorType(errorType);
     }
 
     public Path getPath() {
@@ -320,20 +332,20 @@ public class Metadata {
         this.lprRuleType = lprRuleType;
     }
 
-    public Long getValidFrom() {
-        return validFrom;
+    public Long getRecievedValidFromDate() {
+        return recievedValidFromDate;
     }
 
-    public void setValidFrom(Long validFrom) {
-        this.validFrom = validFrom;
+    public void setRecievedValidFromDate(Long recievedValidFromDate) {
+        this.recievedValidFromDate = recievedValidFromDate;
     }
 
-    public Long getValidTo() {
-        return validTo;
+    public Long getRecievedValidToDate() {
+        return recievedValidToDate;
     }
 
-    public void setValidTo(Long validTo) {
-        this.validTo = validTo;
+    public void setRecievedValidToDate(Long recievedValidToDate) {
+        this.recievedValidToDate = recievedValidToDate;
     }
 
     public boolean isDraft() {
@@ -350,5 +362,37 @@ public class Metadata {
 
     public void setInProduction(boolean inProduction) {
         this.inProduction = inProduction;
+    }
+
+    public Long getErrorNumber() {
+        return errorNumber;
+    }
+
+    public void setErrorNumber(Long errorNumber) {
+        this.errorNumber = errorNumber;
+    }
+
+    public String getErrorText() {
+        return errorText;
+    }
+
+    public void setErrorText(String errorText) {
+        this.errorText = errorText;
+    }
+
+    public String getRuleGroup() {
+        return ruleGroup;
+    }
+
+    public void setRuleGroup(String ruleGroup) {
+        this.ruleGroup = ruleGroup;
+    }
+
+    public LprErrorType getErrorType() {
+        return errorType;
+    }
+
+    public void setErrorType(LprErrorType errorType) {
+        this.errorType = errorType;
     }
 }

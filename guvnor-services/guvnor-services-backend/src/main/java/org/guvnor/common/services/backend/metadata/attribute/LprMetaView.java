@@ -1,5 +1,6 @@
 package org.guvnor.common.services.backend.metadata.attribute;
 
+import org.guvnor.common.services.shared.metadata.model.LprErrorType;
 import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.uberfire.commons.data.Pair;
 import org.uberfire.java.nio.IOException;
@@ -27,10 +28,14 @@ public class LprMetaView
 
     public static final String LPRMETA = "lprmeta";
     public static final String TYPE = LPRMETA + ".type";
-    public static final String VALID_FROM = LPRMETA + ".validfrom";
-    public static final String VALID_TO = LPRMETA + ".validto";
+    public static final String RECIEVED_VALID_FROM_DATE = LPRMETA + ".recievedValidFromDate";
+    public static final String RECIEVED_VALID_TO_DATE = LPRMETA + ".recievedValidToDate";
     public static final String IS_DRAFT = LPRMETA + ".isdraft";
     public static final String IN_PRODUCTION = LPRMETA + ".inproduction";
+    public static final String ERROR_NUMBER = LPRMETA + ".errorNumber";
+    public static final String ERROR_TEXT = LPRMETA + ".errorText";
+    public static final String RULE_GROUP = LPRMETA + ".ruleGroup";
+    public static final String ERROR_TYPE = LPRMETA + ".errorType";
 
     private final LprMetaAttributes attrs;
 
@@ -47,30 +52,30 @@ public class LprMetaView
             if ( entry.getKey().startsWith( TYPE ) ) {
                 lprMetaAttributes.setType((LprRuleType.RuleType)entry.getValue());
             }
-            if ( entry.getKey().startsWith( VALID_FROM ) ) {
+            if ( entry.getKey().startsWith(RECIEVED_VALID_FROM_DATE) ) {
                 try {
                     final Object value = entry.getValue();
                     //Long lValue = (Long) value;
                     final String sValue = value.toString();
                     final Long lValue = Long.parseLong(sValue, 10);
-                    lprMetaAttributes.setValidFrom(lValue);
+                    lprMetaAttributes.setRecievedValidFromDate(lValue);
                 }
                 catch (Exception e)
                 {
-                    lprMetaAttributes.setValidFrom(new Date().getTime());
+                    lprMetaAttributes.setRecievedValidFromDate(new Date().getTime());
                 }
 
             }
-            if ( entry.getKey().startsWith( VALID_TO ) ) {
+            if ( entry.getKey().startsWith(RECIEVED_VALID_TO_DATE) ) {
                 try {
                     final Object value = entry.getValue();
                     final String sValue = value.toString();
                     final Long lValue = Long.parseLong(sValue, 10);
-                    lprMetaAttributes.setValidTo(lValue);
+                    lprMetaAttributes.setRecievedValidToDate(lValue);
                 }
                 catch(Exception e)
                 {
-                    lprMetaAttributes.setValidTo(new Date().getTime());
+                    lprMetaAttributes.setRecievedValidToDate(new Date().getTime());
                 }
             }
             if ( entry.getKey().startsWith( IS_DRAFT ) ) {
@@ -78,6 +83,21 @@ public class LprMetaView
             }
             if ( entry.getKey().startsWith( IN_PRODUCTION ) ) {
                 lprMetaAttributes.setInProduction((Boolean)entry.getValue());
+            }
+            if ( entry.getKey().startsWith( ERROR_NUMBER ) ) {
+                final Object value = entry.getValue();
+                final String sValue = value.toString();
+                final Long lValue = Long.parseLong(sValue, 10);
+                lprMetaAttributes.setErrorNumber(lValue);
+            }
+            if ( entry.getKey().startsWith( ERROR_TEXT ) ) {
+                lprMetaAttributes.setErrorText((String) entry.getValue());
+            }
+            if ( entry.getKey().startsWith( RULE_GROUP ) ) {
+                lprMetaAttributes.setRuleGroup((String) entry.getValue());
+            }
+            if ( entry.getKey().startsWith( ERROR_TYPE ) ) {
+                lprMetaAttributes.setErrorType((LprErrorType) entry.getValue());
             }
         }
         this.attrs = lprMetaAttributes;
