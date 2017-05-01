@@ -32,6 +32,12 @@ public class LprMetaAttributesImpl implements LprMetaAttributes {
         this.recievedValidToDate = metadata.getRecievedValidToDate();
         this.isDraft = metadata.isDraft();
         this.inProduction = metadata.isInProduction();
+        this.errorNumber = metadata.getErrorNumber();
+        this.errorText = metadata.getErrorText();
+        this.ruleGroup = metadata.getRuleGroup();
+        this.errorType = metadata.getErrorType();
+
+
         this.fileAttrs = new BasicFileAttributes() {
             @Override
             public FileTime lastModifiedTime() {
