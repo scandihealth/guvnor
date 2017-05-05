@@ -5,7 +5,7 @@
   <parent>
     <artifactId>guvnor</artifactId>
     <groupId>org.guvnor</groupId>
-    <version>6.5.0.Final</version>
+    <version>6.5.0.csc-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -19,7 +19,7 @@
     <module>guvnor-asset-mgmt-api</module>
     <module>guvnor-asset-mgmt-backend</module>
     <module>guvnor-asset-mgmt-client</module>
-    <module>guvnor-asset-mgmt-project</module>
+    <!--<module>guvnor-asset-mgmt-project</module>-->
   </modules>
 
 </project>
