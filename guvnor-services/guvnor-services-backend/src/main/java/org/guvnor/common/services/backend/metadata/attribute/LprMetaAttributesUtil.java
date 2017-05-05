@@ -37,7 +37,7 @@ public class LprMetaAttributesUtil {
                 checkNotEmpty( "attribute", attribute );
 
                 if ( attribute.equals( "*" ) || attribute.equals( LprMetaView.TYPE ) ) {
-                    put( LprMetaView.TYPE, attrs.Type() );
+                    put( LprMetaView.TYPE, attrs.Type().toString() );
                 }
                 if ( attribute.equals( "*" ) || attribute.equals( LprMetaView.RECIEVED_VALID_FROM_DATE) ) {
                     put( LprMetaView.RECIEVED_VALID_FROM_DATE, attrs.recievedValidFromDate().toString() );
@@ -52,16 +52,17 @@ public class LprMetaAttributesUtil {
                     put( LprMetaView.IN_PRODUCTION, attrs.inProduction() );
                 }
                 if ( attribute.equals( "*" ) || attribute.equals( LprMetaView.ERROR_NUMBER ) ) {
-                    put( LprMetaView.ERROR_NUMBER, attrs.errorNumber() );
+                    if(attrs.errorNumber() > 0)
+                        put( LprMetaView.ERROR_NUMBER, attrs.errorNumber().toString() );
                 }
                 if ( attribute.equals( "*" ) || attribute.equals( LprMetaView.ERROR_TEXT ) ) {
                     put( LprMetaView.ERROR_TEXT, attrs.errorText() );
                 }
                 if ( attribute.equals( "*" ) || attribute.equals( LprMetaView.RULE_GROUP ) ) {
-                    put( LprMetaView.RULE_GROUP, attrs.ruleGroup() );
+                    put( LprMetaView.RULE_GROUP, attrs.ruleGroup().toString() );
                 }
                 if ( attribute.equals( "*" ) || attribute.equals( LprMetaView.ERROR_TYPE ) ) {
-                    put( LprMetaView.ERROR_TYPE, attrs.errorType() );
+                    put( LprMetaView.ERROR_TYPE, attrs.errorType().toString() );
                 }
 
                 if ( attribute.equals( "*" ) ) {

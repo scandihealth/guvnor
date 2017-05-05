@@ -40,9 +40,7 @@ public class LprMetaAttributesImpl implements LprMetaAttributes {
 
         this.fileAttrs = new BasicFileAttributes() {
             @Override
-            public FileTime lastModifiedTime() {
-                return null;
-            }
+            public FileTime lastModifiedTime() { return null; }
 
             @Override
             public FileTime lastAccessTime() {

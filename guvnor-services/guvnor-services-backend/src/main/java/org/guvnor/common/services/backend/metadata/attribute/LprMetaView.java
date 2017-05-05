@@ -10,6 +10,7 @@ import org.uberfire.java.nio.base.NeedsPreloadedAttrs;
 import org.uberfire.java.nio.base.NotImplementedException;
 import org.uberfire.java.nio.file.attribute.BasicFileAttributeView;
 import org.uberfire.java.nio.file.attribute.BasicFileAttributes;
+import org.uberfire.java.nio.file.attribute.FileTime;
 
 import java.util.Date;
 import java.util.Map;
@@ -50,7 +51,7 @@ public class LprMetaView
 
         for ( final Map.Entry<String, Object> entry : content.entrySet() ) {
             if ( entry.getKey().startsWith( TYPE ) ) {
-                lprMetaAttributes.setType((LprRuleType.RuleType)entry.getValue());
+                lprMetaAttributes.setType( LprRuleType.RuleType.valueOf( entry.getValue().toString() ) );
             }
             if ( entry.getKey().startsWith(RECIEVED_VALID_FROM_DATE) ) {
                 try {
@@ -97,10 +98,82 @@ public class LprMetaView
                 lprMetaAttributes.setRuleGroup((String) entry.getValue());
             }
             if ( entry.getKey().startsWith( ERROR_TYPE ) ) {
-                lprMetaAttributes.setErrorType((LprErrorType) entry.getValue());
+                lprMetaAttributes.setErrorType( LprErrorType.valueOf( entry.getValue().toString() ) );
             }
         }
-        this.attrs = lprMetaAttributes;
+        this.attrs = new LprMetaAttributes() {
+            @Override
+            public LprRuleType.RuleType Type() { return lprMetaAttributes.Type(); }
+
+            @Override
+            public Long recievedValidFromDate() { return lprMetaAttributes.recievedValidFromDate(); }
+
+            @Override
+            public Long recievedValidToDate() { return lprMetaAttributes.recievedValidFromDate(); }
+
+            @Override
+            public boolean isDraft() { return lprMetaAttributes.isDraft(); }
+
+            @Override
+            public boolean inProduction() { return lprMetaAttributes.inProduction(); }
+
+            @Override
+            public Long errorNumber() { return lprMetaAttributes.errorNumber(); }
+
+            @Override
+            public String errorText() { return lprMetaAttributes.errorText(); }
+
+            @Override
+            public String ruleGroup() { return lprMetaAttributes.ruleGroup(); }
+
+            @Override
+            public LprErrorType errorType() { return lprMetaAttributes.errorType(); }
+
+            @Override
+            public FileTime lastModifiedTime() {
+                return fileAttrs.lastModifiedTime();
+            }
+
+            @Override
+            public FileTime lastAccessTime() {
+                return fileAttrs.lastAccessTime();
+            }
+
+            @Override
+            public FileTime creationTime() {
+                return fileAttrs.creationTime();
+            }
+
+            @Override
+            public boolean isRegularFile() {
+                return fileAttrs.isRegularFile();
+            }
+
+            @Override
+            public boolean isDirectory() {
+                return fileAttrs.isDirectory();
+            }
+
+            @Override
+            public boolean isSymbolicLink() {
+                return fileAttrs.isSymbolicLink();
+            }
+
+            @Override
+            public boolean isOther() {
+                return fileAttrs.isOther();
+            }
+
+            @Override
+            public long size() {
+                return fileAttrs.size();
+            }
+
+            @Override
+            public Object fileKey() {
+                return fileAttrs.fileKey();
+            }
+        };
     }
 
              @Override
@@ -120,7 +193,7 @@ public class LprMetaView
 
              @Override
              public Class<? extends BasicFileAttributeView>[] viewTypes() {
-                 return new Class[]{ DiscussionView.class };
+                 return new Class[]{ LprMetaView.class };
              }
 
              @Override
