@@ -16,9 +16,6 @@
 
 package org.guvnor.common.services.backend.metadata;
 
-import static org.uberfire.commons.validation.PortablePreconditions.checkNotEmpty;
-import static org.uberfire.commons.validation.PortablePreconditions.checkNotNull;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,6 +27,8 @@ import org.guvnor.common.services.shared.metadata.model.Metadata;
 import org.uberfire.backend.vfs.Path;
 import org.uberfire.backend.vfs.impl.LockInfo;
 import org.uberfire.java.nio.base.version.VersionRecord;
+
+import static org.uberfire.commons.validation.PortablePreconditions.*;
 
 /**
  *
@@ -62,8 +61,8 @@ public final class MetadataBuilder {
 
     // lpr
     private LprRuleType.RuleType lprRuleType;
-    private Long recievedValidFromDate;
-    private Long recievedValidToDate;
+    private Long ruleValidFromDate;
+    private Long ruleValidToDate;
     private boolean isDraft;
     private boolean inProduction;
     private Long errorNumber;
@@ -83,12 +82,12 @@ public final class MetadataBuilder {
         this.path = checkNotNull( "path", path );
         return this;
     }
-    
+
     public MetadataBuilder withRealPath( final Path realPath ) {
         this.realPath = checkNotNull( "realPath", realPath );
         return this;
     }
-    
+
     public MetadataBuilder withCheckinComment( final String checkinComment ) {
         this.checkinComment = checkinComment;
         return this;
@@ -153,7 +152,7 @@ public final class MetadataBuilder {
         this.version = version;
         return this;
     }
-    
+
     public MetadataBuilder withLockInfo( final LockInfo lockInfo ) {
         this.lockInfo = lockInfo;
         return this;
@@ -163,12 +162,12 @@ public final class MetadataBuilder {
         this.lprRuleType = lprRuleType;
         return this;
     }
-    public MetadataBuilder withRecievedValidFromDate(final Long RecievedValidFromDate ) {
-        this.recievedValidFromDate = RecievedValidFromDate;
+    public MetadataBuilder withRuleValidFromDate( final Long ruleValidFromDate ) {
+        this.ruleValidFromDate = ruleValidFromDate;
         return this;
     }
-    public MetadataBuilder withRecievedValidToDate(final Long RecievedValidToDate ) {
-        this.recievedValidToDate = RecievedValidToDate;
+    public MetadataBuilder withRuleValidToDate( final Long ruleValidToDate ) {
+        this.ruleValidToDate = ruleValidToDate;
         return this;
     }
     public MetadataBuilder withIsDraft( final boolean isDraft ) {
@@ -217,14 +216,14 @@ public final class MetadataBuilder {
                              discussion,
                              version,
                              lockInfo,
-                            lprRuleType,
-                            recievedValidFromDate,
-                            recievedValidToDate,
-                            isDraft,
-                            inProduction,
-                            errorNumber,
-                            errorText,
-                            ruleGroup,
-                            errorType);
+                             lprRuleType,
+                             ruleValidFromDate,
+                             ruleValidToDate,
+                             isDraft,
+                             inProduction,
+                             errorNumber,
+                             errorText,
+                             ruleGroup,
+                             errorType);
     }
 }

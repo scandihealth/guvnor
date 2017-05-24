@@ -4,15 +4,13 @@ import org.guvnor.common.services.shared.metadata.model.LprErrorType;
 import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.uberfire.java.nio.file.attribute.BasicFileAttributes;
 
-import java.util.Date;
-
 /**
  * Created by prc on 16-02-2017.
  */
 public interface LprMetaAttributes extends BasicFileAttributes {
     LprRuleType.RuleType Type();
-    Long recievedValidFromDate();
-    Long recievedValidToDate();
+    Long ruleValidFromDate();
+    Long ruleValidToDate();
     boolean isDraft();
     boolean inProduction();
     Long errorNumber();

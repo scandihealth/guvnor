@@ -7,6 +7,6 @@ public class LprRuleType {
     public enum RuleType {
         NORMAL,
         RESULT_REPORTING,
-        EXCEMPTION
+        EXEMPTION
     }
 }

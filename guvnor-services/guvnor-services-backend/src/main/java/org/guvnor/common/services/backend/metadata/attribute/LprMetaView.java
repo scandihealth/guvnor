@@ -1,5 +1,7 @@
 package org.guvnor.common.services.backend.metadata.attribute;
 
+import java.util.Map;
+
 import org.guvnor.common.services.shared.metadata.model.LprErrorType;
 import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.uberfire.commons.data.Pair;
@@ -12,12 +14,8 @@ import org.uberfire.java.nio.file.attribute.BasicFileAttributeView;
 import org.uberfire.java.nio.file.attribute.BasicFileAttributes;
 import org.uberfire.java.nio.file.attribute.FileTime;
 
-import java.util.Date;
-import java.util.Map;
-
-import static org.uberfire.commons.data.Pair.newPair;
-import static org.uberfire.commons.validation.PortablePreconditions.checkCondition;
-import static org.uberfire.commons.validation.PortablePreconditions.checkNotEmpty;
+import static org.uberfire.commons.data.Pair.*;
+import static org.uberfire.commons.validation.PortablePreconditions.*;
 
 /**
  * Created by prc on 16-02-2017.
@@ -29,8 +27,8 @@ public class LprMetaView
 
     public static final String LPRMETA = "lprmeta";
     public static final String TYPE = LPRMETA + ".type";
-    public static final String RECIEVED_VALID_FROM_DATE = LPRMETA + ".recievedValidFromDate";
-    public static final String RECIEVED_VALID_TO_DATE = LPRMETA + ".recievedValidToDate";
+    public static final String RULE_VALID_FROM_DATE = LPRMETA + ".ruleValidFromDate";
+    public static final String RULE_VALID_TO_DATE = LPRMETA + ".ruleValidToDate";
     public static final String IS_DRAFT = LPRMETA + ".isdraft";
     public static final String IN_PRODUCTION = LPRMETA + ".inproduction";
     public static final String ERROR_NUMBER = LPRMETA + ".errorNumber";
@@ -53,31 +51,13 @@ public class LprMetaView
             if ( entry.getKey().startsWith( TYPE ) ) {
                 lprMetaAttributes.setType( LprRuleType.RuleType.valueOf( entry.getValue().toString() ) );
             }
-            if ( entry.getKey().startsWith(RECIEVED_VALID_FROM_DATE) ) {
-                try {
-                    final Object value = entry.getValue();
-                    //Long lValue = (Long) value;
-                    final String sValue = value.toString();
-                    final Long lValue = Long.parseLong(sValue, 10);
-                    lprMetaAttributes.setRecievedValidFromDate(lValue);
-                }
-                catch (Exception e)
-                {
-                    lprMetaAttributes.setRecievedValidFromDate(new Date().getTime());
-                }
+            if ( entry.getKey().startsWith( RULE_VALID_FROM_DATE ) ) {
+                Long timestamp = Long.valueOf( String.valueOf( entry.getValue() ) );
+                lprMetaAttributes.setRuleValidFromDate( timestamp );
 
             }
-            if ( entry.getKey().startsWith(RECIEVED_VALID_TO_DATE) ) {
-                try {
-                    final Object value = entry.getValue();
-                    final String sValue = value.toString();
-                    final Long lValue = Long.parseLong(sValue, 10);
-                    lprMetaAttributes.setRecievedValidToDate(lValue);
-                }
-                catch(Exception e)
-                {
-                    lprMetaAttributes.setRecievedValidToDate(new Date().getTime());
-                }
+            if ( entry.getKey().startsWith( RULE_VALID_TO_DATE ) ) {
+                lprMetaAttributes.setRuleValidToDate( Long.valueOf( String.valueOf( entry.getValue() ) ) );
             }
             if ( entry.getKey().startsWith( IS_DRAFT ) ) {
                 lprMetaAttributes.setDraft((Boolean) entry.getValue());
@@ -88,7 +68,7 @@ public class LprMetaView
             if ( entry.getKey().startsWith( ERROR_NUMBER ) ) {
                 final Object value = entry.getValue();
                 final String sValue = value.toString();
-                final Long lValue = Long.parseLong(sValue, 10);
+                final Long lValue = Long.parseLong(sValue);
                 lprMetaAttributes.setErrorNumber(lValue);
             }
             if ( entry.getKey().startsWith( ERROR_TEXT ) ) {
@@ -101,15 +81,16 @@ public class LprMetaView
                 lprMetaAttributes.setErrorType( LprErrorType.valueOf( entry.getValue().toString() ) );
             }
         }
+        //todo ttn this is very confusing.. remove this anonymous class and instead use LprMetaAttributesImpl
         this.attrs = new LprMetaAttributes() {
             @Override
             public LprRuleType.RuleType Type() { return lprMetaAttributes.Type(); }
 
             @Override
-            public Long recievedValidFromDate() { return lprMetaAttributes.recievedValidFromDate(); }
+            public Long ruleValidFromDate() { return lprMetaAttributes.ruleValidFromDate(); }
 
             @Override
-            public Long recievedValidToDate() { return lprMetaAttributes.recievedValidFromDate(); }
+            public Long ruleValidToDate() { return lprMetaAttributes.ruleValidToDate(); }
 
             @Override
             public boolean isDraft() { return lprMetaAttributes.isDraft(); }

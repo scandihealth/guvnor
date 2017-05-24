@@ -6,14 +6,10 @@ import org.guvnor.common.services.shared.metadata.model.Metadata;
 import org.uberfire.java.nio.file.attribute.BasicFileAttributes;
 import org.uberfire.java.nio.file.attribute.FileTime;
 
-/**
- * Created by prc on 17-02-2017.
- */
 public class LprMetaAttributesImpl implements LprMetaAttributes {
     private LprRuleType.RuleType type = LprRuleType.RuleType.NORMAL;
-    private Long recievedValidFromDate = 0L;
-
-    private Long recievedValidToDate = 0L;
+    private Long ruleValidFromDate = 0L; //by default the rule will be active for all reports
+    private Long ruleValidToDate = Long.MAX_VALUE; //by default the rule will be active for all reports
     private boolean isDraft = false;
     private boolean inProduction = false;
     private Long errorNumber = 0L;
@@ -28,8 +24,8 @@ public class LprMetaAttributesImpl implements LprMetaAttributes {
 
     public LprMetaAttributesImpl(final Metadata metadata) {
         this.type = metadata.getLprRuleType();
-        this.recievedValidFromDate = metadata.getRecievedValidFromDate();
-        this.recievedValidToDate = metadata.getRecievedValidToDate();
+        this.ruleValidFromDate = metadata.getRuleValidFromDate();
+        this.ruleValidToDate = metadata.getRuleValidToDate();
         this.isDraft = metadata.isDraft();
         this.inProduction = metadata.isInProduction();
         this.errorNumber = metadata.getErrorNumber();
@@ -92,20 +88,20 @@ public class LprMetaAttributesImpl implements LprMetaAttributes {
         this.type = type;
     }
 
-    public Long getRecievedValidFromDate() {
-        return recievedValidFromDate;
+    public Long getRuleValidFromDate() {
+        return ruleValidFromDate;
     }
 
-    public void setRecievedValidFromDate(Long recievedValidFromDate) {
-        this.recievedValidFromDate = recievedValidFromDate;
+    public void setRuleValidFromDate( Long ruleValidFromDate ) {
+        this.ruleValidFromDate = ruleValidFromDate;
     }
 
-    public Long getRecievedValidToDate() {
-        return recievedValidToDate;
+    public Long getRuleValidToDate() {
+        return ruleValidToDate;
     }
 
-    public void setRecievedValidToDate(Long recievedValidToDate) {
-        this.recievedValidToDate = recievedValidToDate;
+    public void setRuleValidToDate( Long ruleValidToDate ) {
+        this.ruleValidToDate = ruleValidToDate;
     }
 
     public Long errorNumber() {return getErrorNumber(); };
@@ -119,13 +115,13 @@ public class LprMetaAttributesImpl implements LprMetaAttributes {
     }
 
     @Override
-    public Long recievedValidFromDate() {
-        return getRecievedValidFromDate();
+    public Long ruleValidFromDate() {
+        return getRuleValidFromDate();
     }
 
     @Override
-    public Long recievedValidToDate() {
-        return getRecievedValidToDate();
+    public Long ruleValidToDate() {
+        return getRuleValidToDate();
     }
 
     @Override

@@ -57,8 +57,8 @@ public class Metadata {
 
     // lpr
     private LprRuleType.RuleType lprRuleType;
-    private Long recievedValidFromDate;
-    private Long recievedValidToDate;
+    private Long ruleValidFromDate;
+    private Long ruleValidToDate;
     private boolean isDraft;
     private boolean inProduction;
     private Long errorNumber;
@@ -87,8 +87,8 @@ public class Metadata {
                      final List<VersionRecord> version,
                      final LockInfo lockInfo,
                      final LprRuleType.RuleType lprRuleType,
-                     final Long recievedValidFromDate,
-                     final Long recievedValidToDate,
+                     final Long ruleValidFromDate,
+                     final Long ruleValidToDate,
                      final boolean isDraft,
                      final boolean inProduction,
                      final Long errorNumber,
@@ -112,8 +112,8 @@ public class Metadata {
         this.version = version;
         this.lockInfo = lockInfo;
         this.setLprRuleType(lprRuleType);
-        this.setRecievedValidFromDate(recievedValidFromDate);
-        this.setRecievedValidToDate(recievedValidToDate);
+        this.setRuleValidFromDate( ruleValidFromDate );
+        this.setRuleValidToDate( ruleValidToDate );
         this.setDraft(isDraft);
         this.setInProduction(inProduction);
         this.setErrorNumber(errorNumber);
@@ -285,6 +285,34 @@ public class Metadata {
         if ( lockInfo != null ? !lockInfo.equals( metadata.lockInfo ) : metadata.lockInfo != null ) {
             return false;
         }
+        //lpr metadata //todo remember to add all LPR meta data here
+        if ( errorNumber != null ? !errorNumber.equals( metadata.errorNumber ) : metadata.errorNumber != null ) {
+            return false;
+        }
+        if ( errorText != null ? !errorText.equals( metadata.errorText ) : metadata.errorText != null ) {
+            return false;
+        }
+        if ( errorType != null ? !errorType.equals( metadata.errorType ) : metadata.errorType != null ) {
+            return false;
+        }
+        if ( ruleValidFromDate != null ? !ruleValidFromDate.equals( metadata.ruleValidFromDate ) : metadata.ruleValidFromDate != null ) {
+            return false;
+        }
+        if ( ruleValidToDate != null ? !ruleValidToDate.equals( metadata.ruleValidToDate ) : metadata.ruleValidToDate != null ) {
+            return false;
+        }
+        if ( inProduction != metadata.inProduction ) {
+            return false;
+        }
+        if ( isDraft != metadata.isDraft ) {
+            return false;
+        }
+        if ( ruleGroup != null ? !ruleGroup.equals( metadata.ruleGroup ) : metadata.ruleGroup != null ) {
+            return false;
+        }
+        if ( lprRuleType != null ? !lprRuleType.equals( metadata.lprRuleType ) : metadata.lprRuleType != null ) {
+            return false;
+        }
 
         return true;
     }
@@ -321,6 +349,25 @@ public class Metadata {
         result = ~~result;
         result = 31 * result + ( version != null ? version.hashCode() : 0 );
         result = ~~result;
+        //lpr meta data //todo remember to add all LPR meta data here
+        result = 31 * result + ( errorNumber != null ? errorNumber.hashCode() : 0 );
+        result = ~~result;
+        result = 31 * result + ( errorText != null ? errorText.hashCode() : 0 );
+        result = ~~result;
+        result = 31 * result + ( errorType != null ? errorType.hashCode() : 0 );
+        result = ~~result;
+        result = 31 * result + ( ruleValidFromDate != null ? ruleValidFromDate.hashCode() : 0 );
+        result = ~~result;
+        result = 31 * result + ( ruleValidToDate != null ? ruleValidToDate.hashCode() : 0 );
+        result = ~~result;
+        result = 31 * result + ( inProduction ? 1 : 0 );
+        result = ~~result;
+        result = 31 * result + ( isDraft ? 1 : 0 );
+        result = ~~result;
+        result = 31 * result + ( ruleGroup != null ? ruleGroup.hashCode() : 0 );
+        result = ~~result;
+        result = 31 * result + ( lprRuleType != null ? lprRuleType.hashCode() : 0 );
+        result = ~~result;
         return result;
     }
 
@@ -332,20 +379,20 @@ public class Metadata {
         this.lprRuleType = lprRuleType;
     }
 
-    public Long getRecievedValidFromDate() {
-        return recievedValidFromDate;
+    public Long getRuleValidFromDate() {
+        return ruleValidFromDate;
     }
 
-    public void setRecievedValidFromDate(Long recievedValidFromDate) {
-        this.recievedValidFromDate = recievedValidFromDate;
+    public void setRuleValidFromDate( Long ruleValidFromDate ) {
+        this.ruleValidFromDate = ruleValidFromDate;
     }
 
-    public Long getRecievedValidToDate() {
-        return recievedValidToDate;
+    public Long getRuleValidToDate() {
+        return ruleValidToDate;
     }
 
-    public void setRecievedValidToDate(Long recievedValidToDate) {
-        this.recievedValidToDate = recievedValidToDate;
+    public void setRuleValidToDate( Long ruleValidToDate ) {
+        this.ruleValidToDate = ruleValidToDate;
     }
 
     public boolean isDraft() {

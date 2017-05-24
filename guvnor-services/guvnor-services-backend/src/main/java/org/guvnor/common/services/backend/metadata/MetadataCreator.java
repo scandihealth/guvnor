@@ -94,8 +94,8 @@ public class MetadataCreator {
                 .withLprRuleType( getLprRuleType() )
                 .withInProduction( getInProduction() )
                 .withIsDraft( getIsDraft() )
-                .withRecievedValidFromDate( getValidFrom() )
-                .withRecievedValidToDate( getRecievedValidToDate())
+                .withRuleValidFromDate( getRuleValidFromDate() )
+                .withRuleValidToDate( getRuleValidToDate())
                 .withErrorNumber(getErrorNumber())
                 .withErrorText(getErrorText())
                 .withRuleGroup(getRuleGroup())
@@ -208,16 +208,16 @@ public class MetadataCreator {
         return isDraft;
     }
 
-    private Long getValidFrom() {
+    private Long getRuleValidFromDate() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
-        Long validFrom = lprMetaAttributes.recievedValidFromDate();
-        return  validFrom;
+        Long ruleValidFromDate = lprMetaAttributes.ruleValidFromDate();
+        return  ruleValidFromDate;
     }
 
-    private Long getRecievedValidToDate() {
+    private Long getRuleValidToDate() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
-        Long recievedValidToDate = lprMetaAttributes.recievedValidToDate();
-        return recievedValidToDate;
+        Long ruleValidToDate = lprMetaAttributes.ruleValidToDate();
+        return ruleValidToDate;
     }
 
     private Long getErrorNumber() {

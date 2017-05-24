@@ -1,11 +1,19 @@
 package org.guvnor.common.services.shared.metadata.model;
 
-/**
- * Created by prc on 26-04-2017.
- */
+//todo ttn consider if this enum should be declared in LPR3 and imported as maven dependency in drools-wb
 public enum LprErrorType {
-    NONE,
-    WARNING,
-    ERROR,
-    FATAL
+    NONE( "" ),
+    WARNING( "Advarsel" ),
+    ERROR( "Fejl" ),
+    FATAL( "Fatal" );
+
+    private final String displayText;
+
+    LprErrorType( String displayText ) {
+        this.displayText = displayText;
+    }
+
+    public String getDisplayText() {
+        return displayText;
+    }
 }
