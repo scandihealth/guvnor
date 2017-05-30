@@ -67,6 +67,12 @@ public class MetadataServiceImpl
         this.ioService = ioService;
     }
 
+    public MetadataServiceImpl( IOService ioService, IOService configIOService, SessionInfo sessionInfo ) {
+        this.ioService = ioService;
+        this.configIOService = configIOService;
+        this.sessionInfo = sessionInfo;
+    }
+
     @Override
     public Metadata getMetadata( final Path pathToResource ) {
         return getMetadata( Paths.convert( pathToResource ) );

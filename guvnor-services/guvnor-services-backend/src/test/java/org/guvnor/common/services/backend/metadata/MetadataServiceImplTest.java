@@ -16,17 +16,30 @@
 package org.guvnor.common.services.backend.metadata;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.guvnor.common.services.backend.config.SafeSessionInfo;
+import org.guvnor.common.services.backend.metadata.attribute.DiscussionView;
+import org.guvnor.common.services.backend.metadata.attribute.LprMetaView;
 import org.guvnor.common.services.backend.metadata.attribute.OtherMetaView;
+import org.guvnor.common.services.shared.metadata.model.LprErrorType;
+import org.guvnor.common.services.shared.metadata.model.LprRuleType;
+import org.guvnor.common.services.shared.metadata.model.Metadata;
+import org.jboss.errai.security.shared.api.identity.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.uberfire.io.IOService;
+import org.uberfire.io.attribute.DublinCoreView;
+import org.uberfire.java.nio.base.version.VersionAttributeView;
+import org.uberfire.java.nio.base.version.VersionAttributes;
+import org.uberfire.java.nio.base.version.VersionRecord;
 import org.uberfire.java.nio.file.Path;
 import org.uberfire.java.nio.fs.file.SimpleFileSystemProvider;
+import org.uberfire.rpc.SessionInfo;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -40,10 +53,29 @@ public class MetadataServiceImplTest {
     private IOService ioService;
 
     @Mock
+    private IOService configIOService;
+
+    @Mock
+    private SessionInfo sessionInfo;
+
+    @Mock
     private OtherMetaView otherMetaView;
+
+    @Mock
+    private LprMetaView lprMetaView;
+
+    @Mock
+    private DublinCoreView dublinCoreView;
+
+    @Mock
+    private DiscussionView discussView;
+
+    @Mock
+    private VersionAttributeView versionAttributeView;
 
     private Path path;
     private MetadataServerSideService service;
+    private ArrayList<VersionRecord> versionRecords;
 
     @Before
     public void setUp() throws Exception {
@@ -54,7 +86,13 @@ public class MetadataServiceImplTest {
 
         path = fileSystemProvider.getPath( this.getClass().getResource( "myfile.file" ).toURI() );
 
-        service = new MetadataServiceImpl( ioService );
+        service = new MetadataServiceImpl( ioService, configIOService, sessionInfo );
+
+        versionRecords = new ArrayList<VersionRecord>();
+        versionRecords.add( createVersionRecord() );
+
+        VersionAttributes versionAttributes = new VersionAttributesMock( versionRecords );
+        when( versionAttributeView.readAttributes() ).thenReturn( versionAttributes );
     }
 
     @Test
@@ -100,4 +138,66 @@ public class MetadataServiceImplTest {
                       tags.size() );
     }
 
+    @Test
+    public void testGetLprMetadata() {
+        when( lprMetaView.readAttributes() ).thenReturn( new LprMetaAttributesMock() );
+        when( ioService.getFileAttributeView( path,
+                LprMetaView.class ) ).thenReturn( lprMetaView );
+        when( otherMetaView.readAttributes() ).thenReturn( new OtherMetaAttributesMock() );
+        when( ioService.getFileAttributeView( path,
+                OtherMetaView.class ) ).thenReturn( otherMetaView );
+        when( dublinCoreView.readAttributes() ).thenReturn( new DublinCoreAttributesMock() );
+        when( ioService.getFileAttributeView( path,
+                DublinCoreView.class ) ).thenReturn( dublinCoreView );
+        when( discussView.readAttributes() ).thenReturn( new DiscussionAttributesMock() );
+        when( ioService.getFileAttributeView( path,
+                DiscussionView.class ) ).thenReturn( discussView );
+        //when( versionAttributeView.readAttributes() ).thenReturn( new VersionAttributesMock() );
+        when( ioService.getFileAttributeView( path,
+                VersionAttributeView.class ) ).thenReturn( versionAttributeView );
+
+        final Metadata metadata = service.getMetadata( path );
+
+        assertNotNull( metadata );
+        assertNotNull( metadata.getLprRuleType());
+        assertNotNull( metadata.getErrorNumber());
+        assertNotNull( metadata.getErrorType());
+        assertNotNull( metadata.getRuleValidFromDate());
+        assertNotNull( metadata.getRuleValidToDate());
+        assertNotNull( metadata.getRuleGroup());
+    }
+
+    private VersionRecord createVersionRecord() {
+        return new VersionRecord() {
+            @Override
+            public String id() {
+                return "1";
+            }
+
+            @Override
+            public String author() {
+                return "admin";
+            }
+
+            @Override
+            public String email() {
+                return "admin@mail.zap";
+            }
+
+            @Override
+            public String comment() {
+                return "Some commit";
+            }
+
+            @Override
+            public Date date() {
+                return new Date();
+            }
+
+            @Override
+            public String uri() {
+                return "myfile.file";
+            }
+        };
+    }
 }

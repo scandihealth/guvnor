@@ -85,7 +85,7 @@ public class MetadataCreatorTest {
         when( dcoreView.readAttributes() ).thenReturn( new DublinCoreAttributesMock() );
         when( otherMetaView.readAttributes() ).thenReturn( new OtherMetaAttributesMock() );
         when( discussView.readAttributes() ).thenReturn( new DiscussionAttributesMock() );
-        //when( lprMetaView.readAttributes()).thenReturn( new LprMe)
+        when( lprMetaView.readAttributes() ).thenReturn( new LprMetaAttributesMock() );
 
         fileSystemProvider = new SimpleFileSystemProvider();
 
@@ -112,6 +112,7 @@ public class MetadataCreatorTest {
         assertNotNull( metadata.getTags() );
         assertNotNull( metadata.getDiscussion() );
         assertNotNull( metadata.getVersion() );
+        assertNotNull( metadata.getLprRuleType() );
     }
 
     @Test
