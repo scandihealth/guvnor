@@ -30,7 +30,7 @@ public class LprMetaAttributesMock implements org.guvnor.common.services.backend
 
     @Override
     public boolean isDraft() {
-        return true;
+        return false;
     }
 
     @Override
