@@ -55,14 +55,14 @@ public class MetadataCreator {
     private final IOService configIOService;
     private final SessionInfo sessionInfo;
 
-    public MetadataCreator(Path path,
-                           IOService configIOService,
-                           SessionInfo sessionInfo,
-                           DublinCoreView dublinCoreView,
-                           DiscussionView discussionView,
-                           OtherMetaView otherMetaView,
-                           VersionAttributeView versionAttributeView,
-                           LprMetaView lprMetaView) {
+    public MetadataCreator( Path path,
+                            IOService configIOService,
+                            SessionInfo sessionInfo,
+                            DublinCoreView dublinCoreView,
+                            DiscussionView discussionView,
+                            OtherMetaView otherMetaView,
+                            VersionAttributeView versionAttributeView,
+                            LprMetaView lprMetaView ) {
         this.path = checkNotNull( "path", path );
         this.configIOService = checkNotNull( "configIOService", configIOService );
         this.sessionInfo = checkNotNull( "sessionInfo", sessionInfo );
@@ -70,7 +70,7 @@ public class MetadataCreator {
         this.discussView = checkNotNull( "discussionView", discussionView );
         this.otherMetaView = checkNotNull( "otherMetaView", otherMetaView );
         this.versionAttributeView = checkNotNull( "versionAttributeView", versionAttributeView );
-        this.lprMetaView = checkNotNull("lprMetaView", lprMetaView);
+        this.lprMetaView = checkNotNull( "lprMetaView", lprMetaView );
     }
 
     public Metadata create() {
@@ -94,12 +94,21 @@ public class MetadataCreator {
                 .withLprRuleType( getLprRuleType() )
                 .withInProduction( getInProduction() )
                 .withIsDraft( getIsDraft() )
-                .withRuleValidFromDate( getRuleValidFromDate() )
-                .withRuleValidToDate( getRuleValidToDate())
-                .withErrorNumber(getErrorNumber())
-                .withErrorText(getErrorText())
-                .withRuleGroup(getRuleGroup())
-                .withErrorType(getErrorType())
+                .withIsValidForLPRReports( getIsValidForLPRReports() )
+                .withIsValidForDUSASAbroadReports( getIsValidForDUSASAbroadReports() )
+                .withIsValidForDUSASSpecialityReports( getIsValidForDUSASSpecialityReports() )
+                .withReportReceivedFromDate( getReportReceivedFromDate() )
+                .withReportReceivedToDate( getReportReceivedToDate() )
+                .withEncounterStartFromDate( getEncounterStartFromDate() )
+                .withEncounterStartToDate( getEncounterStartToDate() )
+                .withEncounterEndFromDate( getEncounterEndFromDate() )
+                .withEncounterEndToDate( getEncounterEndToDate() )
+                .withEpisodeOfCareStartFromDate( getEpisodeOfCareStartFromDate() )
+                .withEpisodeOfCareStartToDate( getEpisodeOfCareStartToDate() )
+                .withErrorNumber( getErrorNumber() )
+                .withErrorText( getErrorText() )
+                .withRuleGroup( getRuleGroup() )
+                .withErrorType( getErrorType() )
                 .build();
     }
 
@@ -180,67 +189,100 @@ public class MetadataCreator {
             //See https://issues.jboss.org/browse/GUVNOR-2399. We simply try to read the lock file returning a default.
             final String lockedBy = configIOService.readAllString( lockPath );
             return new LockInfo( true,
-                                 lockedBy,
-                                 path );
+                    lockedBy,
+                    path );
 
         } catch ( NoSuchFileException nsfe ) {
             return new LockInfo( false,
-                                 "",
-                                 path );
+                    "",
+                    path );
         }
     }
 
-    private LprRuleType.RuleType getLprRuleType() {
+    private LprRuleType getLprRuleType() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
-        LprRuleType.RuleType lprRuleType = lprMetaAttributes.Type();
-        return lprRuleType;
+        return lprMetaAttributes.ruleType();
     }
 
     private boolean getInProduction() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
-        boolean inProduction = lprMetaAttributes.inProduction();
-        return inProduction;
+        return lprMetaAttributes.inProduction();
     }
 
     private boolean getIsDraft() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
-        boolean isDraft = lprMetaAttributes.isDraft();
-        return isDraft;
+        return lprMetaAttributes.isDraft();
+    }
+    private boolean getIsValidForLPRReports() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.isValidForLPRReports();
+    }
+    private boolean getIsValidForDUSASAbroadReports() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.isValidForDUSASAbroadReports();
+    }
+    private boolean getIsValidForDUSASSpecialityReports() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.isValidForDUSASSpecialityReports();
     }
 
-    private Long getRuleValidFromDate() {
+    private Long getReportReceivedFromDate() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
-        Long ruleValidFromDate = lprMetaAttributes.ruleValidFromDate();
-        return  ruleValidFromDate;
+        return lprMetaAttributes.reportReceivedFromDate();
     }
 
-    private Long getRuleValidToDate() {
+    private Long getReportReceivedToDate() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
-        Long ruleValidToDate = lprMetaAttributes.ruleValidToDate();
-        return ruleValidToDate;
+        return lprMetaAttributes.reportReceivedToDate();
+    }
+
+    private Long getEncounterStartFromDate() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.encounterStartFromDate();
+    }
+
+    private Long getEncounterStartToDate() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.encounterStartToDate();
+    }
+
+    private Long getEncounterEndFromDate() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.encounterEndFromDate();
+    }
+
+    private Long getEncounterEndToDate() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.encounterEndToDate();
+    }
+
+    private Long getEpisodeOfCareStartFromDate() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.episodeOfCareStartFromDate();
+    }
+
+    private Long getEpisodeOfCareStartToDate() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.episodeOfCareStartToDate();
     }
 
     private Long getErrorNumber() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
-        Long errorNumber = lprMetaAttributes.errorNumber();
-        return errorNumber;
+        return lprMetaAttributes.errorNumber();
     }
 
     private String getErrorText() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
-        String errorText = lprMetaAttributes.errorText();
-        return errorText;
+        return lprMetaAttributes.errorText();
     }
 
     private String getRuleGroup() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
-        String ruleGroup = lprMetaAttributes.ruleGroup();
-        return ruleGroup;
+        return lprMetaAttributes.ruleGroup();
     }
 
     private LprErrorType getErrorType() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
-        LprErrorType errorType = lprMetaAttributes.errorType();
-        return errorType;
+        return lprMetaAttributes.errorType();
     }
 }

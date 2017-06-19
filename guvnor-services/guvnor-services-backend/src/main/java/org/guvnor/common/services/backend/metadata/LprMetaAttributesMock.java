@@ -1,61 +1,126 @@
 package org.guvnor.common.services.backend.metadata;
 
+import org.guvnor.common.services.backend.metadata.attribute.LprMetaAttributes;
 import org.guvnor.common.services.shared.metadata.model.LprErrorType;
 import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.uberfire.java.nio.base.FileTimeImpl;
 import org.uberfire.java.nio.file.attribute.FileTime;
 
 /**
- * Created by prc on 23-05-2017.
+ * Created on 23-05-2017.
  */
-public class LprMetaAttributesMock implements org.guvnor.common.services.backend.metadata.attribute.LprMetaAttributes {
-    final public static String TEST_ERROR_TEXT = "Vi tester LPR";
-    final public static String TEST_RULE_GROUP = "LPR Test rule group";
+public class LprMetaAttributesMock implements LprMetaAttributes, Cloneable {
+    public Long reportReceivedFromDate = 100L;
+    public Long reportReceivedToDate = 200L;
+    public Long encounterStartFromDate = 300L;
+    public Long encounterStartToDate = 400L;
+    public Long encounterEndFromDate = 500L;
+    public Long encounterEndToDate = 600L;
+    public Long episodeOfCareStartFromDate = 100L;
+    public Long episodeOfCareStartToDate = 100L;
+    public boolean isDraft = false;
+    public boolean inProduction = false;
+    public boolean isValidForLPRReports = true;
+    public boolean isValidForDUSASAbroadReports = false;
+    public boolean isValidForDUSASSpecialityReports = false;
+    public Long errorNumber = 1L;
+    public LprErrorType errorType = LprErrorType.ERROR;
+    public LprRuleType ruleType = LprRuleType.EXEMPTION;
+    public String errorText = "Vi tester LPR";
+    public String ruleGroup = "ruleGroup";
 
-
-    @Override
-    public LprRuleType.RuleType Type() {
-        return LprRuleType.RuleType.EXEMPTION;
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     @Override
-    public Long ruleValidFromDate() {
-        return 100L;
+    public LprRuleType ruleType() {
+        return ruleType;
     }
 
     @Override
-    public Long ruleValidToDate() {
-        return 200L;
+    public Long reportReceivedFromDate() {
+        return reportReceivedFromDate;
+    }
+
+    @Override
+    public Long reportReceivedToDate() {
+        return reportReceivedToDate;
+    }
+
+    @Override
+    public Long encounterStartFromDate() {
+        return encounterStartFromDate;
+    }
+
+    @Override
+    public Long encounterStartToDate() {
+        return encounterStartToDate;
+    }
+
+    @Override
+    public Long encounterEndFromDate() {
+        return encounterEndFromDate;
+    }
+
+    @Override
+    public Long encounterEndToDate() {
+        return encounterEndToDate;
+    }
+
+    @Override
+    public Long episodeOfCareStartFromDate() {
+        return episodeOfCareStartFromDate;
+    }
+
+    @Override
+    public Long episodeOfCareStartToDate() {
+        return episodeOfCareStartToDate;
     }
 
     @Override
     public boolean isDraft() {
-        return false;
+        return isDraft;
     }
 
     @Override
     public boolean inProduction() {
-        return false;
+        return inProduction;
+    }
+
+    @Override
+    public boolean isValidForLPRReports() {
+        return isValidForLPRReports;
+    }
+
+    @Override
+    public boolean isValidForDUSASAbroadReports() {
+        return isValidForDUSASAbroadReports;
+    }
+
+    @Override
+    public boolean isValidForDUSASSpecialityReports() {
+        return isValidForDUSASSpecialityReports;
     }
 
     @Override
     public Long errorNumber() {
-        return 300L;
+        return errorNumber;
     }
 
     @Override
     public String errorText() {
-        return TEST_ERROR_TEXT;
+        return errorText;
     }
 
     @Override
     public String ruleGroup() {
-        return TEST_RULE_GROUP;
+        return ruleGroup;
     }
 
     @Override
     public LprErrorType errorType() {
-        return LprErrorType.ERROR;
+        return errorType;
     }
 
     @Override

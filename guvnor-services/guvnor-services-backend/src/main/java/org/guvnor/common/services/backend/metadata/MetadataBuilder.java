@@ -60,11 +60,20 @@ public final class MetadataBuilder {
     private List<VersionRecord> version = new ArrayList<VersionRecord>();
 
     // lpr
-    private LprRuleType.RuleType lprRuleType;
-    private Long ruleValidFromDate;
-    private Long ruleValidToDate;
+    private LprRuleType lprRuleType;
+    private Long reportReceivedFromDate;
+    private Long reportReceivedToDate;
+    private Long encounterStartFromDate;
+    private Long encounterStartToDate;
+    private Long encounterEndFromDate;
+    private Long encounterEndToDate;
+    private Long episodeOfCareStartFromDate;
+    private Long episodeOfCareStartToDate;
     private boolean isDraft;
     private boolean inProduction;
+    private boolean isValidForLPRReports;
+    private boolean isValidForDUSASAbroadReports;
+    private boolean isValidForDUSASSpecialityReports;
     private Long errorNumber;
     private String errorText;
     private String ruleGroup;
@@ -158,24 +167,70 @@ public final class MetadataBuilder {
         return this;
     }
 
-    public MetadataBuilder withLprRuleType( final LprRuleType.RuleType lprRuleType ) {
+    public MetadataBuilder withLprRuleType( final LprRuleType lprRuleType ) {
         this.lprRuleType = lprRuleType;
         return this;
     }
-    public MetadataBuilder withRuleValidFromDate( final Long ruleValidFromDate ) {
-        this.ruleValidFromDate = ruleValidFromDate;
+
+    public MetadataBuilder withReportReceivedFromDate( final Long reportReceivedFromDate ) {
+        this.reportReceivedFromDate = reportReceivedFromDate;
         return this;
     }
-    public MetadataBuilder withRuleValidToDate( final Long ruleValidToDate ) {
-        this.ruleValidToDate = ruleValidToDate;
+
+    public MetadataBuilder withReportReceivedToDate( final Long reportReceivedToDate ) {
+        this.reportReceivedToDate = reportReceivedToDate;
         return this;
     }
+
+    public MetadataBuilder withEncounterStartFromDate( final Long encounterStartFromDate ) {
+        this.encounterStartFromDate = encounterStartFromDate;
+        return this;
+    }
+
+    public MetadataBuilder withEncounterStartToDate( final Long encounterStartToDate ) {
+        this.encounterStartToDate = encounterStartToDate;
+        return this;
+    }
+
+    public MetadataBuilder withEncounterEndFromDate( final Long encounterEndFromDate) {
+        this.encounterEndFromDate = encounterEndFromDate;
+        return this;
+    }
+
+    public MetadataBuilder withEncounterEndToDate( final Long encounterEndToDate) {
+        this.encounterEndToDate = encounterEndToDate;
+        return this;
+    }
+
+    public MetadataBuilder withEpisodeOfCareStartFromDate( final Long episodeOfCareStartFromDate) {
+        this.episodeOfCareStartFromDate = episodeOfCareStartFromDate;
+        return this;
+    }
+
+    public MetadataBuilder withEpisodeOfCareStartToDate( final Long episodeOfCareStartToDate) {
+        this.episodeOfCareStartToDate = episodeOfCareStartToDate;
+        return this;
+    }
+
     public MetadataBuilder withIsDraft( final boolean isDraft ) {
         this.isDraft = isDraft;
         return this;
     }
+
     public MetadataBuilder withInProduction( final boolean inProduction ) {
         this.inProduction = inProduction;
+        return this;
+    }
+    public MetadataBuilder withIsValidForLPRReports( final boolean isValidForLPRReports ) {
+        this.isValidForLPRReports = isValidForLPRReports;
+        return this;
+    }
+    public MetadataBuilder withIsValidForDUSASAbroadReports( final boolean isValidForDUSASAbroadReports ) {
+        this.isValidForDUSASAbroadReports = isValidForDUSASAbroadReports;
+        return this;
+    }
+    public MetadataBuilder withIsValidForDUSASSpecialityReports( final boolean isValidForDUSASSpecialityReports ) {
+        this.isValidForDUSASSpecialityReports = isValidForDUSASSpecialityReports;
         return this;
     }
 
@@ -201,29 +256,38 @@ public final class MetadataBuilder {
 
     public Metadata build() {
         return new Metadata( path,
-                             realPath,
-                             checkinComment,
-                             lastContributor,
-                             creator,
-                             lastModified,
-                             dateCreated,
-                             subject,
-                             type,
-                             externalRelation,
-                             externalSource,
-                             description,
-                             tags,
-                             discussion,
-                             version,
-                             lockInfo,
-                             lprRuleType,
-                             ruleValidFromDate,
-                             ruleValidToDate,
-                             isDraft,
-                             inProduction,
-                             errorNumber,
-                             errorText,
-                             ruleGroup,
-                             errorType);
+                realPath,
+                checkinComment,
+                lastContributor,
+                creator,
+                lastModified,
+                dateCreated,
+                subject,
+                type,
+                externalRelation,
+                externalSource,
+                description,
+                tags,
+                discussion,
+                version,
+                lockInfo,
+                lprRuleType,
+                reportReceivedFromDate,
+                reportReceivedToDate,
+                encounterStartFromDate,
+                encounterStartToDate,
+                encounterEndFromDate,
+                encounterEndToDate,
+                episodeOfCareStartFromDate,
+                episodeOfCareStartToDate,
+                isDraft,
+                inProduction,
+                isValidForLPRReports,
+                isValidForDUSASAbroadReports,
+                isValidForDUSASSpecialityReports,
+                errorNumber,
+                errorText,
+                ruleGroup,
+                errorType );
     }
 }

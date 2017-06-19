@@ -72,6 +72,7 @@ public class MetadataCreatorTest {
     private MetadataCreator service;
     private Path mainFilePath;
     private ArrayList<VersionRecord> versionRecords;
+    private LprMetaAttributesMock lprMock;
 
     @Before
     public void setUp() throws Exception {
@@ -85,7 +86,8 @@ public class MetadataCreatorTest {
         when( dcoreView.readAttributes() ).thenReturn( new DublinCoreAttributesMock() );
         when( otherMetaView.readAttributes() ).thenReturn( new OtherMetaAttributesMock() );
         when( discussView.readAttributes() ).thenReturn( new DiscussionAttributesMock() );
-        when( lprMetaView.readAttributes() ).thenReturn( new LprMetaAttributesMock() );
+        lprMock = new LprMetaAttributesMock();
+        when( lprMetaView.readAttributes() ).thenReturn( lprMock );
 
         fileSystemProvider = new SimpleFileSystemProvider();
 
@@ -95,13 +97,13 @@ public class MetadataCreatorTest {
         mainFilePath = fileSystemProvider.getPath( this.getClass().getResource( "myfile.file" ).toURI() );
 
         service = new MetadataCreator( mainFilePath,
-                                       configIOService,
-                                       sessionInfo,
-                                       dcoreView,
-                                       discussView,
-                                       otherMetaView,
-                                       versionAttributeView,
-                lprMetaView);
+                configIOService,
+                sessionInfo,
+                dcoreView,
+                discussView,
+                otherMetaView,
+                versionAttributeView,
+                lprMetaView );
     }
 
     @Test
@@ -112,7 +114,26 @@ public class MetadataCreatorTest {
         assertNotNull( metadata.getTags() );
         assertNotNull( metadata.getDiscussion() );
         assertNotNull( metadata.getVersion() );
-        assertNotNull( metadata.getLprRuleType() );
+
+        //LPR metadata
+        assertEquals( lprMock.ruleType(), metadata.getRuleType() );
+        assertEquals( lprMock.reportReceivedFromDate(), metadata.getReportReceivedFromDate() );
+        assertEquals( lprMock.reportReceivedToDate(), metadata.getReportReceivedToDate() );
+        assertEquals( lprMock.encounterStartFromDate(), metadata.getEncounterStartFromDate() );
+        assertEquals( lprMock.encounterStartToDate(), metadata.getEncounterStartToDate() );
+        assertEquals( lprMock.encounterEndFromDate(), metadata.getEncounterEndFromDate() );
+        assertEquals( lprMock.encounterEndToDate(), metadata.getEncounterEndToDate() );
+        assertEquals( lprMock.episodeOfCareStartFromDate(), metadata.getEpisodeOfCareStartFromDate() );
+        assertEquals( lprMock.episodeOfCareStartToDate(), metadata.getEpisodeOfCareStartToDate() );
+        assertEquals( lprMock.errorText(), metadata.getErrorText() );
+        assertEquals( lprMock.errorType(), metadata.getErrorType() );
+        assertEquals( lprMock.ruleGroup(), metadata.getRuleGroup() );
+        assertEquals( lprMock.errorNumber(), metadata.getErrorNumber() );
+        assertEquals( lprMock.inProduction(), metadata.isInProduction() );
+        assertEquals( lprMock.isDraft(), metadata.isDraft() );
+        assertEquals( lprMock.isValidForLPRReports(), metadata.isValidForLPRReports() );
+        assertEquals( lprMock.isValidForDUSASSpecialityReports(), metadata.isValidForDUSASAbroadReports() );
+        assertEquals( lprMock.isValidForDUSASSpecialityReports(), metadata.isValidForDUSASSpecialityReports() );
     }
 
     @Test
@@ -130,7 +151,7 @@ public class MetadataCreatorTest {
             }
         } );
         when( configIOService.write( any( Path.class ),
-                                     any( String.class ) ) ).thenAnswer( new Answer<Path>() {
+                any( String.class ) ) ).thenAnswer( new Answer<Path>() {
             @Override
             public Path answer( final InvocationOnMock invocation ) throws Throwable {
                 exists.set( true );
@@ -170,7 +191,7 @@ public class MetadataCreatorTest {
                             case WRITE:
                                 System.out.println( "[Thread : " + threadCount + "] Writing..." + output() );
                                 configIOService.write( mainFilePath,
-                                                       "content" );
+                                        "content" );
                                 configIOService.delete( mainFilePath );
                                 break;
                             case CHECK:
@@ -199,7 +220,7 @@ public class MetadataCreatorTest {
         try {
             es.shutdown();
             es.awaitTermination( 1000 * 5,
-                                 TimeUnit.MILLISECONDS );
+                    TimeUnit.MILLISECONDS );
         } catch ( InterruptedException e ) {
         }
         if ( result.isFailed() ) {

@@ -19,14 +19,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.guvnor.common.services.backend.config.SafeSessionInfo;
 import org.guvnor.common.services.backend.metadata.attribute.DiscussionView;
 import org.guvnor.common.services.backend.metadata.attribute.LprMetaView;
 import org.guvnor.common.services.backend.metadata.attribute.OtherMetaView;
-import org.guvnor.common.services.shared.metadata.model.LprErrorType;
-import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.guvnor.common.services.shared.metadata.model.Metadata;
-import org.jboss.errai.security.shared.api.identity.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -101,19 +97,19 @@ public class MetadataServiceImplTest {
 
         assertNotNull( tags );
         assertEquals( 0,
-                      tags.size() );
+                tags.size() );
     }
 
     @Test
     public void testGetEmptyTags() {
         when( otherMetaView.readAttributes() ).thenReturn( new OtherMetaAttributesMock() );
         when( ioService.getFileAttributeView( path,
-                                              OtherMetaView.class ) ).thenReturn( otherMetaView );
+                OtherMetaView.class ) ).thenReturn( otherMetaView );
         final List<String> tags = service.getTags( path );
 
         assertNotNull( tags );
         assertEquals( 0,
-                      tags.size() );
+                tags.size() );
     }
 
     @Test
@@ -130,17 +126,18 @@ public class MetadataServiceImplTest {
             }
         } );
         when( ioService.getFileAttributeView( path,
-                                              OtherMetaView.class ) ).thenReturn( otherMetaView );
+                OtherMetaView.class ) ).thenReturn( otherMetaView );
         final List<String> tags = service.getTags( path );
 
         assertNotNull( tags );
         assertEquals( 1,
-                      tags.size() );
+                tags.size() );
     }
 
     @Test
     public void testGetLprMetadata() {
-        when( lprMetaView.readAttributes() ).thenReturn( new LprMetaAttributesMock() );
+        LprMetaAttributesMock lprMock = new LprMetaAttributesMock();
+        when( lprMetaView.readAttributes() ).thenReturn( lprMock );
         when( ioService.getFileAttributeView( path,
                 LprMetaView.class ) ).thenReturn( lprMetaView );
         when( otherMetaView.readAttributes() ).thenReturn( new OtherMetaAttributesMock() );
@@ -158,13 +155,24 @@ public class MetadataServiceImplTest {
 
         final Metadata metadata = service.getMetadata( path );
 
-        assertNotNull( metadata );
-        assertNotNull( metadata.getLprRuleType());
-        assertNotNull( metadata.getErrorNumber());
-        assertNotNull( metadata.getErrorType());
-        assertNotNull( metadata.getRuleValidFromDate());
-        assertNotNull( metadata.getRuleValidToDate());
-        assertNotNull( metadata.getRuleGroup());
+        assertEquals( lprMock.ruleType(), metadata.getRuleType() );
+        assertEquals( lprMock.reportReceivedFromDate(), metadata.getReportReceivedFromDate() );
+        assertEquals( lprMock.reportReceivedToDate(), metadata.getReportReceivedToDate() );
+        assertEquals( lprMock.encounterStartFromDate(), metadata.getEncounterStartFromDate() );
+        assertEquals( lprMock.encounterStartToDate(), metadata.getEncounterStartToDate() );
+        assertEquals( lprMock.encounterEndFromDate(), metadata.getEncounterEndFromDate() );
+        assertEquals( lprMock.encounterEndToDate(), metadata.getEncounterEndToDate() );
+        assertEquals( lprMock.episodeOfCareStartFromDate(), metadata.getEpisodeOfCareStartFromDate() );
+        assertEquals( lprMock.episodeOfCareStartToDate(), metadata.getEpisodeOfCareStartToDate() );
+        assertEquals( lprMock.errorText(), metadata.getErrorText() );
+        assertEquals( lprMock.errorType(), metadata.getErrorType() );
+        assertEquals( lprMock.ruleGroup(), metadata.getRuleGroup() );
+        assertEquals( lprMock.errorNumber(), metadata.getErrorNumber() );
+        assertEquals( lprMock.inProduction(), metadata.isInProduction() );
+        assertEquals( lprMock.isDraft(), metadata.isDraft() );
+        assertEquals( lprMock.isValidForLPRReports(), metadata.isValidForLPRReports() );
+        assertEquals( lprMock.isValidForDUSASSpecialityReports(), metadata.isValidForDUSASAbroadReports() );
+        assertEquals( lprMock.isValidForDUSASSpecialityReports(), metadata.isValidForDUSASSpecialityReports() );
     }
 
     private VersionRecord createVersionRecord() {

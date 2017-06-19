@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.guvnor.common.services.shared.metadata.model.LprErrorType;
 import org.guvnor.common.services.shared.metadata.model.LprRuleType;
-import org.uberfire.commons.data.Pair;
 import org.uberfire.java.nio.IOException;
 import org.uberfire.java.nio.base.AbstractBasicFileAttributeView;
 import org.uberfire.java.nio.base.AbstractPath;
@@ -14,27 +13,15 @@ import org.uberfire.java.nio.file.attribute.BasicFileAttributeView;
 import org.uberfire.java.nio.file.attribute.BasicFileAttributes;
 import org.uberfire.java.nio.file.attribute.FileTime;
 
-import static org.uberfire.commons.data.Pair.*;
+import static org.guvnor.common.services.shared.metadata.model.LprMetadataConsts.*;
 import static org.uberfire.commons.validation.PortablePreconditions.*;
 
 /**
- * Created by prc on 16-02-2017.
+ * Created on 16-02-2017.
  */
 public class LprMetaView
         extends AbstractBasicFileAttributeView<AbstractPath>
-        implements NeedsPreloadedAttrs
-         {
-
-    public static final String LPRMETA = "lprmeta";
-    public static final String TYPE = LPRMETA + ".type";
-    public static final String RULE_VALID_FROM_DATE = LPRMETA + ".ruleValidFromDate";
-    public static final String RULE_VALID_TO_DATE = LPRMETA + ".ruleValidToDate";
-    public static final String IS_DRAFT = LPRMETA + ".isdraft";
-    public static final String IN_PRODUCTION = LPRMETA + ".inproduction";
-    public static final String ERROR_NUMBER = LPRMETA + ".errorNumber";
-    public static final String ERROR_TEXT = LPRMETA + ".errorText";
-    public static final String RULE_GROUP = LPRMETA + ".ruleGroup";
-    public static final String ERROR_TYPE = LPRMETA + ".errorType";
+        implements NeedsPreloadedAttrs {
 
     private final LprMetaAttributes attrs;
 
@@ -45,71 +32,7 @@ public class LprMetaView
 
         final BasicFileAttributes fileAttrs = path.getFileSystem().provider().getFileAttributeView( path, BasicFileAttributeView.class ).readAttributes();
 
-        final LprMetaAttributesImpl lprMetaAttributes = new LprMetaAttributesImpl(fileAttrs);
-
-        for ( final Map.Entry<String, Object> entry : content.entrySet() ) {
-            if ( entry.getKey().startsWith( TYPE ) ) {
-                lprMetaAttributes.setType( LprRuleType.RuleType.valueOf( entry.getValue().toString() ) );
-            }
-            if ( entry.getKey().startsWith( RULE_VALID_FROM_DATE ) ) {
-                Long timestamp = Long.valueOf( String.valueOf( entry.getValue() ) );
-                lprMetaAttributes.setRuleValidFromDate( timestamp );
-
-            }
-            if ( entry.getKey().startsWith( RULE_VALID_TO_DATE ) ) {
-                lprMetaAttributes.setRuleValidToDate( Long.valueOf( String.valueOf( entry.getValue() ) ) );
-            }
-            if ( entry.getKey().startsWith( IS_DRAFT ) ) {
-                lprMetaAttributes.setDraft((Boolean) entry.getValue());
-            }
-            if ( entry.getKey().startsWith( IN_PRODUCTION ) ) {
-                lprMetaAttributes.setInProduction((Boolean)entry.getValue());
-            }
-            if ( entry.getKey().startsWith( ERROR_NUMBER ) ) {
-                final Object value = entry.getValue();
-                final String sValue = value.toString();
-                final Long lValue = Long.parseLong(sValue);
-                lprMetaAttributes.setErrorNumber(lValue);
-            }
-            if ( entry.getKey().startsWith( ERROR_TEXT ) ) {
-                lprMetaAttributes.setErrorText((String) entry.getValue());
-            }
-            if ( entry.getKey().startsWith( RULE_GROUP ) ) {
-                lprMetaAttributes.setRuleGroup((String) entry.getValue());
-            }
-            if ( entry.getKey().startsWith( ERROR_TYPE ) ) {
-                lprMetaAttributes.setErrorType( LprErrorType.valueOf( entry.getValue().toString() ) );
-            }
-        }
-        //todo ttn this is very confusing.. remove this anonymous class and instead use LprMetaAttributesImpl
         this.attrs = new LprMetaAttributes() {
-            @Override
-            public LprRuleType.RuleType Type() { return lprMetaAttributes.Type(); }
-
-            @Override
-            public Long ruleValidFromDate() { return lprMetaAttributes.ruleValidFromDate(); }
-
-            @Override
-            public Long ruleValidToDate() { return lprMetaAttributes.ruleValidToDate(); }
-
-            @Override
-            public boolean isDraft() { return lprMetaAttributes.isDraft(); }
-
-            @Override
-            public boolean inProduction() { return lprMetaAttributes.inProduction(); }
-
-            @Override
-            public Long errorNumber() { return lprMetaAttributes.errorNumber(); }
-
-            @Override
-            public String errorText() { return lprMetaAttributes.errorText(); }
-
-            @Override
-            public String ruleGroup() { return lprMetaAttributes.ruleGroup(); }
-
-            @Override
-            public LprErrorType errorType() { return lprMetaAttributes.errorType(); }
-
             @Override
             public FileTime lastModifiedTime() {
                 return fileAttrs.lastModifiedTime();
@@ -154,45 +77,126 @@ public class LprMetaView
             public Object fileKey() {
                 return fileAttrs.fileKey();
             }
+
+            @Override
+            public LprRuleType ruleType() {
+                return content.containsKey( RULE_TYPE ) ? LprRuleType.valueOf( ( String ) content.get( RULE_TYPE ) ) : LprRuleType.REPORT_VALIDATION;
+            }
+
+            @Override
+            public Long reportReceivedFromDate() {
+                return content.containsKey( REPORT_RECEIVED_FROM_DATE ) ? ( Long ) content.get( REPORT_RECEIVED_FROM_DATE ) : 0L;
+            }
+
+            @Override
+            public Long reportReceivedToDate() {
+                return content.containsKey( REPORT_RECEIVED_TO_DATE ) ? ( Long ) content.get( REPORT_RECEIVED_TO_DATE ) : Long.MAX_VALUE;
+            }
+
+            @Override
+            public Long encounterStartFromDate() {
+                return content.containsKey( ENCOUNTER_START_FROM_DATE ) ? ( Long ) content.get( ENCOUNTER_START_FROM_DATE ) : 0L;
+            }
+
+            @Override
+            public Long encounterStartToDate() {
+                return content.containsKey( ENCOUNTER_START_TO_DATE ) ? ( Long ) content.get( ENCOUNTER_START_TO_DATE ) : Long.MAX_VALUE;
+            }
+
+            @Override
+            public Long encounterEndFromDate() {
+                return content.containsKey( ENCOUNTER_END_FROM_DATE ) ? ( Long ) content.get( ENCOUNTER_END_FROM_DATE ) : 0L;
+            }
+
+            @Override
+            public Long encounterEndToDate() {
+                return content.containsKey( ENCOUNTER_END_TO_DATE ) ? ( Long ) content.get( ENCOUNTER_END_TO_DATE ) : Long.MAX_VALUE;
+            }
+
+            @Override
+            public Long episodeOfCareStartFromDate() {
+                return content.containsKey( EPISODE_OF_CARE_START_FROM_DATE ) ? ( Long ) content.get( EPISODE_OF_CARE_START_FROM_DATE ) : 0L;
+            }
+
+            @Override
+            public Long episodeOfCareStartToDate() {
+                return content.containsKey( EPISODE_OF_CARE_START_TO_DATE ) ? ( Long ) content.get( EPISODE_OF_CARE_START_TO_DATE ) : Long.MAX_VALUE;
+            }
+
+            @Override
+            public boolean isDraft() {
+                return content.containsKey( IS_DRAFT ) ? ( Boolean ) content.get( IS_DRAFT ) : Boolean.FALSE;
+            }
+
+            @Override
+            public boolean inProduction() {
+                return content.containsKey( IN_PRODUCTION ) ? ( Boolean ) content.get( IN_PRODUCTION ) : Boolean.FALSE;
+            }
+
+            @Override
+            public boolean isValidForLPRReports() {
+                return content.containsKey( IS_VALID_FOR_LPR_REPORTS ) ? ( Boolean ) content.get( IS_VALID_FOR_LPR_REPORTS ) : Boolean.FALSE;
+            }
+
+            @Override
+            public boolean isValidForDUSASAbroadReports() {
+                return content.containsKey( IS_VALID_FOR_DUSAS_ABROAD_REPORTS ) ? ( Boolean ) content.get( IS_VALID_FOR_DUSAS_ABROAD_REPORTS ) : Boolean.FALSE;
+            }
+
+            @Override
+            public boolean isValidForDUSASSpecialityReports() {
+                return content.containsKey( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS ) ? ( Boolean ) content.get( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS ) : Boolean.FALSE;
+            }
+
+            @Override
+            public Long errorNumber() {
+                //errorNumber is stored as string to make wild card searches possible
+                return Long.valueOf( content.containsKey( ERROR_NUMBER ) ? content.get( ERROR_NUMBER ).toString() : "0" );
+            }
+
+            @Override
+            public String errorText() {
+                return content.containsKey( ERROR_TEXT ) ? ( String ) content.get( ERROR_TEXT ) : "";
+            }
+
+            @Override
+            public String ruleGroup() {
+                return content.containsKey( RULE_GROUP ) ? ( String ) content.get( RULE_GROUP ) : "";
+            }
+
+            @Override
+            public LprErrorType errorType() {
+                return content.containsKey( ERROR_TYPE ) ? LprErrorType.valueOf( ( String ) content.get( ERROR_TYPE ) ) : LprErrorType.NONE;
+            }
         };
     }
 
-             @Override
-             public String name() {
-                 return LPRMETA;
-             }
+    @Override
+    public String name() {
+        return LPRMETA;
+    }
 
-             @Override
-             public LprMetaAttributes readAttributes() throws IOException {
-                 return attrs;
-             }
+    @Override
+    public LprMetaAttributes readAttributes() throws IOException {
+        return attrs;
+    }
 
-             @Override
-             public Map<String, Object> readAttributes( final String... attributes ) {
-                 return LprMetaAttributesUtil.toMap( readAttributes(), attributes );
-             }
+    @Override
+    public Map<String, Object> readAttributes( final String... attributes ) {
+        return LprMetaAttributesUtil.toMap( readAttributes(), attributes );
+    }
 
-             @Override
-             public Class<? extends BasicFileAttributeView>[] viewTypes() {
-                 return new Class[]{ LprMetaView.class };
-             }
+    @Override
+    public Class<? extends BasicFileAttributeView>[] viewTypes() {
+        return new Class[]{LprMetaView.class};
+    }
 
-             @Override
-             public void setAttribute( final String attribute,
-                                       final Object value ) throws IOException {
-                 checkNotEmpty( "attribute", attribute );
-                 checkCondition( "invalid attribute", attribute.equals( name() ) );
+    @Override
+    public void setAttribute( final String attribute,
+                              final Object value ) throws IOException {
+        checkNotEmpty( "attribute", attribute );
+        checkCondition( "invalid attribute", attribute.equals( name() ) );
 
-                 throw new NotImplementedException();
-             }
-
-    private Pair<Integer, String> extractValue(final Map.Entry<String, Object> entry ) {
-        int start = entry.getKey().indexOf( '[' );
-        if ( start < 0 ) {
-            return newPair( 0, entry.getValue().toString() );
-        }
-        int end = entry.getKey().indexOf( ']' );
-
-        return newPair( Integer.valueOf( entry.getKey().substring( start + 1, end ) ), entry.getValue().toString() );
+        throw new NotImplementedException();
     }
 }

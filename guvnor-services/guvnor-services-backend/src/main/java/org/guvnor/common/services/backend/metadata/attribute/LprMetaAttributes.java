@@ -5,14 +5,24 @@ import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.uberfire.java.nio.file.attribute.BasicFileAttributes;
 
 /**
- * Created by prc on 16-02-2017.
+ * Created on 16-02-2017.
  */
 public interface LprMetaAttributes extends BasicFileAttributes {
-    LprRuleType.RuleType Type();
-    Long ruleValidFromDate();
-    Long ruleValidToDate();
+    LprRuleType ruleType();
+    Long reportReceivedFromDate();
+    Long reportReceivedToDate();
+    Long encounterStartFromDate();
+    Long encounterStartToDate();
+    Long encounterEndFromDate();
+    Long encounterEndToDate();
+    Long episodeOfCareStartFromDate();
+    Long episodeOfCareStartToDate();
+    //todo decide how to handle drafts/production rules
     boolean isDraft();
     boolean inProduction();
+    boolean isValidForLPRReports();
+    boolean isValidForDUSASAbroadReports();
+    boolean isValidForDUSASSpecialityReports();
     Long errorNumber();
     String errorText();
     String ruleGroup();
