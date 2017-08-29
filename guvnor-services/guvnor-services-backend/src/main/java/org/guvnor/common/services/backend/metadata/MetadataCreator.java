@@ -26,6 +26,7 @@ import org.guvnor.common.services.backend.metadata.attribute.LprMetaView;
 import org.guvnor.common.services.backend.metadata.attribute.OtherMetaView;
 import org.guvnor.common.services.shared.metadata.model.DiscussionRecord;
 import org.guvnor.common.services.shared.metadata.model.LprErrorType;
+import org.guvnor.common.services.shared.metadata.model.LprRuleGroup;
 import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.guvnor.common.services.shared.metadata.model.Metadata;
 import org.uberfire.backend.server.util.Paths;
@@ -276,7 +277,7 @@ public class MetadataCreator {
         return lprMetaAttributes.errorText();
     }
 
-    private String getRuleGroup() {
+    private LprRuleGroup getRuleGroup() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
         return lprMetaAttributes.ruleGroup();
     }

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.guvnor.common.services.shared.metadata.model.LprErrorType;
+import org.guvnor.common.services.shared.metadata.model.LprRuleGroup;
 import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +36,7 @@ public class LprMetaViewTest {
     public void testSimple() throws Exception {
 
         final Map<String, Object> mockAttrs = new HashMap<String, Object>() {{
-            put( RULE_TYPE, LprRuleType.REPORT_VALIDATION.toString());
+            put( RULE_TYPE, LprRuleType.REPORT_VALIDATION.getId());
             put( REPORT_RECEIVED_FROM_DATE, 100L);
             put( REPORT_RECEIVED_TO_DATE, 100L);
             put( ENCOUNTER_START_FROM_DATE, 100L);
@@ -46,8 +47,8 @@ public class LprMetaViewTest {
             put( EPISODE_OF_CARE_START_TO_DATE, 100L);
             put( ERROR_NUMBER, "300");
             put( ERROR_TEXT, TEST_ERROR_TEXT);
-            put( ERROR_TYPE, LprErrorType.FATAL.toString());
-            put( RULE_GROUP, TEST_RULE_GROUP);
+            put( ERROR_TYPE, LprErrorType.FATAL.getId());
+            put( RULE_GROUP, LprRuleGroup.OPERA.getId());
             put( IN_PRODUCTION, false);
             put( IS_DRAFT, true);
             put( IS_VALID_FOR_LPR_REPORTS, true);
@@ -70,7 +71,7 @@ public class LprMetaViewTest {
         LprMetaView lprMetaView = new LprMetaView(path);
         LprMetaAttributes returnedAttrs = lprMetaView.readAttributes();
 
-        assertEquals( mockAttrs.get( RULE_TYPE ), returnedAttrs.ruleType().toString() );
+        assertEquals( mockAttrs.get( RULE_TYPE ), returnedAttrs.ruleType().getId() );
         assertEquals( mockAttrs.get( REPORT_RECEIVED_FROM_DATE ), returnedAttrs.reportReceivedFromDate() );
         assertEquals( mockAttrs.get( REPORT_RECEIVED_TO_DATE ), returnedAttrs.reportReceivedToDate() );
         assertEquals( mockAttrs.get( ENCOUNTER_START_FROM_DATE ), returnedAttrs.encounterStartFromDate() );
@@ -80,8 +81,8 @@ public class LprMetaViewTest {
         assertEquals( mockAttrs.get( EPISODE_OF_CARE_START_FROM_DATE ), returnedAttrs.episodeOfCareStartFromDate() );
         assertEquals( mockAttrs.get( EPISODE_OF_CARE_START_TO_DATE ), returnedAttrs.episodeOfCareStartToDate() );
         assertEquals( mockAttrs.get( ERROR_TEXT ), returnedAttrs.errorText() );
-        assertEquals( mockAttrs.get( ERROR_TYPE ), returnedAttrs.errorType().toString() );
-        assertEquals( mockAttrs.get( RULE_GROUP ), returnedAttrs.ruleGroup() );
+        assertEquals( mockAttrs.get( ERROR_TYPE ), returnedAttrs.errorType().getId() );
+        assertEquals( mockAttrs.get( RULE_GROUP ), returnedAttrs.ruleGroup().getId() );
         assertEquals( mockAttrs.get( ERROR_NUMBER ), returnedAttrs.errorNumber().toString() );
         assertEquals( mockAttrs.get( IN_PRODUCTION ), returnedAttrs.inProduction() );
         assertEquals( mockAttrs.get( IS_DRAFT ), returnedAttrs.isDraft() );

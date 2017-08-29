@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.guvnor.common.services.shared.metadata.model.DiscussionRecord;
 import org.guvnor.common.services.shared.metadata.model.LprErrorType;
+import org.guvnor.common.services.shared.metadata.model.LprRuleGroup;
 import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.guvnor.common.services.shared.metadata.model.Metadata;
 import org.uberfire.backend.vfs.Path;
@@ -76,7 +77,7 @@ public final class MetadataBuilder {
     private boolean isValidForDUSASSpecialityReports;
     private Long errorNumber;
     private String errorText;
-    private String ruleGroup;
+    private LprRuleGroup ruleGroup;
     private LprErrorType errorType;
 
     private MetadataBuilder() {
@@ -244,7 +245,7 @@ public final class MetadataBuilder {
         return this;
     }
 
-    public MetadataBuilder withRuleGroup( final String ruleGroup ) {
+    public MetadataBuilder withRuleGroup( final LprRuleGroup ruleGroup ) {
         this.ruleGroup = ruleGroup;
         return this;
     }

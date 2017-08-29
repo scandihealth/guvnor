@@ -3,6 +3,10 @@ package org.guvnor.common.services.backend.metadata.attribute;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.guvnor.common.services.shared.metadata.model.LprErrorType;
+import org.guvnor.common.services.shared.metadata.model.LprRuleGroup;
+import org.guvnor.common.services.shared.metadata.model.LprRuleType;
+
 import static org.guvnor.common.services.shared.metadata.model.LprMetadataConsts.*;
 import static org.uberfire.commons.validation.PortablePreconditions.*;
 
@@ -28,7 +32,8 @@ public class LprMetaAttributesUtil {
                 checkNotEmpty( "attribute", attribute );
 
                 if ( attribute.equals( "*" ) || attribute.equals( RULE_TYPE ) ) {
-                    put( RULE_TYPE, attrs.ruleType().toString() );
+                    String ruleTypeId = attrs.ruleType() != null ? attrs.ruleType().getId() : LprRuleType.NOT_LPR.getId();
+                    put( RULE_TYPE, ruleTypeId ); //save id instead of enum name to make search work
                 }
                 if ( attribute.equals( "*" ) || attribute.equals( REPORT_RECEIVED_FROM_DATE ) ) {
                     put( REPORT_RECEIVED_FROM_DATE, attrs.reportReceivedFromDate() );
@@ -71,16 +76,18 @@ public class LprMetaAttributesUtil {
                 }
                 if ( attribute.equals( "*" ) || attribute.equals( ERROR_NUMBER ) ) {
                     //errorNumber is stored as string to make wild card searches possible
-                    put( ERROR_NUMBER, attrs.errorNumber().toString() );
+                    put( ERROR_NUMBER, attrs.errorNumber() != null ? attrs.errorNumber().toString() : "0" );
                 }
                 if ( attribute.equals( "*" ) || attribute.equals( ERROR_TEXT ) ) {
                     put( ERROR_TEXT, attrs.errorText() );
                 }
                 if ( attribute.equals( "*" ) || attribute.equals( RULE_GROUP ) ) {
-                    put( RULE_GROUP, attrs.ruleGroup() );
+                    String ruleGroupId = attrs.ruleGroup() != null ? attrs.ruleGroup().getId() : LprRuleGroup.NONE.getId();
+                    put( RULE_GROUP, ruleGroupId ); //save id instead of enum name to make search work
                 }
                 if ( attribute.equals( "*" ) || attribute.equals( ERROR_TYPE ) ) {
-                    put( ERROR_TYPE, attrs.errorType().toString() );
+                    String errorTypeId = attrs.errorType() != null ? attrs.errorType().getId() : LprErrorType.NONE.getId();
+                    put( ERROR_TYPE, errorTypeId ); //save id instead of enum name to make search work
                 }
 
                 if ( attribute.equals( "*" ) ) {

@@ -2,6 +2,7 @@ package org.guvnor.common.services.backend.metadata;
 
 import org.guvnor.common.services.backend.metadata.attribute.LprMetaAttributes;
 import org.guvnor.common.services.shared.metadata.model.LprErrorType;
+import org.guvnor.common.services.shared.metadata.model.LprRuleGroup;
 import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.uberfire.java.nio.base.FileTimeImpl;
 import org.uberfire.java.nio.file.attribute.FileTime;
@@ -25,9 +26,9 @@ public class LprMetaAttributesMock implements LprMetaAttributes, Cloneable {
     public boolean isValidForDUSASSpecialityReports = false;
     public Long errorNumber = 1L;
     public LprErrorType errorType = LprErrorType.ERROR;
-    public LprRuleType ruleType = LprRuleType.EXEMPTION;
+    public LprRuleType ruleType = LprRuleType.REPORT_VALIDATION;
     public String errorText = "Vi tester LPR";
-    public String ruleGroup = "ruleGroup";
+    public LprRuleGroup ruleGroup = LprRuleGroup.MOBST;
 
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
@@ -114,7 +115,7 @@ public class LprMetaAttributesMock implements LprMetaAttributes, Cloneable {
     }
 
     @Override
-    public String ruleGroup() {
+    public LprRuleGroup ruleGroup() {
         return ruleGroup;
     }
 

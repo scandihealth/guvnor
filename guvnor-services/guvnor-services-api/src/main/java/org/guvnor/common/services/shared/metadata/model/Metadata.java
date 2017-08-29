@@ -64,7 +64,7 @@ public class Metadata {
     private boolean isValidForDUSASSpecialityReports;
     private Long errorNumber;
     private String errorText;
-    private String ruleGroup;
+    private LprRuleGroup ruleGroup;
     private LprErrorType errorType;
     private Long reportReceivedFromDate;
     private Long reportReceivedToDate;
@@ -111,7 +111,7 @@ public class Metadata {
                      final boolean isValidForDUSASSpecialityReports,
                      final Long errorNumber,
                      final String errorText,
-                     final String ruleGroup,
+                     final LprRuleGroup ruleGroup,
                      final LprErrorType errorType ) {
         this.path = path;
         this.realPath = realPath;
@@ -500,11 +500,11 @@ public class Metadata {
         this.errorText = errorText;
     }
 
-    public String getRuleGroup() {
+    public LprRuleGroup getRuleGroup() {
         return ruleGroup;
     }
 
-    public void setRuleGroup( String ruleGroup ) {
+    public void setRuleGroup( LprRuleGroup ruleGroup ) {
         this.ruleGroup = ruleGroup;
     }
 

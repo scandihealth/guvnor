@@ -69,7 +69,7 @@ public class LprMetaAttributesUtilTest {
     public void toMapWildcardTest() {
         LprMetaAttributesMock mock = new LprMetaAttributesMock();
         final Map<String, Object> returnedContent = LprMetaAttributesUtil.toMap( mock, "*");
-        assertEquals( mock.ruleType().toString(), returnedContent.get( RULE_TYPE ));
+        assertEquals( mock.ruleType().getId(), returnedContent.get( RULE_TYPE ));
         assertEquals( mock.reportReceivedFromDate(), returnedContent.get( REPORT_RECEIVED_FROM_DATE ) );
         assertEquals( mock.reportReceivedToDate(), returnedContent.get( REPORT_RECEIVED_TO_DATE ) );
         assertEquals( mock.encounterStartFromDate(), returnedContent.get( ENCOUNTER_START_FROM_DATE ) );
@@ -79,8 +79,8 @@ public class LprMetaAttributesUtilTest {
         assertEquals( mock.episodeOfCareStartFromDate(), returnedContent.get( EPISODE_OF_CARE_START_FROM_DATE ) );
         assertEquals( mock.episodeOfCareStartToDate(), returnedContent.get( EPISODE_OF_CARE_START_TO_DATE ) );
         assertEquals( mock.errorText(), returnedContent.get( ERROR_TEXT ));
-        assertEquals( mock.errorType().toString(), returnedContent.get( ERROR_TYPE ) );
-        assertEquals( mock.ruleGroup(), returnedContent.get( RULE_GROUP ));
+        assertEquals( mock.errorType().getId(), returnedContent.get( ERROR_TYPE ) );
+        assertEquals( mock.ruleGroup().getId(), returnedContent.get( RULE_GROUP ));
         assertEquals( mock.errorNumber().toString(), returnedContent.get( ERROR_NUMBER ) );
         assertEquals( mock.inProduction(), returnedContent.get( IN_PRODUCTION ));
         assertEquals( mock.isDraft(), returnedContent.get( IS_DRAFT ));

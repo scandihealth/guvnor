@@ -37,6 +37,7 @@ import org.guvnor.common.services.backend.metadata.attribute.OtherMetaAttributes
 import org.guvnor.common.services.backend.metadata.attribute.OtherMetaView;
 import org.guvnor.common.services.shared.metadata.model.DiscussionRecord;
 import org.guvnor.common.services.shared.metadata.model.LprErrorType;
+import org.guvnor.common.services.shared.metadata.model.LprRuleGroup;
 import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.guvnor.common.services.shared.metadata.model.Metadata;
 import org.jboss.errai.bus.server.annotations.Service;
@@ -503,7 +504,7 @@ public class MetadataServiceImpl
                         }
 
                         @Override
-                        public String ruleGroup() {
+                        public LprRuleGroup ruleGroup() {
                             return metadata.getRuleGroup();
                         }
 

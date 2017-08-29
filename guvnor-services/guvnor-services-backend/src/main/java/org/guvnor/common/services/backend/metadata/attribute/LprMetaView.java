@@ -3,6 +3,7 @@ package org.guvnor.common.services.backend.metadata.attribute;
 import java.util.Map;
 
 import org.guvnor.common.services.shared.metadata.model.LprErrorType;
+import org.guvnor.common.services.shared.metadata.model.LprRuleGroup;
 import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.uberfire.java.nio.IOException;
 import org.uberfire.java.nio.base.AbstractBasicFileAttributeView;
@@ -80,7 +81,7 @@ public class LprMetaView
 
             @Override
             public LprRuleType ruleType() {
-                return content.containsKey( RULE_TYPE ) ? LprRuleType.valueOf( ( String ) content.get( RULE_TYPE ) ) : LprRuleType.REPORT_VALIDATION;
+                return content.containsKey( RULE_TYPE ) ? LprRuleType.getById( ( String ) content.get( RULE_TYPE ) ) : LprRuleType.NOT_LPR;
             }
 
             @Override
@@ -160,13 +161,13 @@ public class LprMetaView
             }
 
             @Override
-            public String ruleGroup() {
-                return content.containsKey( RULE_GROUP ) ? ( String ) content.get( RULE_GROUP ) : "";
+            public LprRuleGroup ruleGroup() {
+                return content.containsKey( RULE_GROUP ) ? LprRuleGroup.getById( ( String ) content.get( RULE_GROUP ) ) : LprRuleGroup.NONE;
             }
 
             @Override
             public LprErrorType errorType() {
-                return content.containsKey( ERROR_TYPE ) ? LprErrorType.valueOf( ( String ) content.get( ERROR_TYPE ) ) : LprErrorType.NONE;
+                return content.containsKey( ERROR_TYPE ) ? LprErrorType.getById( ( String ) content.get( ERROR_TYPE ) ) : LprErrorType.NONE;
             }
         };
     }

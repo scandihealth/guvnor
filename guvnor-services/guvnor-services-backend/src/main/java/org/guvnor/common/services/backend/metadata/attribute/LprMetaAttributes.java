@@ -1,6 +1,7 @@
 package org.guvnor.common.services.backend.metadata.attribute;
 
 import org.guvnor.common.services.shared.metadata.model.LprErrorType;
+import org.guvnor.common.services.shared.metadata.model.LprRuleGroup;
 import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.uberfire.java.nio.file.attribute.BasicFileAttributes;
 
@@ -25,6 +26,6 @@ public interface LprMetaAttributes extends BasicFileAttributes {
     boolean isValidForDUSASSpecialityReports();
     Long errorNumber();
     String errorText();
-    String ruleGroup();
+    LprRuleGroup ruleGroup();
     LprErrorType errorType();
 }
