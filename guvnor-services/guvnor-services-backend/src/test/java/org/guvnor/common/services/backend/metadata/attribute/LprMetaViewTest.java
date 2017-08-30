@@ -49,8 +49,8 @@ public class LprMetaViewTest {
             put( ERROR_TEXT, TEST_ERROR_TEXT);
             put( ERROR_TYPE, LprErrorType.FATAL.getId());
             put( RULE_GROUP, LprRuleGroup.OPERA.getId());
-            put( IN_PRODUCTION, false);
-            put( IS_DRAFT, true);
+            put( PRODUCTION_DATE, 100L);
+            put( ARCHIVED_DATE, 100L);
             put( IS_VALID_FOR_LPR_REPORTS, true);
             put( IS_VALID_FOR_DUSAS_ABROAD_REPORTS, false);
             put( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS, false);
@@ -84,8 +84,8 @@ public class LprMetaViewTest {
         assertEquals( mockAttrs.get( ERROR_TYPE ), returnedAttrs.errorType().getId() );
         assertEquals( mockAttrs.get( RULE_GROUP ), returnedAttrs.ruleGroup().getId() );
         assertEquals( mockAttrs.get( ERROR_NUMBER ), returnedAttrs.errorNumber().toString() );
-        assertEquals( mockAttrs.get( IN_PRODUCTION ), returnedAttrs.inProduction() );
-        assertEquals( mockAttrs.get( IS_DRAFT ), returnedAttrs.isDraft() );
+        assertEquals( mockAttrs.get( PRODUCTION_DATE ), returnedAttrs.productionDate() );
+        assertEquals( mockAttrs.get( ARCHIVED_DATE ), returnedAttrs.archivedDate() );
         assertEquals( mockAttrs.get( IS_VALID_FOR_LPR_REPORTS ), returnedAttrs.isValidForLPRReports() );
         assertEquals( mockAttrs.get( IS_VALID_FOR_DUSAS_ABROAD_REPORTS ), returnedAttrs.isValidForDUSASSpecialityReports() );
         assertEquals( mockAttrs.get( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS ), returnedAttrs.isValidForDUSASSpecialityReports() );

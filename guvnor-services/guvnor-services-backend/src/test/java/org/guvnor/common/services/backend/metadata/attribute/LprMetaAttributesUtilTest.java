@@ -34,8 +34,8 @@ public class LprMetaAttributesUtilTest {
             put( ERROR_TEXT, TEST_ERROR_TEXT);
             put( ERROR_TYPE, LprErrorType.FATAL);
             put( RULE_GROUP, TEST_RULE_GROUP);
-            put( IN_PRODUCTION, false);
-            put( IS_DRAFT, true);
+            put( PRODUCTION_DATE, false);
+            put( ARCHIVED_DATE, true);
             put( IS_VALID_FOR_LPR_REPORTS, true);
             put( IS_VALID_FOR_DUSAS_ABROAD_REPORTS, false);
             put( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS, false);
@@ -57,8 +57,8 @@ public class LprMetaAttributesUtilTest {
         assertNull( returnedContent.get( ERROR_TEXT ));
         assertNull( returnedContent.get( ERROR_TYPE ));
         assertNull( returnedContent.get( RULE_GROUP ));
-        assertNull( returnedContent.get( IN_PRODUCTION ));
-        assertNull( returnedContent.get( IS_DRAFT ));
+        assertNull( returnedContent.get( PRODUCTION_DATE ));
+        assertNull( returnedContent.get( ARCHIVED_DATE ));
         assertNull( returnedContent.get( IS_VALID_FOR_LPR_REPORTS ));
         assertNull( returnedContent.get( IS_VALID_FOR_DUSAS_ABROAD_REPORTS ));
         assertNull( returnedContent.get( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS ));
@@ -82,8 +82,8 @@ public class LprMetaAttributesUtilTest {
         assertEquals( mock.errorType().getId(), returnedContent.get( ERROR_TYPE ) );
         assertEquals( mock.ruleGroup().getId(), returnedContent.get( RULE_GROUP ));
         assertEquals( mock.errorNumber().toString(), returnedContent.get( ERROR_NUMBER ) );
-        assertEquals( mock.inProduction(), returnedContent.get( IN_PRODUCTION ));
-        assertEquals( mock.isDraft(), returnedContent.get( IS_DRAFT ));
+        assertEquals( mock.productionDate(), returnedContent.get( PRODUCTION_DATE ));
+        assertEquals( mock.archivedDate(), returnedContent.get( ARCHIVED_DATE ));
         assertEquals( mock.isValidForLPRReports(), returnedContent.get( IS_VALID_FOR_LPR_REPORTS ));
         assertEquals( mock.isValidForDUSASSpecialityReports(), returnedContent.get( IS_VALID_FOR_DUSAS_ABROAD_REPORTS ));
         assertEquals( mock.isValidForDUSASSpecialityReports(), returnedContent.get( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS ));
@@ -106,8 +106,8 @@ public class LprMetaAttributesUtilTest {
         assertEquals( mock.errorText(), returnedContent.get( ERROR_TEXT ));
         assertNull( returnedContent.get( ERROR_TYPE ));
         assertNull( returnedContent.get( RULE_GROUP ));
-        assertNull( returnedContent.get( IN_PRODUCTION ));
-        assertNull( returnedContent.get( IS_DRAFT ));
+        assertNull( returnedContent.get( PRODUCTION_DATE ));
+        assertNull( returnedContent.get( ARCHIVED_DATE ));
         assertEquals( mock.isValidForLPRReports(), returnedContent.get( IS_VALID_FOR_LPR_REPORTS ));
         assertNull( returnedContent.get( IS_VALID_FOR_DUSAS_ABROAD_REPORTS ));
         assertNull( returnedContent.get( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS ));

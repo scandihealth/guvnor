@@ -18,9 +18,8 @@ public interface LprMetaAttributes extends BasicFileAttributes {
     Long encounterEndToDate();
     Long episodeOfCareStartFromDate();
     Long episodeOfCareStartToDate();
-    //todo decide how to handle drafts/production rules
-    boolean isDraft();
-    boolean inProduction();
+    Long archivedDate();
+    Long productionDate();
     boolean isValidForLPRReports();
     boolean isValidForDUSASAbroadReports();
     boolean isValidForDUSASSpecialityReports();

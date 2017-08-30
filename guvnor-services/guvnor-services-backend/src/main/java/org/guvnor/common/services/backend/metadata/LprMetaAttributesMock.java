@@ -19,8 +19,8 @@ public class LprMetaAttributesMock implements LprMetaAttributes, Cloneable {
     public Long encounterEndToDate = 600L;
     public Long episodeOfCareStartFromDate = 100L;
     public Long episodeOfCareStartToDate = 100L;
-    public boolean isDraft = false;
-    public boolean inProduction = false;
+    public Long productionDate = 700L;
+    public Long archivedDate = 800L;
     public boolean isValidForLPRReports = true;
     public boolean isValidForDUSASAbroadReports = false;
     public boolean isValidForDUSASSpecialityReports = false;
@@ -80,13 +80,13 @@ public class LprMetaAttributesMock implements LprMetaAttributes, Cloneable {
     }
 
     @Override
-    public boolean isDraft() {
-        return isDraft;
+    public Long archivedDate() {
+        return archivedDate;
     }
 
     @Override
-    public boolean inProduction() {
-        return inProduction;
+    public Long productionDate() {
+        return productionDate;
     }
 
     @Override

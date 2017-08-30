@@ -469,13 +469,13 @@ public class MetadataServiceImpl
                         }
 
                         @Override
-                        public boolean isDraft() {
-                            return metadata.isDraft();
+                        public Long archivedDate() {
+                            return metadata.getArchivedDate();
                         }
 
                         @Override
-                        public boolean inProduction() {
-                            return metadata.isInProduction();
+                        public Long productionDate() {
+                            return metadata.getProductionDate();
                         }
 
                         @Override

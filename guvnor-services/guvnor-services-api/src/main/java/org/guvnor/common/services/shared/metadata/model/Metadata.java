@@ -57,8 +57,8 @@ public class Metadata {
 
     // lpr
     private LprRuleType ruleType;
-    private boolean isDraft;
-    private boolean inProduction;
+    private Long archivedDate;
+    private Long productionDate;
     private boolean isValidForLPRReports;
     private boolean isValidForDUSASAbroadReports;
     private boolean isValidForDUSASSpecialityReports;
@@ -104,8 +104,8 @@ public class Metadata {
                      final Long encounterEndToDate,
                      final Long episodeOfCareStartFromDate,
                      final Long episodeOfCareStartToDate,
-                     final boolean isDraft,
-                     final boolean inProduction,
+                     final Long archivedDate,
+                     final Long productionDate,
                      final boolean isValidForLPRReports,
                      final boolean isValidForDUSASAbroadReports,
                      final boolean isValidForDUSASSpecialityReports,
@@ -142,8 +142,8 @@ public class Metadata {
         this.isValidForLPRReports = isValidForLPRReports;
         this.isValidForDUSASAbroadReports = isValidForDUSASAbroadReports;
         this.isValidForDUSASSpecialityReports = isValidForDUSASSpecialityReports;
-        this.setDraft( isDraft );
-        this.setInProduction( inProduction );
+        this.setArchivedDate( archivedDate );
+        this.setProductionDate( productionDate );
         this.setErrorNumber( errorNumber );
         this.setErrorText( errorText );
         this.setRuleGroup( ruleGroup );
@@ -347,10 +347,10 @@ public class Metadata {
         if ( episodeOfCareStartToDate != null ? !episodeOfCareStartToDate.equals( metadata.episodeOfCareStartToDate ) : metadata.episodeOfCareStartToDate != null ) {
             return false;
         }
-        if ( inProduction != metadata.inProduction ) {
+        if ( productionDate != null ? !productionDate.equals( metadata.productionDate ) : metadata.productionDate != null ) {
             return false;
         }
-        if ( isDraft != metadata.isDraft ) {
+        if ( archivedDate != metadata.archivedDate ) {
             return false;
         }
         if ( isValidForLPRReports != metadata.isValidForLPRReports ) {
@@ -427,9 +427,9 @@ public class Metadata {
         result = ~~result;
         result = 31 * result + (episodeOfCareStartToDate != null ? episodeOfCareStartToDate.hashCode() : 0);
         result = ~~result;
-        result = 31 * result + (inProduction ? 1 : 0);
+        result = 31 * result + (productionDate != null ? productionDate.hashCode() : 0);
         result = ~~result;
-        result = 31 * result + (isDraft ? 1 : 0);
+        result = 31 * result + (archivedDate != null ? archivedDate.hashCode() : 0);
         result = ~~result;
         result = 31 * result + (isValidForLPRReports ? 1 : 0);
         result = ~~result;
@@ -468,20 +468,20 @@ public class Metadata {
         this.reportReceivedToDate = reportReceivedToDate;
     }
 
-    public boolean isDraft() {
-        return isDraft;
+    public Long getArchivedDate() {
+        return archivedDate;
     }
 
-    public void setDraft( boolean draft ) {
-        isDraft = draft;
+    public void setArchivedDate( Long archivedDate ) {
+        this.archivedDate = archivedDate;
     }
 
-    public boolean isInProduction() {
-        return inProduction;
+    public Long getProductionDate() {
+        return productionDate;
     }
 
-    public void setInProduction( boolean inProduction ) {
-        this.inProduction = inProduction;
+    public void setProductionDate( Long productionDate ) {
+        this.productionDate = productionDate;
     }
 
     public Long getErrorNumber() {

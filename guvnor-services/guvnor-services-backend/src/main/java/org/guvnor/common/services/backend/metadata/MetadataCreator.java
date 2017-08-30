@@ -93,8 +93,8 @@ public class MetadataCreator {
                 .withLockInfo( retrieveLockInfo( Paths.convert( path ) ) )
                 .withVersion( getVersion() )
                 .withLprRuleType( getLprRuleType() )
-                .withInProduction( getInProduction() )
-                .withIsDraft( getIsDraft() )
+                .withProductionDate( getProductionDate() )
+                .withArchivedDate( getArchivedDate() )
                 .withIsValidForLPRReports( getIsValidForLPRReports() )
                 .withIsValidForDUSASAbroadReports( getIsValidForDUSASAbroadReports() )
                 .withIsValidForDUSASSpecialityReports( getIsValidForDUSASSpecialityReports() )
@@ -205,14 +205,14 @@ public class MetadataCreator {
         return lprMetaAttributes.ruleType();
     }
 
-    private boolean getInProduction() {
+    private Long getProductionDate() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
-        return lprMetaAttributes.inProduction();
+        return lprMetaAttributes.productionDate();
     }
 
-    private boolean getIsDraft() {
+    private Long getArchivedDate() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
-        return lprMetaAttributes.isDraft();
+        return lprMetaAttributes.archivedDate();
     }
     private boolean getIsValidForLPRReports() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();

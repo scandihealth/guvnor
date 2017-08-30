@@ -129,8 +129,8 @@ public class MetadataCreatorTest {
         assertEquals( lprMock.errorType(), metadata.getErrorType() );
         assertEquals( lprMock.ruleGroup(), metadata.getRuleGroup() );
         assertEquals( lprMock.errorNumber(), metadata.getErrorNumber() );
-        assertEquals( lprMock.inProduction(), metadata.isInProduction() );
-        assertEquals( lprMock.isDraft(), metadata.isDraft() );
+        assertEquals( lprMock.productionDate(), metadata.getProductionDate() );
+        assertEquals( lprMock.archivedDate(), metadata.getArchivedDate() );
         assertEquals( lprMock.isValidForLPRReports(), metadata.isValidForLPRReports() );
         assertEquals( lprMock.isValidForDUSASSpecialityReports(), metadata.isValidForDUSASAbroadReports() );
         assertEquals( lprMock.isValidForDUSASSpecialityReports(), metadata.isValidForDUSASSpecialityReports() );

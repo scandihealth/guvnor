@@ -59,11 +59,11 @@ public class LprMetaAttributesUtil {
                 if ( attribute.equals( "*" ) || attribute.equals( EPISODE_OF_CARE_START_TO_DATE ) ) {
                     put( EPISODE_OF_CARE_START_TO_DATE, attrs.episodeOfCareStartToDate() );
                 }
-                if ( attribute.equals( "*" ) || attribute.equals( IS_DRAFT ) ) {
-                    put( IS_DRAFT, attrs.isDraft() );
+                if ( attribute.equals( "*" ) || attribute.equals( ARCHIVED_DATE ) ) {
+                    put( ARCHIVED_DATE, attrs.archivedDate() );
                 }
-                if ( attribute.equals( "*" ) || attribute.equals( IN_PRODUCTION ) ) {
-                    put( IN_PRODUCTION, attrs.inProduction() );
+                if ( attribute.equals( "*" ) || attribute.equals( PRODUCTION_DATE ) ) {
+                    put( PRODUCTION_DATE, attrs.productionDate() );
                 }
                 if ( attribute.equals( "*" ) || attribute.equals( IS_VALID_FOR_LPR_REPORTS ) ) {
                     put( IS_VALID_FOR_LPR_REPORTS, attrs.isValidForLPRReports() );

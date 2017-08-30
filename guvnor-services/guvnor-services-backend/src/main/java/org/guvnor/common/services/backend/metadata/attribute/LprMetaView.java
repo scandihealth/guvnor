@@ -125,13 +125,13 @@ public class LprMetaView
             }
 
             @Override
-            public boolean isDraft() {
-                return content.containsKey( IS_DRAFT ) ? ( Boolean ) content.get( IS_DRAFT ) : Boolean.FALSE;
+            public Long archivedDate() {
+                return content.containsKey( ARCHIVED_DATE ) ? ( Long ) content.get( ARCHIVED_DATE ) : 0L;
             }
 
             @Override
-            public boolean inProduction() {
-                return content.containsKey( IN_PRODUCTION ) ? ( Boolean ) content.get( IN_PRODUCTION ) : Boolean.FALSE;
+            public Long productionDate() {
+                return content.containsKey( PRODUCTION_DATE ) ? ( Long ) content.get( PRODUCTION_DATE ) : 0L;
             }
 
             @Override

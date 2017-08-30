@@ -70,8 +70,8 @@ public final class MetadataBuilder {
     private Long encounterEndToDate;
     private Long episodeOfCareStartFromDate;
     private Long episodeOfCareStartToDate;
-    private boolean isDraft;
-    private boolean inProduction;
+    private Long productionDate;
+    private Long archivedDate;
     private boolean isValidForLPRReports;
     private boolean isValidForDUSASAbroadReports;
     private boolean isValidForDUSASSpecialityReports;
@@ -213,13 +213,13 @@ public final class MetadataBuilder {
         return this;
     }
 
-    public MetadataBuilder withIsDraft( final boolean isDraft ) {
-        this.isDraft = isDraft;
+    public MetadataBuilder withArchivedDate( final Long archivedDate ) {
+        this.archivedDate = archivedDate;
         return this;
     }
 
-    public MetadataBuilder withInProduction( final boolean inProduction ) {
-        this.inProduction = inProduction;
+    public MetadataBuilder withProductionDate( final Long productionDate ) {
+        this.productionDate = productionDate;
         return this;
     }
     public MetadataBuilder withIsValidForLPRReports( final boolean isValidForLPRReports ) {
@@ -281,8 +281,8 @@ public final class MetadataBuilder {
                 encounterEndToDate,
                 episodeOfCareStartFromDate,
                 episodeOfCareStartToDate,
-                isDraft,
-                inProduction,
+                archivedDate,
+                productionDate,
                 isValidForLPRReports,
                 isValidForDUSASAbroadReports,
                 isValidForDUSASSpecialityReports,
