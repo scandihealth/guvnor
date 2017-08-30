@@ -29,10 +29,16 @@ import org.guvnor.common.services.backend.exceptions.ExceptionUtilities;
 import org.guvnor.common.services.backend.metadata.attribute.DiscussionAttributes;
 import org.guvnor.common.services.backend.metadata.attribute.DiscussionAttributesUtil;
 import org.guvnor.common.services.backend.metadata.attribute.DiscussionView;
+import org.guvnor.common.services.backend.metadata.attribute.LprMetaAttributes;
+import org.guvnor.common.services.backend.metadata.attribute.LprMetaAttributesUtil;
+import org.guvnor.common.services.backend.metadata.attribute.LprMetaView;
 import org.guvnor.common.services.backend.metadata.attribute.OtherMetaAttributes;
 import org.guvnor.common.services.backend.metadata.attribute.OtherMetaAttributesUtil;
 import org.guvnor.common.services.backend.metadata.attribute.OtherMetaView;
 import org.guvnor.common.services.shared.metadata.model.DiscussionRecord;
+import org.guvnor.common.services.shared.metadata.model.LprErrorType;
+import org.guvnor.common.services.shared.metadata.model.LprRuleGroup;
+import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.guvnor.common.services.shared.metadata.model.Metadata;
 import org.jboss.errai.bus.server.annotations.Service;
 import org.uberfire.backend.server.util.Paths;
@@ -72,6 +78,12 @@ public class MetadataServiceImpl
         this.ioService = ioService;
     }
 
+    public MetadataServiceImpl( IOService ioService, IOService configIOService, SessionInfo sessionInfo ) {
+        this.ioService = ioService;
+        this.configIOService = configIOService;
+        this.sessionInfo = sessionInfo;
+    }
+
     @Override
     public Metadata getMetadata( final Path pathToResource ) {
         return getMetadata( Paths.convert( pathToResource ) );
@@ -82,12 +94,13 @@ public class MetadataServiceImpl
 
         try {
             return new MetadataCreator( path,
-                                        configIOService,
-                                        sessionInfo,
-                                        ioService.getFileAttributeView( path, DublinCoreView.class ),
-                                        ioService.getFileAttributeView( path, DiscussionView.class ),
-                                        ioService.getFileAttributeView( path, OtherMetaView.class ),
-                                        ioService.getFileAttributeView( path, VersionAttributeView.class ) ).create();
+                    configIOService,
+                    sessionInfo,
+                    ioService.getFileAttributeView( path, DublinCoreView.class ),
+                    ioService.getFileAttributeView( path, DiscussionView.class ),
+                    ioService.getFileAttributeView( path, OtherMetaView.class ),
+                    ioService.getFileAttributeView( path, VersionAttributeView.class ),
+                    ioService.getFileAttributeView( path, LprMetaView.class ) ).create();
 
         } catch ( Exception e ) {
             throw ExceptionUtilities.handleException( e );
@@ -97,16 +110,16 @@ public class MetadataServiceImpl
     @Override
     public List<String> getTags( final Path resource ) {
         checkNotNull( "resource",
-                      resource );
+                resource );
         return getTags( Paths.convert( resource ) );
     }
 
     @Override
     public List<String> getTags( final org.uberfire.java.nio.file.Path resource ) {
         checkNotNull( "resource",
-                      resource );
+                resource );
         final OtherMetaView otherMetaView = ioService.getFileAttributeView( resource,
-                                                                            OtherMetaView.class );
+                OtherMetaView.class );
         if ( otherMetaView != null ) {
             return otherMetaView.readAttributes().tags();
         } else {
@@ -125,6 +138,7 @@ public class MetadataServiceImpl
             attrs = DublinCoreAttributesUtil.cleanup( attrs );
             attrs = DiscussionAttributesUtil.cleanup( attrs );
             attrs = OtherMetaAttributesUtil.cleanup( attrs );
+            attrs = LprMetaAttributesUtil.cleanup( attrs );
 
             attrs.putAll( DiscussionAttributesUtil.toMap(
                     new DiscussionAttributes() {
@@ -358,6 +372,145 @@ public class MetadataServiceImpl
                         @Override
                         public Object fileKey() {
                             return null;
+                        }
+                    }, "*" ) );
+
+            attrs.putAll( LprMetaAttributesUtil.toMap(
+                    new LprMetaAttributes() {
+                        @Override
+                        public FileTime lastModifiedTime() {
+                            return null;
+                        }
+
+                        @Override
+                        public FileTime lastAccessTime() {
+                            return null;
+                        }
+
+                        @Override
+                        public FileTime creationTime() {
+                            return null;
+                        }
+
+                        @Override
+                        public boolean isRegularFile() {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean isDirectory() {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean isSymbolicLink() {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean isOther() {
+                            return false;
+                        }
+
+                        @Override
+                        public long size() {
+                            return 0;
+                        }
+
+                        @Override
+                        public Object fileKey() {
+                            return null;
+                        }
+
+                        //LPR metadata
+                        @Override
+                        public LprRuleType ruleType() {
+                            return metadata.getRuleType();
+                        }
+
+                        @Override
+                        public Long reportReceivedFromDate() {
+                            return metadata.getReportReceivedFromDate();
+                        }
+
+                        @Override
+                        public Long reportReceivedToDate() {
+                            return metadata.getReportReceivedToDate();
+                        }
+
+                        @Override
+                        public Long encounterStartFromDate() {
+                            return metadata.getEncounterStartFromDate();
+                        }
+
+                        @Override
+                        public Long encounterStartToDate() {
+                            return metadata.getEncounterStartToDate();
+                        }
+
+                        @Override
+                        public Long encounterEndFromDate() {
+                            return metadata.getEncounterEndFromDate();
+                        }
+
+                        @Override
+                        public Long encounterEndToDate() {
+                            return metadata.getEncounterEndToDate();
+                        }
+
+                        @Override
+                        public Long episodeOfCareStartFromDate() {
+                            return metadata.getEpisodeOfCareStartFromDate();
+                        }
+
+                        @Override
+                        public Long episodeOfCareStartToDate() {
+                            return metadata.getEpisodeOfCareStartToDate();
+                        }
+
+                        @Override
+                        public Long archivedDate() {
+                            return metadata.getArchivedDate();
+                        }
+
+                        @Override
+                        public Long productionDate() {
+                            return metadata.getProductionDate();
+                        }
+
+                        @Override
+                        public boolean isValidForLPRReports() {
+                            return metadata.isValidForLPRReports();
+                        }
+
+                        @Override
+                        public boolean isValidForDUSASAbroadReports() {
+                            return metadata.isValidForDUSASAbroadReports();
+                        }
+
+                        @Override
+                        public boolean isValidForDUSASSpecialityReports() {
+                            return metadata.isValidForDUSASSpecialityReports();
+                        }
+
+                        @Override
+                        public Long errorNumber() {
+                            return metadata.getErrorNumber();
+                        }
+
+                        @Override
+                        public String errorText() {
+                            return metadata.getErrorText();
+                        }
+
+                        @Override
+                        public LprRuleGroup ruleGroup() {
+                            return metadata.getRuleGroup();
+                        }
+
+                        @Override
+                        public LprErrorType errorType() {
+                            return metadata.getErrorType();
                         }
                     }, "*" ) );
 

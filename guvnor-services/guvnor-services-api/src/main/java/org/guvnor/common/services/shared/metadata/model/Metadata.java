@@ -40,8 +40,8 @@ public class Metadata {
     private String lastContributor;
     private String creator;
     //git -> basic file attrs
-    private Date   lastModified;
-    private Date   dateCreated;
+    private Date lastModified;
+    private Date dateCreated;
 
     //pure dcore
     private String subject;
@@ -51,9 +51,29 @@ public class Metadata {
     private String description;
 
     //not dcore
-    private List<String>           tags = new ArrayList<String>();
+    private List<String> tags = new ArrayList<String>();
     private List<DiscussionRecord> discussion = new ArrayList<DiscussionRecord>();
-    private List<VersionRecord>    version    = new ArrayList<VersionRecord>();
+    private List<VersionRecord> version = new ArrayList<VersionRecord>();
+
+    // lpr
+    private LprRuleType ruleType;
+    private Long archivedDate;
+    private Long productionDate;
+    private boolean isValidForLPRReports;
+    private boolean isValidForDUSASAbroadReports;
+    private boolean isValidForDUSASSpecialityReports;
+    private Long errorNumber;
+    private String errorText;
+    private LprRuleGroup ruleGroup;
+    private LprErrorType errorType;
+    private Long reportReceivedFromDate;
+    private Long reportReceivedToDate;
+    private Long encounterStartFromDate;
+    private Long encounterStartToDate;
+    private Long encounterEndFromDate;
+    private Long encounterEndToDate;
+    private Long episodeOfCareStartFromDate;
+    private Long episodeOfCareStartToDate;
 
     public Metadata() {
 
@@ -74,7 +94,25 @@ public class Metadata {
                      final List<String> tags,
                      final List<DiscussionRecord> discussion,
                      final List<VersionRecord> version,
-                     final LockInfo lockInfo) {
+                     final LockInfo lockInfo,
+                     final LprRuleType ruleType,
+                     final Long reportReceivedFromDate,
+                     final Long reportReceivedToDate,
+                     final Long encounterStartFromDate,
+                     final Long encounterStartToDate,
+                     final Long encounterEndFromDate,
+                     final Long encounterEndToDate,
+                     final Long episodeOfCareStartFromDate,
+                     final Long episodeOfCareStartToDate,
+                     final Long archivedDate,
+                     final Long productionDate,
+                     final boolean isValidForLPRReports,
+                     final boolean isValidForDUSASAbroadReports,
+                     final boolean isValidForDUSASSpecialityReports,
+                     final Long errorNumber,
+                     final String errorText,
+                     final LprRuleGroup ruleGroup,
+                     final LprErrorType errorType ) {
         this.path = path;
         this.realPath = realPath;
         this.checkinComment = checkinComment;
@@ -91,12 +129,31 @@ public class Metadata {
         this.discussion = discussion;
         this.version = version;
         this.lockInfo = lockInfo;
+        //LPR
+        this.reportReceivedFromDate = reportReceivedFromDate;
+        this.reportReceivedToDate = reportReceivedToDate;
+        this.encounterStartFromDate = encounterStartFromDate;
+        this.encounterStartToDate = encounterStartToDate;
+        this.encounterEndFromDate = encounterEndFromDate;
+        this.encounterEndToDate = encounterEndToDate;
+        this.episodeOfCareStartFromDate = episodeOfCareStartFromDate;
+        this.episodeOfCareStartToDate = episodeOfCareStartToDate;
+        this.ruleType = ruleType;
+        this.isValidForLPRReports = isValidForLPRReports;
+        this.isValidForDUSASAbroadReports = isValidForDUSASAbroadReports;
+        this.isValidForDUSASSpecialityReports = isValidForDUSASSpecialityReports;
+        this.setArchivedDate( archivedDate );
+        this.setProductionDate( productionDate );
+        this.setErrorNumber( errorNumber );
+        this.setErrorText( errorText );
+        this.setRuleGroup( ruleGroup );
+        this.setErrorType( errorType );
     }
 
     public Path getPath() {
         return path;
     }
-    
+
     public Path getRealPath() {
         return realPath;
     }
@@ -152,11 +209,11 @@ public class Metadata {
     public List<VersionRecord> getVersion() {
         return version;
     }
-    
+
     public LockInfo getLockInfo() {
         return lockInfo;
     }
-    
+
     public void setLockInfo( LockInfo lockInfo ) {
         this.lockInfo = lockInfo;
     }
@@ -256,6 +313,61 @@ public class Metadata {
         if ( lockInfo != null ? !lockInfo.equals( metadata.lockInfo ) : metadata.lockInfo != null ) {
             return false;
         }
+        //lpr metadata //todo remember to add all LPR meta data here
+        if ( errorNumber != null ? !errorNumber.equals( metadata.errorNumber ) : metadata.errorNumber != null ) {
+            return false;
+        }
+        if ( errorText != null ? !errorText.equals( metadata.errorText ) : metadata.errorText != null ) {
+            return false;
+        }
+        if ( errorType != null ? !errorType.equals( metadata.errorType ) : metadata.errorType != null ) {
+            return false;
+        }
+        if ( reportReceivedFromDate != null ? !reportReceivedFromDate.equals( metadata.reportReceivedFromDate ) : metadata.reportReceivedFromDate != null ) {
+            return false;
+        }
+        if ( reportReceivedToDate != null ? !reportReceivedToDate.equals( metadata.reportReceivedToDate ) : metadata.reportReceivedToDate != null ) {
+            return false;
+        }
+        if ( encounterStartFromDate != null ? !encounterStartFromDate.equals( metadata.encounterStartFromDate ) : metadata.encounterStartFromDate != null ) {
+            return false;
+        }
+        if ( encounterStartToDate != null ? !encounterStartToDate.equals( metadata.encounterStartToDate ) : metadata.encounterStartToDate != null ) {
+            return false;
+        }
+        if ( encounterEndFromDate != null ? !encounterEndFromDate.equals( metadata.encounterEndFromDate ) : metadata.encounterEndFromDate != null ) {
+            return false;
+        }
+        if ( encounterEndToDate != null ? !encounterEndToDate.equals( metadata.encounterEndToDate ) : metadata.encounterEndToDate != null ) {
+            return false;
+        }
+        if ( episodeOfCareStartFromDate != null ? !episodeOfCareStartFromDate.equals( metadata.episodeOfCareStartFromDate ) : metadata.episodeOfCareStartFromDate != null ) {
+            return false;
+        }
+        if ( episodeOfCareStartToDate != null ? !episodeOfCareStartToDate.equals( metadata.episodeOfCareStartToDate ) : metadata.episodeOfCareStartToDate != null ) {
+            return false;
+        }
+        if ( productionDate != null ? !productionDate.equals( metadata.productionDate ) : metadata.productionDate != null ) {
+            return false;
+        }
+        if ( archivedDate != metadata.archivedDate ) {
+            return false;
+        }
+        if ( isValidForLPRReports != metadata.isValidForLPRReports ) {
+            return false;
+        }
+        if ( isValidForDUSASAbroadReports != metadata.isValidForDUSASAbroadReports ) {
+            return false;
+        }
+        if ( isValidForDUSASSpecialityReports != metadata.isValidForDUSASSpecialityReports ) {
+            return false;
+        }
+        if ( ruleGroup != null ? !ruleGroup.equals( metadata.ruleGroup ) : metadata.ruleGroup != null ) {
+            return false;
+        }
+        if ( ruleType != null ? !ruleType.equals( metadata.ruleType ) : metadata.ruleType != null ) {
+            return false;
+        }
 
         return true;
     }
@@ -266,32 +378,213 @@ public class Metadata {
         result = ~~result;
         result = 31 * result + (realPath != null ? realPath.hashCode() : 0);
         result = ~~result;
-        result = 31 * result + ( checkinComment != null ? checkinComment.hashCode() : 0 );
+        result = 31 * result + (checkinComment != null ? checkinComment.hashCode() : 0);
         result = ~~result;
-        result = 31 * result + ( lastContributor != null ? lastContributor.hashCode() : 0 );
+        result = 31 * result + (lastContributor != null ? lastContributor.hashCode() : 0);
         result = ~~result;
-        result = 31 * result + ( creator != null ? creator.hashCode() : 0 );
+        result = 31 * result + (creator != null ? creator.hashCode() : 0);
         result = ~~result;
-        result = 31 * result + ( lastModified != null ? lastModified.hashCode() : 0 );
+        result = 31 * result + (lastModified != null ? lastModified.hashCode() : 0);
         result = ~~result;
-        result = 31 * result + ( dateCreated != null ? dateCreated.hashCode() : 0 );
+        result = 31 * result + (dateCreated != null ? dateCreated.hashCode() : 0);
         result = ~~result;
-        result = 31 * result + ( subject != null ? subject.hashCode() : 0 );
+        result = 31 * result + (subject != null ? subject.hashCode() : 0);
         result = ~~result;
-        result = 31 * result + ( type != null ? type.hashCode() : 0 );
+        result = 31 * result + (type != null ? type.hashCode() : 0);
         result = ~~result;
-        result = 31 * result + ( externalRelation != null ? externalRelation.hashCode() : 0 );
+        result = 31 * result + (externalRelation != null ? externalRelation.hashCode() : 0);
         result = ~~result;
-        result = 31 * result + ( externalSource != null ? externalSource.hashCode() : 0 );
+        result = 31 * result + (externalSource != null ? externalSource.hashCode() : 0);
         result = ~~result;
-        result = 31 * result + ( description != null ? description.hashCode() : 0 );
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         result = ~~result;
-        result = 31 * result + ( tags != null ? tags.hashCode() : 0 );
+        result = 31 * result + (tags != null ? tags.hashCode() : 0);
         result = ~~result;
-        result = 31 * result + ( discussion != null ? discussion.hashCode() : 0 );
+        result = 31 * result + (discussion != null ? discussion.hashCode() : 0);
         result = ~~result;
-        result = 31 * result + ( version != null ? version.hashCode() : 0 );
+        result = 31 * result + (version != null ? version.hashCode() : 0);
+        result = ~~result;
+        //lpr meta data //todo remember to add all LPR meta data here
+        result = 31 * result + (errorNumber != null ? errorNumber.hashCode() : 0);
+        result = ~~result;
+        result = 31 * result + (errorText != null ? errorText.hashCode() : 0);
+        result = ~~result;
+        result = 31 * result + (errorType != null ? errorType.hashCode() : 0);
+        result = ~~result;
+        result = 31 * result + (reportReceivedFromDate != null ? reportReceivedFromDate.hashCode() : 0);
+        result = ~~result;
+        result = 31 * result + (reportReceivedToDate != null ? reportReceivedToDate.hashCode() : 0);
+        result = ~~result;
+        result = 31 * result + (encounterStartFromDate != null ? encounterStartFromDate.hashCode() : 0);
+        result = ~~result;
+        result = 31 * result + (encounterStartToDate != null ? encounterStartToDate.hashCode() : 0);
+        result = ~~result;
+        result = 31 * result + (encounterEndFromDate != null ? encounterEndFromDate.hashCode() : 0);
+        result = ~~result;
+        result = 31 * result + (encounterEndToDate != null ? encounterEndToDate.hashCode() : 0);
+        result = ~~result;
+        result = 31 * result + (episodeOfCareStartFromDate != null ? episodeOfCareStartFromDate.hashCode() : 0);
+        result = ~~result;
+        result = 31 * result + (episodeOfCareStartToDate != null ? episodeOfCareStartToDate.hashCode() : 0);
+        result = ~~result;
+        result = 31 * result + (productionDate != null ? productionDate.hashCode() : 0);
+        result = ~~result;
+        result = 31 * result + (archivedDate != null ? archivedDate.hashCode() : 0);
+        result = ~~result;
+        result = 31 * result + (isValidForLPRReports ? 1 : 0);
+        result = ~~result;
+        result = 31 * result + (isValidForDUSASAbroadReports ? 1 : 0);
+        result = ~~result;
+        result = 31 * result + (isValidForDUSASSpecialityReports ? 1 : 0);
+        result = ~~result;
+        result = 31 * result + (ruleGroup != null ? ruleGroup.hashCode() : 0);
+        result = ~~result;
+        result = 31 * result + (ruleType != null ? ruleType.hashCode() : 0);
         result = ~~result;
         return result;
+    }
+
+    public LprRuleType getRuleType() {
+        return ruleType;
+    }
+
+    public void setRuleType( LprRuleType ruleType ) {
+        this.ruleType = ruleType;
+    }
+
+    public Long getReportReceivedFromDate() {
+        return reportReceivedFromDate;
+    }
+
+    public void setReportReceivedFromDate( Long reportReceivedFromDate ) {
+        this.reportReceivedFromDate = reportReceivedFromDate;
+    }
+
+    public Long getReportReceivedToDate() {
+        return reportReceivedToDate;
+    }
+
+    public void setReportReceivedToDate( Long reportReceivedToDate ) {
+        this.reportReceivedToDate = reportReceivedToDate;
+    }
+
+    public Long getArchivedDate() {
+        return archivedDate;
+    }
+
+    public void setArchivedDate( Long archivedDate ) {
+        this.archivedDate = archivedDate;
+    }
+
+    public Long getProductionDate() {
+        return productionDate;
+    }
+
+    public void setProductionDate( Long productionDate ) {
+        this.productionDate = productionDate;
+    }
+
+    public Long getErrorNumber() {
+        return errorNumber;
+    }
+
+    public void setErrorNumber( Long errorNumber ) {
+        this.errorNumber = errorNumber;
+    }
+
+    public String getErrorText() {
+        return errorText;
+    }
+
+    public void setErrorText( String errorText ) {
+        this.errorText = errorText;
+    }
+
+    public LprRuleGroup getRuleGroup() {
+        return ruleGroup;
+    }
+
+    public void setRuleGroup( LprRuleGroup ruleGroup ) {
+        this.ruleGroup = ruleGroup;
+    }
+
+    public LprErrorType getErrorType() {
+        return errorType;
+    }
+
+    public void setErrorType( LprErrorType errorType ) {
+        this.errorType = errorType;
+    }
+
+    public Long getEncounterStartFromDate() {
+        return encounterStartFromDate;
+    }
+
+    public void setEncounterStartFromDate( Long encounterStartFromDate ) {
+        this.encounterStartFromDate = encounterStartFromDate;
+    }
+
+    public Long getEncounterStartToDate() {
+        return encounterStartToDate;
+    }
+
+    public void setEncounterStartToDate( Long encounterStartToDate ) {
+        this.encounterStartToDate = encounterStartToDate;
+    }
+
+    public boolean isValidForLPRReports() {
+        return isValidForLPRReports;
+    }
+
+    public void setValidForLPRReports( boolean validForLPRReports ) {
+        isValidForLPRReports = validForLPRReports;
+    }
+
+    public boolean isValidForDUSASAbroadReports() {
+        return isValidForDUSASAbroadReports;
+    }
+
+    public void setValidForDUSASAbroadReports( boolean validForDUSASAbroadReports ) {
+        isValidForDUSASAbroadReports = validForDUSASAbroadReports;
+    }
+
+    public boolean isValidForDUSASSpecialityReports() {
+        return isValidForDUSASSpecialityReports;
+    }
+
+    public void setValidForDUSASSpecialityReports( boolean validForDUSASSpecialityReports ) {
+        isValidForDUSASSpecialityReports = validForDUSASSpecialityReports;
+    }
+
+    public Long getEncounterEndFromDate() {
+        return encounterEndFromDate;
+    }
+
+    public void setEncounterEndFromDate( Long encounterEndFromDate ) {
+        this.encounterEndFromDate = encounterEndFromDate;
+    }
+
+    public Long getEncounterEndToDate() {
+        return encounterEndToDate;
+    }
+
+    public void setEncounterEndToDate( Long encounterEndToDate ) {
+        this.encounterEndToDate = encounterEndToDate;
+    }
+
+    public Long getEpisodeOfCareStartFromDate() {
+        return episodeOfCareStartFromDate;
+    }
+
+    public void setEpisodeOfCareStartFromDate( Long episodeOfCareStartFromDate ) {
+        this.episodeOfCareStartFromDate = episodeOfCareStartFromDate;
+    }
+
+    public Long getEpisodeOfCareStartToDate() {
+        return episodeOfCareStartToDate;
+    }
+
+    public void setEpisodeOfCareStartToDate( Long episodeOfCareStartToDate ) {
+        this.episodeOfCareStartToDate = episodeOfCareStartToDate;
     }
 }

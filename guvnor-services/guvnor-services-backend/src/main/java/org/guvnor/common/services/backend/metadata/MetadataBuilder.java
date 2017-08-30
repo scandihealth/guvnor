@@ -16,18 +16,20 @@
 
 package org.guvnor.common.services.backend.metadata;
 
-import static org.uberfire.commons.validation.PortablePreconditions.checkNotEmpty;
-import static org.uberfire.commons.validation.PortablePreconditions.checkNotNull;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.guvnor.common.services.shared.metadata.model.DiscussionRecord;
+import org.guvnor.common.services.shared.metadata.model.LprErrorType;
+import org.guvnor.common.services.shared.metadata.model.LprRuleGroup;
+import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.guvnor.common.services.shared.metadata.model.Metadata;
 import org.uberfire.backend.vfs.Path;
 import org.uberfire.backend.vfs.impl.LockInfo;
 import org.uberfire.java.nio.base.version.VersionRecord;
+
+import static org.uberfire.commons.validation.PortablePreconditions.*;
 
 /**
  *
@@ -58,6 +60,26 @@ public final class MetadataBuilder {
     private List<DiscussionRecord> discussion = new ArrayList<DiscussionRecord>();
     private List<VersionRecord> version = new ArrayList<VersionRecord>();
 
+    // lpr
+    private LprRuleType lprRuleType;
+    private Long reportReceivedFromDate;
+    private Long reportReceivedToDate;
+    private Long encounterStartFromDate;
+    private Long encounterStartToDate;
+    private Long encounterEndFromDate;
+    private Long encounterEndToDate;
+    private Long episodeOfCareStartFromDate;
+    private Long episodeOfCareStartToDate;
+    private Long productionDate;
+    private Long archivedDate;
+    private boolean isValidForLPRReports;
+    private boolean isValidForDUSASAbroadReports;
+    private boolean isValidForDUSASSpecialityReports;
+    private Long errorNumber;
+    private String errorText;
+    private LprRuleGroup ruleGroup;
+    private LprErrorType errorType;
+
     private MetadataBuilder() {
 
     }
@@ -70,12 +92,12 @@ public final class MetadataBuilder {
         this.path = checkNotNull( "path", path );
         return this;
     }
-    
+
     public MetadataBuilder withRealPath( final Path realPath ) {
         this.realPath = checkNotNull( "realPath", realPath );
         return this;
     }
-    
+
     public MetadataBuilder withCheckinComment( final String checkinComment ) {
         this.checkinComment = checkinComment;
         return this;
@@ -140,29 +162,133 @@ public final class MetadataBuilder {
         this.version = version;
         return this;
     }
-    
+
     public MetadataBuilder withLockInfo( final LockInfo lockInfo ) {
         this.lockInfo = lockInfo;
         return this;
     }
-    
-    public Metadata build() {
-        return new Metadata( path,
-                             realPath,
-                             checkinComment,
-                             lastContributor,
-                             creator,
-                             lastModified,
-                             dateCreated,
-                             subject,
-                             type,
-                             externalRelation,
-                             externalSource,
-                             description,
-                             tags,
-                             discussion,
-                             version,
-                             lockInfo );
+
+    public MetadataBuilder withLprRuleType( final LprRuleType lprRuleType ) {
+        this.lprRuleType = lprRuleType;
+        return this;
     }
 
+    public MetadataBuilder withReportReceivedFromDate( final Long reportReceivedFromDate ) {
+        this.reportReceivedFromDate = reportReceivedFromDate;
+        return this;
+    }
+
+    public MetadataBuilder withReportReceivedToDate( final Long reportReceivedToDate ) {
+        this.reportReceivedToDate = reportReceivedToDate;
+        return this;
+    }
+
+    public MetadataBuilder withEncounterStartFromDate( final Long encounterStartFromDate ) {
+        this.encounterStartFromDate = encounterStartFromDate;
+        return this;
+    }
+
+    public MetadataBuilder withEncounterStartToDate( final Long encounterStartToDate ) {
+        this.encounterStartToDate = encounterStartToDate;
+        return this;
+    }
+
+    public MetadataBuilder withEncounterEndFromDate( final Long encounterEndFromDate) {
+        this.encounterEndFromDate = encounterEndFromDate;
+        return this;
+    }
+
+    public MetadataBuilder withEncounterEndToDate( final Long encounterEndToDate) {
+        this.encounterEndToDate = encounterEndToDate;
+        return this;
+    }
+
+    public MetadataBuilder withEpisodeOfCareStartFromDate( final Long episodeOfCareStartFromDate) {
+        this.episodeOfCareStartFromDate = episodeOfCareStartFromDate;
+        return this;
+    }
+
+    public MetadataBuilder withEpisodeOfCareStartToDate( final Long episodeOfCareStartToDate) {
+        this.episodeOfCareStartToDate = episodeOfCareStartToDate;
+        return this;
+    }
+
+    public MetadataBuilder withArchivedDate( final Long archivedDate ) {
+        this.archivedDate = archivedDate;
+        return this;
+    }
+
+    public MetadataBuilder withProductionDate( final Long productionDate ) {
+        this.productionDate = productionDate;
+        return this;
+    }
+    public MetadataBuilder withIsValidForLPRReports( final boolean isValidForLPRReports ) {
+        this.isValidForLPRReports = isValidForLPRReports;
+        return this;
+    }
+    public MetadataBuilder withIsValidForDUSASAbroadReports( final boolean isValidForDUSASAbroadReports ) {
+        this.isValidForDUSASAbroadReports = isValidForDUSASAbroadReports;
+        return this;
+    }
+    public MetadataBuilder withIsValidForDUSASSpecialityReports( final boolean isValidForDUSASSpecialityReports ) {
+        this.isValidForDUSASSpecialityReports = isValidForDUSASSpecialityReports;
+        return this;
+    }
+
+    public MetadataBuilder withErrorNumber( final Long errorNumber ) {
+        this.errorNumber = errorNumber;
+        return this;
+    }
+
+    public MetadataBuilder withErrorText( final String errorText ) {
+        this.errorText = errorText;
+        return this;
+    }
+
+    public MetadataBuilder withRuleGroup( final LprRuleGroup ruleGroup ) {
+        this.ruleGroup = ruleGroup;
+        return this;
+    }
+
+    public MetadataBuilder withErrorType( final LprErrorType errorType ) {
+        this.errorType = errorType;
+        return this;
+    }
+
+    public Metadata build() {
+        return new Metadata( path,
+                realPath,
+                checkinComment,
+                lastContributor,
+                creator,
+                lastModified,
+                dateCreated,
+                subject,
+                type,
+                externalRelation,
+                externalSource,
+                description,
+                tags,
+                discussion,
+                version,
+                lockInfo,
+                lprRuleType,
+                reportReceivedFromDate,
+                reportReceivedToDate,
+                encounterStartFromDate,
+                encounterStartToDate,
+                encounterEndFromDate,
+                encounterEndToDate,
+                episodeOfCareStartFromDate,
+                episodeOfCareStartToDate,
+                archivedDate,
+                productionDate,
+                isValidForLPRReports,
+                isValidForDUSASAbroadReports,
+                isValidForDUSASSpecialityReports,
+                errorNumber,
+                errorText,
+                ruleGroup,
+                errorType );
+    }
 }

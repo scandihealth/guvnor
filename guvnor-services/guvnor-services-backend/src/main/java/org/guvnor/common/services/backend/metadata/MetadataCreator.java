@@ -21,8 +21,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.guvnor.common.services.backend.metadata.attribute.DiscussionView;
+import org.guvnor.common.services.backend.metadata.attribute.LprMetaAttributes;
+import org.guvnor.common.services.backend.metadata.attribute.LprMetaView;
 import org.guvnor.common.services.backend.metadata.attribute.OtherMetaView;
 import org.guvnor.common.services.shared.metadata.model.DiscussionRecord;
+import org.guvnor.common.services.shared.metadata.model.LprErrorType;
+import org.guvnor.common.services.shared.metadata.model.LprRuleGroup;
+import org.guvnor.common.services.shared.metadata.model.LprRuleType;
 import org.guvnor.common.services.shared.metadata.model.Metadata;
 import org.uberfire.backend.server.util.Paths;
 import org.uberfire.backend.vfs.PathFactory;
@@ -47,6 +52,7 @@ public class MetadataCreator {
     private final DiscussionView discussView;
     private final OtherMetaView otherMetaView;
     private final VersionAttributeView versionAttributeView;
+    private final LprMetaView lprMetaView;
     private final IOService configIOService;
     private final SessionInfo sessionInfo;
 
@@ -56,7 +62,8 @@ public class MetadataCreator {
                             DublinCoreView dublinCoreView,
                             DiscussionView discussionView,
                             OtherMetaView otherMetaView,
-                            VersionAttributeView versionAttributeView ) {
+                            VersionAttributeView versionAttributeView,
+                            LprMetaView lprMetaView ) {
         this.path = checkNotNull( "path", path );
         this.configIOService = checkNotNull( "configIOService", configIOService );
         this.sessionInfo = checkNotNull( "sessionInfo", sessionInfo );
@@ -64,6 +71,7 @@ public class MetadataCreator {
         this.discussView = checkNotNull( "discussionView", discussionView );
         this.otherMetaView = checkNotNull( "otherMetaView", otherMetaView );
         this.versionAttributeView = checkNotNull( "versionAttributeView", versionAttributeView );
+        this.lprMetaView = checkNotNull( "lprMetaView", lprMetaView );
     }
 
     public Metadata create() {
@@ -84,6 +92,24 @@ public class MetadataCreator {
                 .withDiscussion( getDiscussion() )
                 .withLockInfo( retrieveLockInfo( Paths.convert( path ) ) )
                 .withVersion( getVersion() )
+                .withLprRuleType( getLprRuleType() )
+                .withProductionDate( getProductionDate() )
+                .withArchivedDate( getArchivedDate() )
+                .withIsValidForLPRReports( getIsValidForLPRReports() )
+                .withIsValidForDUSASAbroadReports( getIsValidForDUSASAbroadReports() )
+                .withIsValidForDUSASSpecialityReports( getIsValidForDUSASSpecialityReports() )
+                .withReportReceivedFromDate( getReportReceivedFromDate() )
+                .withReportReceivedToDate( getReportReceivedToDate() )
+                .withEncounterStartFromDate( getEncounterStartFromDate() )
+                .withEncounterStartToDate( getEncounterStartToDate() )
+                .withEncounterEndFromDate( getEncounterEndFromDate() )
+                .withEncounterEndToDate( getEncounterEndToDate() )
+                .withEpisodeOfCareStartFromDate( getEpisodeOfCareStartFromDate() )
+                .withEpisodeOfCareStartToDate( getEpisodeOfCareStartToDate() )
+                .withErrorNumber( getErrorNumber() )
+                .withErrorText( getErrorText() )
+                .withRuleGroup( getRuleGroup() )
+                .withErrorType( getErrorType() )
                 .build();
     }
 
@@ -164,14 +190,100 @@ public class MetadataCreator {
             //See https://issues.jboss.org/browse/GUVNOR-2399. We simply try to read the lock file returning a default.
             final String lockedBy = configIOService.readAllString( lockPath );
             return new LockInfo( true,
-                                 lockedBy,
-                                 path );
+                    lockedBy,
+                    path );
 
         } catch ( NoSuchFileException nsfe ) {
             return new LockInfo( false,
-                                 "",
-                                 path );
+                    "",
+                    path );
         }
     }
 
+    private LprRuleType getLprRuleType() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.ruleType();
+    }
+
+    private Long getProductionDate() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.productionDate();
+    }
+
+    private Long getArchivedDate() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.archivedDate();
+    }
+    private boolean getIsValidForLPRReports() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.isValidForLPRReports();
+    }
+    private boolean getIsValidForDUSASAbroadReports() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.isValidForDUSASAbroadReports();
+    }
+    private boolean getIsValidForDUSASSpecialityReports() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.isValidForDUSASSpecialityReports();
+    }
+
+    private Long getReportReceivedFromDate() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.reportReceivedFromDate();
+    }
+
+    private Long getReportReceivedToDate() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.reportReceivedToDate();
+    }
+
+    private Long getEncounterStartFromDate() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.encounterStartFromDate();
+    }
+
+    private Long getEncounterStartToDate() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.encounterStartToDate();
+    }
+
+    private Long getEncounterEndFromDate() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.encounterEndFromDate();
+    }
+
+    private Long getEncounterEndToDate() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.encounterEndToDate();
+    }
+
+    private Long getEpisodeOfCareStartFromDate() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.episodeOfCareStartFromDate();
+    }
+
+    private Long getEpisodeOfCareStartToDate() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.episodeOfCareStartToDate();
+    }
+
+    private Long getErrorNumber() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.errorNumber();
+    }
+
+    private String getErrorText() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.errorText();
+    }
+
+    private LprRuleGroup getRuleGroup() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.ruleGroup();
+    }
+
+    private LprErrorType getErrorType() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.errorType();
+    }
 }
