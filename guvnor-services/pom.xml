@@ -32,6 +32,6 @@
   <modules>
     <module>guvnor-services-api</module>
     <module>guvnor-services-backend</module>
-    <module>guvnor-services-consts</module>
+    <module>guvnor-lpr-consts</module>
   </modules>
 </project>
