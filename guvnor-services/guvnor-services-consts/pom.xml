@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>guvnor-services-consts</artifactId>
+    <artifactId>guvnor-lpr-consts</artifactId>
 
-    <name>Guvnor - Services Constants</name>
-    <description>Guvnor - Services Constants</description>
+    <name>Guvnor - LPR Constants</name>
+    <description>Guvnor - LPR Constants</description>
 
 </project>

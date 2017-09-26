@@ -86,7 +86,7 @@ public class LprMetaAttributesUtil {
                     put( RULE_GROUP, ruleGroupId ); //save id instead of enum name to make search work
                 }
                 if ( attribute.equals( "*" ) || attribute.equals( ERROR_TYPE ) ) {
-                    String errorTypeId = attrs.errorType() != null ? attrs.errorType().getId() : LprErrorType.NONE.getId();
+                    String errorTypeId = attrs.errorType() != null ? attrs.errorType().getId() : LprErrorType.OK.getId();
                     put( ERROR_TYPE, errorTypeId ); //save id instead of enum name to make search work
                 }
 

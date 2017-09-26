@@ -15,6 +15,10 @@
   <description>Guvnor - Services API</description>
 
   <dependencies>
+    <dependency>
+      <groupId>org.guvnor</groupId>
+      <artifactId>guvnor-lpr-consts</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>javax.inject</groupId>
