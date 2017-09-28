@@ -494,6 +494,11 @@ public class MetadataServiceImpl
                         }
 
                         @Override
+                        public boolean isValidForPrivateSectorReports() {
+                            return metadata.isValidForPrivateSectorReports();
+                        }
+
+                        @Override
                         public Long errorNumber() {
                             return metadata.getErrorNumber();
                         }

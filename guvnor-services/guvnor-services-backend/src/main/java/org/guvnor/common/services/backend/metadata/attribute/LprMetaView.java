@@ -150,6 +150,11 @@ public class LprMetaView
             }
 
             @Override
+            public boolean isValidForPrivateSectorReports() {
+                return content.containsKey( IS_VALID_FOR_PRIVATE_SECTOR_REPORTS ) ? ( Boolean ) content.get( IS_VALID_FOR_PRIVATE_SECTOR_REPORTS ) : Boolean.FALSE;
+            }
+
+            @Override
             public Long errorNumber() {
                 //errorNumber is stored as string to make wild card searches possible
                 return Long.valueOf( content.containsKey( ERROR_NUMBER ) ? content.get( ERROR_NUMBER ).toString() : "0" );

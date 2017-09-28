@@ -39,6 +39,7 @@ public class LprMetaAttributesUtilTest {
             put( IS_VALID_FOR_LPR_REPORTS, true);
             put( IS_VALID_FOR_DUSAS_ABROAD_REPORTS, false);
             put( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS, false);
+            put( IS_VALID_FOR_PRIVATE_SECTOR_REPORTS, true);
             put("SomeFunkyTestKey", "SomeFunkyTestValue");
         }};
 
@@ -62,6 +63,7 @@ public class LprMetaAttributesUtilTest {
         assertNull( returnedContent.get( IS_VALID_FOR_LPR_REPORTS ));
         assertNull( returnedContent.get( IS_VALID_FOR_DUSAS_ABROAD_REPORTS ));
         assertNull( returnedContent.get( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS ));
+        assertNull( returnedContent.get( IS_VALID_FOR_PRIVATE_SECTOR_REPORTS ));
         assertNotNull( returnedContent.get( "SomeFunkyTestKey" ) );
     }
 
@@ -87,6 +89,7 @@ public class LprMetaAttributesUtilTest {
         assertEquals( mock.isValidForLPRReports(), returnedContent.get( IS_VALID_FOR_LPR_REPORTS ));
         assertEquals( mock.isValidForDUSASSpecialityReports(), returnedContent.get( IS_VALID_FOR_DUSAS_ABROAD_REPORTS ));
         assertEquals( mock.isValidForDUSASSpecialityReports(), returnedContent.get( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS ));
+        assertEquals( mock.isValidForPrivateSectorReports(), returnedContent.get( IS_VALID_FOR_PRIVATE_SECTOR_REPORTS ));
     }
 
     @Test
@@ -111,5 +114,6 @@ public class LprMetaAttributesUtilTest {
         assertEquals( mock.isValidForLPRReports(), returnedContent.get( IS_VALID_FOR_LPR_REPORTS ));
         assertNull( returnedContent.get( IS_VALID_FOR_DUSAS_ABROAD_REPORTS ));
         assertNull( returnedContent.get( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS ));
+        assertNull( returnedContent.get( IS_VALID_FOR_PRIVATE_SECTOR_REPORTS ));
     }
 }
