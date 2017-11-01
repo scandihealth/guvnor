@@ -36,6 +36,7 @@ public class LprMetaAttributesUtilTest {
             put( RULE_GROUP, TEST_RULE_GROUP);
             put( PRODUCTION_DATE, false);
             put( ARCHIVED_DATE, true);
+            put( HAS_PROD_VERSION, true);
             put( IS_VALID_FOR_LPR_REPORTS, true);
             put( IS_VALID_FOR_DUSAS_ABROAD_REPORTS, false);
             put( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS, false);
@@ -60,6 +61,7 @@ public class LprMetaAttributesUtilTest {
         assertNull( returnedContent.get( RULE_GROUP ));
         assertNull( returnedContent.get( PRODUCTION_DATE ));
         assertNull( returnedContent.get( ARCHIVED_DATE ));
+        assertNull( returnedContent.get( HAS_PROD_VERSION ));
         assertNull( returnedContent.get( IS_VALID_FOR_LPR_REPORTS ));
         assertNull( returnedContent.get( IS_VALID_FOR_DUSAS_ABROAD_REPORTS ));
         assertNull( returnedContent.get( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS ));
@@ -85,6 +87,7 @@ public class LprMetaAttributesUtilTest {
         assertEquals( mock.ruleGroup().getId(), returnedContent.get( RULE_GROUP ));
         assertEquals( mock.errorNumber().toString(), returnedContent.get( ERROR_NUMBER ) );
         assertEquals( mock.productionDate(), returnedContent.get( PRODUCTION_DATE ));
+        assertEquals( mock.hasProdVersion(), returnedContent.get( HAS_PROD_VERSION ));
         assertEquals( mock.archivedDate(), returnedContent.get( ARCHIVED_DATE ));
         assertEquals( mock.isValidForLPRReports(), returnedContent.get( IS_VALID_FOR_LPR_REPORTS ));
         assertEquals( mock.isValidForDUSASSpecialityReports(), returnedContent.get( IS_VALID_FOR_DUSAS_ABROAD_REPORTS ));
@@ -110,6 +113,7 @@ public class LprMetaAttributesUtilTest {
         assertNull( returnedContent.get( ERROR_TYPE ));
         assertNull( returnedContent.get( RULE_GROUP ));
         assertNull( returnedContent.get( PRODUCTION_DATE ));
+        assertNull( returnedContent.get( HAS_PROD_VERSION ));
         assertNull( returnedContent.get( ARCHIVED_DATE ));
         assertEquals( mock.isValidForLPRReports(), returnedContent.get( IS_VALID_FOR_LPR_REPORTS ));
         assertNull( returnedContent.get( IS_VALID_FOR_DUSAS_ABROAD_REPORTS ));

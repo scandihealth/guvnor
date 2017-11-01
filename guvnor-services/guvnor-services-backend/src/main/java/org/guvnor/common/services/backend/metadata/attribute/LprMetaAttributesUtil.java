@@ -65,6 +65,9 @@ public class LprMetaAttributesUtil {
                 if ( attribute.equals( "*" ) || attribute.equals( PRODUCTION_DATE ) ) {
                     put( PRODUCTION_DATE, attrs.productionDate() );
                 }
+                if ( attribute.equals( "*" ) || attribute.equals( HAS_PROD_VERSION ) ) {
+                    put( HAS_PROD_VERSION, attrs.hasProdVersion() );
+                }
                 if ( attribute.equals( "*" ) || attribute.equals( IS_VALID_FOR_LPR_REPORTS ) ) {
                     put( IS_VALID_FOR_LPR_REPORTS, attrs.isValidForLPRReports() );
                 }

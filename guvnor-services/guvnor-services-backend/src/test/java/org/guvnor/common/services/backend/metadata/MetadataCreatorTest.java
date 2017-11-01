@@ -130,6 +130,7 @@ public class MetadataCreatorTest {
         assertEquals( lprMock.ruleGroup(), metadata.getRuleGroup() );
         assertEquals( lprMock.errorNumber(), metadata.getErrorNumber() );
         assertEquals( lprMock.productionDate(), metadata.getProductionDate() );
+        assertEquals( lprMock.hasProdVersion(), metadata.hasProdVersion() );
         assertEquals( lprMock.archivedDate(), metadata.getArchivedDate() );
         assertEquals( lprMock.isValidForLPRReports(), metadata.isValidForLPRReports() );
         assertEquals( lprMock.isValidForDUSASSpecialityReports(), metadata.isValidForDUSASAbroadReports() );

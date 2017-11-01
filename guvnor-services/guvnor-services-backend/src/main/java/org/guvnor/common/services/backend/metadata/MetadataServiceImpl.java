@@ -479,6 +479,11 @@ public class MetadataServiceImpl
                         }
 
                         @Override
+                        public boolean hasProdVersion() {
+                            return metadata.hasProdVersion();
+                        }
+
+                        @Override
                         public boolean isValidForLPRReports() {
                             return metadata.isValidForLPRReports();
                         }

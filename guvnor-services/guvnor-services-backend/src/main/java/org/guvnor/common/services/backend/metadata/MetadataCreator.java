@@ -95,6 +95,7 @@ public class MetadataCreator {
                 .withLprRuleType( getLprRuleType() )
                 .withProductionDate( getProductionDate() )
                 .withArchivedDate( getArchivedDate() )
+                .withHasProdVersion( hasProdVersion() )
                 .withIsValidForLPRReports( getIsValidForLPRReports() )
                 .withIsValidForDUSASAbroadReports( getIsValidForDUSASAbroadReports() )
                 .withIsValidForDUSASSpecialityReports( getIsValidForDUSASSpecialityReports() )
@@ -214,6 +215,10 @@ public class MetadataCreator {
     private Long getArchivedDate() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
         return lprMetaAttributes.archivedDate();
+    }
+    private boolean hasProdVersion() {
+        LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
+        return lprMetaAttributes.hasProdVersion();
     }
     private boolean getIsValidForLPRReports() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();

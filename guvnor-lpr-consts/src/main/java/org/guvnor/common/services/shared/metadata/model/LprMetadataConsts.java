@@ -1,7 +1,5 @@
 package org.guvnor.common.services.shared.metadata.model;
 
-import java.util.ArrayList;
-
 /**
  * Created on 15-06-2017.
  */
@@ -18,6 +16,7 @@ public class LprMetadataConsts {
     public static final String IS_VALID_FOR_DUSAS_ABROAD_REPORTS = LPRMETA + ".isValidForDUSASAbroadReports";
     public static final String IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS = LPRMETA + ".isValidForDUSASSpecialityReports";
     public static final String IS_VALID_FOR_PRIVATE_SECTOR_REPORTS = LPRMETA + ".isValidForPrivateSectorReports";
+    public static final String HAS_PROD_VERSION = LPRMETA + ".hasProdVersion";
     public static final String PRODUCTION_DATE = LPRMETA + ".productionDate";
     public static final String ARCHIVED_DATE = LPRMETA + ".archivedDate";
     public static final String REPORT_RECEIVED_FROM_DATE = LPRMETA + ".reportReceivedFromDate";
@@ -41,6 +40,7 @@ public class LprMetadataConsts {
         add( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS );
         add( IS_VALID_FOR_PRIVATE_SECTOR_REPORTS );
         add( PRODUCTION_DATE );
+        add( HAS_PROD_VERSION );
         add( ARCHIVED_DATE );
         add( REPORT_RECEIVED_FROM_DATE );
         add( REPORT_RECEIVED_TO_DATE );

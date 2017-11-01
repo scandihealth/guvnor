@@ -20,6 +20,7 @@ public interface LprMetaAttributes extends BasicFileAttributes {
     Long episodeOfCareStartToDate();
     Long archivedDate();
     Long productionDate();
+    boolean hasProdVersion();
     boolean isValidForLPRReports();
     boolean isValidForDUSASAbroadReports();
     boolean isValidForDUSASSpecialityReports();

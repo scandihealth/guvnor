@@ -135,6 +135,11 @@ public class LprMetaView
             }
 
             @Override
+            public boolean hasProdVersion() {
+                return content.containsKey( HAS_PROD_VERSION ) ? ( Boolean ) content.get( HAS_PROD_VERSION ) : Boolean.FALSE;
+            }
+
+            @Override
             public boolean isValidForLPRReports() {
                 return content.containsKey( IS_VALID_FOR_LPR_REPORTS ) ? ( Boolean ) content.get( IS_VALID_FOR_LPR_REPORTS ) : Boolean.FALSE;
             }

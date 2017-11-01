@@ -20,7 +20,8 @@ public class LprMetaAttributesMock implements LprMetaAttributes, Cloneable {
     public Long episodeOfCareStartFromDate = 100L;
     public Long episodeOfCareStartToDate = 100L;
     public Long productionDate = 700L;
-    public Long archivedDate = 800L;
+    public Long archivedDate = 0L;
+    public boolean hasProdVersion = true;
     public boolean isValidForLPRReports = true;
     public boolean isValidForDUSASAbroadReports = false;
     public boolean isValidForDUSASSpecialityReports = false;
@@ -88,6 +89,11 @@ public class LprMetaAttributesMock implements LprMetaAttributes, Cloneable {
     @Override
     public Long productionDate() {
         return productionDate;
+    }
+
+    @Override
+    public boolean hasProdVersion() {
+        return hasProdVersion;
     }
 
     @Override

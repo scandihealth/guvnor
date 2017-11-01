@@ -59,6 +59,7 @@ public class Metadata {
     private LprRuleType ruleType;
     private Long archivedDate;
     private Long productionDate;
+    private boolean hasProdVersion;
     private boolean isValidForLPRReports;
     private boolean isValidForDUSASAbroadReports;
     private boolean isValidForDUSASSpecialityReports;
@@ -107,6 +108,7 @@ public class Metadata {
                      final Long episodeOfCareStartToDate,
                      final Long archivedDate,
                      final Long productionDate,
+                     final boolean hasProdVersion,
                      final boolean isValidForLPRReports,
                      final boolean isValidForDUSASAbroadReports,
                      final boolean isValidForDUSASSpecialityReports,
@@ -141,16 +143,17 @@ public class Metadata {
         this.episodeOfCareStartFromDate = episodeOfCareStartFromDate;
         this.episodeOfCareStartToDate = episodeOfCareStartToDate;
         this.ruleType = ruleType;
+        this.archivedDate = archivedDate;
+        this.productionDate = productionDate;
+        this.hasProdVersion = hasProdVersion;
         this.isValidForLPRReports = isValidForLPRReports;
         this.isValidForDUSASAbroadReports = isValidForDUSASAbroadReports;
         this.isValidForDUSASSpecialityReports = isValidForDUSASSpecialityReports;
         this.isValidForPrivateSectorReports = isValidForPrivateSectorReports;
-        this.setArchivedDate( archivedDate );
-        this.setProductionDate( productionDate );
-        this.setErrorNumber( errorNumber );
-        this.setErrorText( errorText );
-        this.setRuleGroup( ruleGroup );
-        this.setErrorType( errorType );
+        this.errorNumber = errorNumber;
+        this.errorText = errorText;
+        this.ruleGroup = ruleGroup;
+        this.errorType = errorType;
     }
 
     public Path getPath() {
@@ -353,7 +356,10 @@ public class Metadata {
         if ( productionDate != null ? !productionDate.equals( metadata.productionDate ) : metadata.productionDate != null ) {
             return false;
         }
-        if ( archivedDate != metadata.archivedDate ) {
+        if ( archivedDate != null ? !archivedDate.equals( metadata.archivedDate ) : metadata.archivedDate != null ) {
+            return false;
+        }
+        if ( hasProdVersion != metadata.hasProdVersion ) {
             return false;
         }
         if ( isValidForLPRReports != metadata.isValidForLPRReports ) {
@@ -436,6 +442,8 @@ public class Metadata {
         result = 31 * result + (productionDate != null ? productionDate.hashCode() : 0);
         result = ~~result;
         result = 31 * result + (archivedDate != null ? archivedDate.hashCode() : 0);
+        result = ~~result;
+        result = 31 * result + (hasProdVersion ? 1 : 0);
         result = ~~result;
         result = 31 * result + (isValidForLPRReports ? 1 : 0);
         result = ~~result;
@@ -602,5 +610,13 @@ public class Metadata {
 
     public void setEpisodeOfCareStartToDate( Long episodeOfCareStartToDate ) {
         this.episodeOfCareStartToDate = episodeOfCareStartToDate;
+    }
+
+    public boolean hasProdVersion() {
+        return hasProdVersion;
+    }
+
+    public void setHasProdVersion( boolean hasProdVersion ) {
+        this.hasProdVersion = hasProdVersion;
     }
 }

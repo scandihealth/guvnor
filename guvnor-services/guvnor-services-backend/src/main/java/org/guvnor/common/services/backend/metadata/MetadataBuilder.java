@@ -72,6 +72,7 @@ public final class MetadataBuilder {
     private Long episodeOfCareStartToDate;
     private Long productionDate;
     private Long archivedDate;
+    private boolean hasProdVersion;
     private boolean isValidForLPRReports;
     private boolean isValidForDUSASAbroadReports;
     private boolean isValidForDUSASSpecialityReports;
@@ -223,6 +224,10 @@ public final class MetadataBuilder {
         this.productionDate = productionDate;
         return this;
     }
+    public MetadataBuilder withHasProdVersion( final boolean hasProdVersion ) {
+        this.hasProdVersion = hasProdVersion;
+        return this;
+    }
     public MetadataBuilder withIsValidForLPRReports( final boolean isValidForLPRReports ) {
         this.isValidForLPRReports = isValidForLPRReports;
         return this;
@@ -288,6 +293,7 @@ public final class MetadataBuilder {
                 episodeOfCareStartToDate,
                 archivedDate,
                 productionDate,
+                hasProdVersion,
                 isValidForLPRReports,
                 isValidForDUSASAbroadReports,
                 isValidForDUSASSpecialityReports,
