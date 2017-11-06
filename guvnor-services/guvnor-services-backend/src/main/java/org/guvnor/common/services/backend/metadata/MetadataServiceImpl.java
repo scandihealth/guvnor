@@ -499,8 +499,8 @@ public class MetadataServiceImpl
                         }
 
                         @Override
-                        public boolean isValidForPrivateSectorReports() {
-                            return metadata.isValidForPrivateSectorReports();
+                        public boolean isValidForPrimarySectorReports() {
+                            return metadata.isValidForPrimarySectorReports();
                         }
 
                         @Override

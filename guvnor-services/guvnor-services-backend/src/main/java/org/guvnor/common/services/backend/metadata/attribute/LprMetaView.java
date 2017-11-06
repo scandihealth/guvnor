@@ -155,8 +155,8 @@ public class LprMetaView
             }
 
             @Override
-            public boolean isValidForPrivateSectorReports() {
-                return content.containsKey( IS_VALID_FOR_PRIVATE_SECTOR_REPORTS ) ? ( Boolean ) content.get( IS_VALID_FOR_PRIVATE_SECTOR_REPORTS ) : Boolean.FALSE;
+            public boolean isValidForPrimarySectorReports() {
+                return content.containsKey( IS_VALID_FOR_PRIMARY_SECTOR_REPORTS ) ? ( Boolean ) content.get( IS_VALID_FOR_PRIMARY_SECTOR_REPORTS ) : Boolean.FALSE;
             }
 
             @Override

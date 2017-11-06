@@ -24,7 +24,7 @@ public interface LprMetaAttributes extends BasicFileAttributes {
     boolean isValidForLPRReports();
     boolean isValidForDUSASAbroadReports();
     boolean isValidForDUSASSpecialityReports();
-    boolean isValidForPrivateSectorReports();
+    boolean isValidForPrimarySectorReports();
     Long errorNumber();
     String errorText();
     LprRuleGroup ruleGroup();

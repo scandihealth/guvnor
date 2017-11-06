@@ -76,7 +76,7 @@ public final class MetadataBuilder {
     private boolean isValidForLPRReports;
     private boolean isValidForDUSASAbroadReports;
     private boolean isValidForDUSASSpecialityReports;
-    private boolean isValidForPrivateSectorReports;
+    private boolean isValidForPrimarySectorReports;
     private Long errorNumber;
     private String errorText;
     private LprRuleGroup ruleGroup;
@@ -240,8 +240,8 @@ public final class MetadataBuilder {
         this.isValidForDUSASSpecialityReports = isValidForDUSASSpecialityReports;
         return this;
     }
-    public MetadataBuilder withIsValidForPrivateSectorReports( final boolean isValidForPrivateSectorReports ) {
-        this.isValidForPrivateSectorReports = isValidForPrivateSectorReports;
+    public MetadataBuilder withIsValidForPrimarySectorReports( final boolean isValidForPrivateSectorReports ) {
+        this.isValidForPrimarySectorReports = isValidForPrivateSectorReports;
         return this;
     }
 
@@ -297,7 +297,7 @@ public final class MetadataBuilder {
                 isValidForLPRReports,
                 isValidForDUSASAbroadReports,
                 isValidForDUSASSpecialityReports,
-                isValidForPrivateSectorReports,
+                isValidForPrimarySectorReports,
                 errorNumber,
                 errorText,
                 ruleGroup,

@@ -77,8 +77,8 @@ public class LprMetaAttributesUtil {
                 if ( attribute.equals( "*" ) || attribute.equals( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS ) ) {
                     put( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS, attrs.isValidForDUSASSpecialityReports() );
                 }
-                if ( attribute.equals( "*" ) || attribute.equals( IS_VALID_FOR_PRIVATE_SECTOR_REPORTS ) ) {
-                    put( IS_VALID_FOR_PRIVATE_SECTOR_REPORTS, attrs.isValidForPrivateSectorReports() );
+                if ( attribute.equals( "*" ) || attribute.equals( IS_VALID_FOR_PRIMARY_SECTOR_REPORTS ) ) {
+                    put( IS_VALID_FOR_PRIMARY_SECTOR_REPORTS, attrs.isValidForPrimarySectorReports() );
                 }
                 if ( attribute.equals( "*" ) || attribute.equals( ERROR_NUMBER ) ) {
                     //errorNumber is stored as string to make wild card searches possible

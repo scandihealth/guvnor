@@ -15,7 +15,7 @@ public class LprMetadataConsts {
     public static final String IS_VALID_FOR_LPR_REPORTS = LPRMETA + ".isValidForLPRReports";
     public static final String IS_VALID_FOR_DUSAS_ABROAD_REPORTS = LPRMETA + ".isValidForDUSASAbroadReports";
     public static final String IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS = LPRMETA + ".isValidForDUSASSpecialityReports";
-    public static final String IS_VALID_FOR_PRIVATE_SECTOR_REPORTS = LPRMETA + ".isValidForPrivateSectorReports";
+    public static final String IS_VALID_FOR_PRIMARY_SECTOR_REPORTS = LPRMETA + ".isValidForPrimarySectorReports";
     public static final String HAS_PROD_VERSION = LPRMETA + ".hasProdVersion";
     public static final String PRODUCTION_DATE = LPRMETA + ".productionDate";
     public static final String ARCHIVED_DATE = LPRMETA + ".archivedDate";
@@ -38,7 +38,7 @@ public class LprMetadataConsts {
         add( IS_VALID_FOR_LPR_REPORTS );
         add( IS_VALID_FOR_DUSAS_ABROAD_REPORTS );
         add( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS );
-        add( IS_VALID_FOR_PRIVATE_SECTOR_REPORTS );
+        add( IS_VALID_FOR_PRIMARY_SECTOR_REPORTS );
         add( PRODUCTION_DATE );
         add( HAS_PROD_VERSION );
         add( ARCHIVED_DATE );

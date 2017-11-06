@@ -99,7 +99,7 @@ public class MetadataCreator {
                 .withIsValidForLPRReports( getIsValidForLPRReports() )
                 .withIsValidForDUSASAbroadReports( getIsValidForDUSASAbroadReports() )
                 .withIsValidForDUSASSpecialityReports( getIsValidForDUSASSpecialityReports() )
-                .withIsValidForPrivateSectorReports( getIsValidForPrivateSectorReports() )
+                .withIsValidForPrimarySectorReports( getIsValidForPrimarySectorReports() )
                 .withReportReceivedFromDate( getReportReceivedFromDate() )
                 .withReportReceivedToDate( getReportReceivedToDate() )
                 .withEncounterStartFromDate( getEncounterStartFromDate() )
@@ -232,9 +232,9 @@ public class MetadataCreator {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
         return lprMetaAttributes.isValidForDUSASSpecialityReports();
     }
-    private boolean getIsValidForPrivateSectorReports() {
+    private boolean getIsValidForPrimarySectorReports() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
-        return lprMetaAttributes.isValidForPrivateSectorReports();
+        return lprMetaAttributes.isValidForPrimarySectorReports();
     }
 
     private Long getReportReceivedFromDate() {
