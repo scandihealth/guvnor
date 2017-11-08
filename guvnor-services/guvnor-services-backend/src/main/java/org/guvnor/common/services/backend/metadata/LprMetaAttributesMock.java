@@ -30,7 +30,7 @@ public class LprMetaAttributesMock implements LprMetaAttributes, Cloneable {
     public LprErrorType errorType = LprErrorType.ERROR;
     public LprRuleType ruleType = LprRuleType.REPORT_VALIDATION;
     public String errorText = "Vi tester LPR";
-    public LprRuleGroup ruleGroup = LprRuleGroup.MOBST;
+    public LprRuleGroup ruleGroup = LprRuleGroup.KONTAKT;
 
     public Object clone() throws CloneNotSupportedException {
         return super.clone();

@@ -3,29 +3,23 @@ package org.guvnor.common.services.shared.metadata.model;
 import java.util.HashMap;
 import java.util.Map;
 
-//todo ttn consider if this enum should be declared in LPR3 and imported as maven dependency in drools-wb
 public enum LprRuleGroup {
     NONE("" , "0" ),
-    MOBST("MOBST", "1"),
-    ULYKK("ULYKK", "2"),
-    STEDF("STEDF", "3"),
-    OKOMB("OKOMB", "4"),
-    INDUD("INDUD", "5"),
+    BETALINGSOPLYSNING("Betalingsoplysning", "1"),
+    BOPAEL("Bopæl", "2"),
+    DIAGNOSE("Diagnose", "3"),
+    FORLOEBSELEMENT("Forløbselement", "4"),
+    FORLOEBSMARKOER("Forløbsmarkør", "5"),
     INDUD_SKSKO_MOBST("INDUD/SKSKO/MOBST", "6"),
-    PSYKI("PSYKI", "7"),
-    INDUD_BESOG("INDUD/BESØG", "8"),
-    INDUD_SKSKO("INDUD/SKSKO", "9"),
-    BESOG("BESØG", "10"),
-    SKSKO("SKSKO", "11"),
-    INDUD_PASSV("INDUD/PASSV", "12"),
-    PATIENT("PATIENT", "13"),
-    PASSV("PASSV", "14"),
-    INDUD_VENTE("INDUD/VENTE", "15"),
-    VENTE("VENTE", "16"),
-    OPERA("OPERA", "17"),
-    DUSAS("DUSAS", "18"),
-    BOBST("BOBST", "19"),
-    DUSAS_SPEC("DUSAS.SPEC", "20");
+    HENVISNING("Henvisning", "7"),
+    KONTAKT("Kontakt", "8"),
+    KONTAKTAARSAG("Kontaktårsag", "9"),
+    OPHOLDSADRESSE("Opholdsadresse", "10"),
+    PATIENT("Patient", "11"),
+    PROCEDURE("Procedure", "12"),
+    REFERENCE("Reference", "13"),
+    RESULTAT("Resultat", "14"),
+    RESULTATINDBERETNING("Resultatindberetning", "15");
 
     private String id;
     private static final Map<String, LprRuleGroup> _idMap = new HashMap<String, LprRuleGroup>();

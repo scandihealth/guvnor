@@ -48,7 +48,7 @@ public class LprMetaViewTest {
             put( ERROR_NUMBER, "300");
             put( ERROR_TEXT, TEST_ERROR_TEXT);
             put( ERROR_TYPE, LprErrorType.FATAL.getId());
-            put( RULE_GROUP, LprRuleGroup.OPERA.getId());
+            put( RULE_GROUP, LprRuleGroup.BETALINGSOPLYSNING.getId());
             put( PRODUCTION_DATE, 100L);
             put( ARCHIVED_DATE, 100L);
             put( IS_VALID_FOR_LPR_REPORTS, true);
