@@ -10,7 +10,6 @@ public enum LprRuleGroup {
     DIAGNOSE("Diagnose", "3"),
     FORLOEBSELEMENT("Forløbselement", "4"),
     FORLOEBSMARKOER("Forløbsmarkør", "5"),
-    INDUD_SKSKO_MOBST("INDUD/SKSKO/MOBST", "6"),
     HENVISNING("Henvisning", "7"),
     KONTAKT("Kontakt", "8"),
     KONTAKTAARSAG("Kontaktårsag", "9"),
