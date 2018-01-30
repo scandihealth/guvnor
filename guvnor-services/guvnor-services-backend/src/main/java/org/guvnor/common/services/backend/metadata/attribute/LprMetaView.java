@@ -86,7 +86,7 @@ public class LprMetaView
 
             @Override
             public Long reportReceivedFromDate() {
-                return content.containsKey( REPORT_RECEIVED_FROM_DATE ) ? ( Long ) content.get( REPORT_RECEIVED_FROM_DATE ) : 0L;
+                return content.containsKey( REPORT_RECEIVED_FROM_DATE ) ? ( Long ) content.get( REPORT_RECEIVED_FROM_DATE ) : Long.MIN_VALUE;
             }
 
             @Override
@@ -96,7 +96,7 @@ public class LprMetaView
 
             @Override
             public Long encounterStartFromDate() {
-                return content.containsKey( ENCOUNTER_START_FROM_DATE ) ? ( Long ) content.get( ENCOUNTER_START_FROM_DATE ) : 0L;
+                return content.containsKey( ENCOUNTER_START_FROM_DATE ) ? ( Long ) content.get( ENCOUNTER_START_FROM_DATE ) : Long.MIN_VALUE;
             }
 
             @Override
@@ -106,7 +106,7 @@ public class LprMetaView
 
             @Override
             public Long encounterEndFromDate() {
-                return content.containsKey( ENCOUNTER_END_FROM_DATE ) ? ( Long ) content.get( ENCOUNTER_END_FROM_DATE ) : 0L;
+                return content.containsKey( ENCOUNTER_END_FROM_DATE ) ? ( Long ) content.get( ENCOUNTER_END_FROM_DATE ) : Long.MIN_VALUE;
             }
 
             @Override
@@ -116,7 +116,7 @@ public class LprMetaView
 
             @Override
             public Long episodeOfCareStartFromDate() {
-                return content.containsKey( EPISODE_OF_CARE_START_FROM_DATE ) ? ( Long ) content.get( EPISODE_OF_CARE_START_FROM_DATE ) : 0L;
+                return content.containsKey( EPISODE_OF_CARE_START_FROM_DATE ) ? ( Long ) content.get( EPISODE_OF_CARE_START_FROM_DATE ) : Long.MIN_VALUE;
             }
 
             @Override
