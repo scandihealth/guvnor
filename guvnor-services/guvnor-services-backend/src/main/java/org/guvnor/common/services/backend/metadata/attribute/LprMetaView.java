@@ -171,6 +171,11 @@ public class LprMetaView
             }
 
             @Override
+            public Integer errorByDays() {
+                return ( Integer ) content.get( ERROR_BY_DAYS );
+            }
+
+            @Override
             public LprRuleGroup ruleGroup() {
                 return content.containsKey( RULE_GROUP ) ? LprRuleGroup.getById( ( String ) content.get( RULE_GROUP ) ) : LprRuleGroup.NONE;
             }

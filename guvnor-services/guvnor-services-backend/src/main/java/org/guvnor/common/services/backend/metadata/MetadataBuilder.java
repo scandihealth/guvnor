@@ -79,6 +79,7 @@ public final class MetadataBuilder {
     private boolean isValidForPrimarySectorReports;
     private Long errorNumber;
     private String errorText;
+    private Integer errorByDays;
     private LprRuleGroup ruleGroup;
     private LprErrorType errorType;
 
@@ -255,6 +256,11 @@ public final class MetadataBuilder {
         return this;
     }
 
+    public MetadataBuilder withErrorByDays( final Integer errorByDays ) {
+        this.errorByDays = errorByDays;
+        return this;
+    }
+
     public MetadataBuilder withRuleGroup( final LprRuleGroup ruleGroup ) {
         this.ruleGroup = ruleGroup;
         return this;
@@ -300,6 +306,7 @@ public final class MetadataBuilder {
                 isValidForPrimarySectorReports,
                 errorNumber,
                 errorText,
+                errorByDays,
                 ruleGroup,
                 errorType );
     }

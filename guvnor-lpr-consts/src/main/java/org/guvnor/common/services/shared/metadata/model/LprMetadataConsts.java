@@ -12,6 +12,7 @@ public class LprMetadataConsts {
     public static final String RULE_GROUP = LPRMETA + ".ruleGroup";
     public static final String ERROR_TEXT = LPRMETA + ".errorText";
     public static final String ERROR_NUMBER = LPRMETA + ".errorNumber";
+    public static final String ERROR_BY_DAYS = LPRMETA + ".errorByDays";
     public static final String IS_VALID_FOR_LPR_REPORTS = LPRMETA + ".isValidForLPRReports";
     public static final String IS_VALID_FOR_DUSAS_ABROAD_REPORTS = LPRMETA + ".isValidForDUSASAbroadReports";
     public static final String IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS = LPRMETA + ".isValidForDUSASSpecialityReports";
@@ -27,31 +28,6 @@ public class LprMetadataConsts {
     public static final String ENCOUNTER_END_TO_DATE = LPRMETA + ".encounterEndToDate";
     public static final String EPISODE_OF_CARE_START_FROM_DATE = LPRMETA + ".episodeOfCareStartFromDate";
     public static final String EPISODE_OF_CARE_START_TO_DATE = LPRMETA + ".episodeOfCareStartToDate";
-
-/*
-    public static final ArrayList<String> ALL_METADATA = new ArrayList<String>() {{
-        add( RULE_TYPE );
-        add( ERROR_TYPE );
-        add( RULE_GROUP );
-        add( ERROR_TEXT );
-        add( ERROR_NUMBER );
-        add( IS_VALID_FOR_LPR_REPORTS );
-        add( IS_VALID_FOR_DUSAS_ABROAD_REPORTS );
-        add( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS );
-        add( IS_VALID_FOR_PRIMARY_SECTOR_REPORTS );
-        add( PRODUCTION_DATE );
-        add( HAS_PROD_VERSION );
-        add( ARCHIVED_DATE );
-        add( REPORT_RECEIVED_FROM_DATE );
-        add( REPORT_RECEIVED_TO_DATE );
-        add( ENCOUNTER_START_FROM_DATE );
-        add( ENCOUNTER_START_TO_DATE );
-        add( ENCOUNTER_END_FROM_DATE );
-        add( ENCOUNTER_END_TO_DATE );
-        add( EPISODE_OF_CARE_START_FROM_DATE );
-        add( EPISODE_OF_CARE_START_TO_DATE );
-    }};
-*/
 
     //Pseudo meta data that is not persisted, but only used to describe the search criteria for SearchService
     public static final String SEARCH_IS_PRODUCTION = LPRMETA + ".searchIsProduction";

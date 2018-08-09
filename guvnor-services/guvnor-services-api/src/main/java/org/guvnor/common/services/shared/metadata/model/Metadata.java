@@ -66,6 +66,7 @@ public class Metadata {
     private boolean isValidForPrimarySectorReports;
     private Long errorNumber;
     private String errorText;
+    private Integer errorByDays;
     private LprRuleGroup ruleGroup;
     private LprErrorType errorType;
     private Long reportReceivedFromDate;
@@ -115,6 +116,7 @@ public class Metadata {
                      final boolean isValidForPrimarySectorReports,
                      final Long errorNumber,
                      final String errorText,
+                     final Integer errorByDays,
                      final LprRuleGroup ruleGroup,
                      final LprErrorType errorType ) {
         this.path = path;
@@ -152,6 +154,7 @@ public class Metadata {
         this.isValidForPrimarySectorReports = isValidForPrimarySectorReports;
         this.errorNumber = errorNumber;
         this.errorText = errorText;
+        this.errorByDays = errorByDays;
         this.ruleGroup = ruleGroup;
         this.errorType = errorType;
     }
@@ -323,6 +326,9 @@ public class Metadata {
         if ( errorNumber != null ? !errorNumber.equals( metadata.errorNumber ) : metadata.errorNumber != null ) {
             return false;
         }
+        if ( errorByDays != null ? !errorByDays.equals( metadata.errorByDays ) : metadata.errorByDays != null ) {
+            return false;
+        }
         if ( errorText != null ? !errorText.equals( metadata.errorText ) : metadata.errorText != null ) {
             return false;
         }
@@ -417,6 +423,8 @@ public class Metadata {
         result = 31 * result + (version != null ? version.hashCode() : 0);
         result = ~~result;
         //lpr meta data //todo remember to add all LPR meta data here
+        result = 31 * result + (errorByDays != null ? errorByDays.hashCode() : 0);
+        result = ~~result;
         result = 31 * result + (errorNumber != null ? errorNumber.hashCode() : 0);
         result = ~~result;
         result = 31 * result + (errorText != null ? errorText.hashCode() : 0);
@@ -506,6 +514,14 @@ public class Metadata {
 
     public void setErrorNumber( Long errorNumber ) {
         this.errorNumber = errorNumber;
+    }
+
+    public Integer getErrorByDays() {
+        return errorByDays;
+    }
+
+    public void setErrorByDays( Integer errorByDays ) {
+        this.errorByDays = errorByDays;
     }
 
     public String getErrorText() {

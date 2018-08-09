@@ -514,6 +514,11 @@ public class MetadataServiceImpl
                         }
 
                         @Override
+                        public Integer errorByDays() {
+                            return metadata.getErrorByDays();
+                        }
+
+                        @Override
                         public LprRuleGroup ruleGroup() {
                             return metadata.getRuleGroup();
                         }
