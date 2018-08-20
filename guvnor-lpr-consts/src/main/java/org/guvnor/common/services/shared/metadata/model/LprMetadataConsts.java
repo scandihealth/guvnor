@@ -12,7 +12,7 @@ public class LprMetadataConsts {
     public static final String RULE_GROUP = LPRMETA + ".ruleGroup";
     public static final String ERROR_TEXT = LPRMETA + ".errorText";
     public static final String ERROR_NUMBER = LPRMETA + ".errorNumber";
-    public static final String ERROR_BY_DAYS = LPRMETA + ".errorByDays";
+    public static final String WARNING_TIME_LIMIT = LPRMETA + ".warningTimeLimit"; //number of days before warning turns into error (only positive integers should be taken into account)
     public static final String IS_VALID_FOR_LPR_REPORTS = LPRMETA + ".isValidForLPRReports";
     public static final String IS_VALID_FOR_DUSAS_ABROAD_REPORTS = LPRMETA + ".isValidForDUSASAbroadReports";
     public static final String IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS = LPRMETA + ".isValidForDUSASSpecialityReports";

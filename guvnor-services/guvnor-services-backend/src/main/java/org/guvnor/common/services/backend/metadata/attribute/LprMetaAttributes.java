@@ -27,7 +27,7 @@ public interface LprMetaAttributes extends BasicFileAttributes {
     boolean isValidForPrimarySectorReports();
     Long errorNumber();
     String errorText();
-    Integer errorByDays();
+    Integer warningTimeLimit();
     LprRuleGroup ruleGroup();
     LprErrorType errorType();
 }

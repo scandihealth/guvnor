@@ -110,7 +110,7 @@ public class MetadataCreator {
                 .withEpisodeOfCareStartToDate( getEpisodeOfCareStartToDate() )
                 .withErrorNumber( getErrorNumber() )
                 .withErrorText( getErrorText() )
-                .withErrorByDays( getErrorByDays() )
+                .withWarningTimeLimit( getWarningTimeLimit() )
                 .withRuleGroup( getRuleGroup() )
                 .withErrorType( getErrorType() )
                 .build();
@@ -288,9 +288,9 @@ public class MetadataCreator {
         return lprMetaAttributes.errorText();
     }
 
-    private Integer getErrorByDays() {
+    private Integer getWarningTimeLimit() {
         LprMetaAttributes lprMetaAttributes = lprMetaView.readAttributes();
-        return lprMetaAttributes.errorByDays();
+        return lprMetaAttributes.warningTimeLimit();
     }
 
     private LprRuleGroup getRuleGroup() {

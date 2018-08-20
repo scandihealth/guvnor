@@ -87,8 +87,8 @@ public class LprMetaAttributesUtil {
                 if ( attribute.equals( "*" ) || attribute.equals( ERROR_TEXT ) ) {
                     put( ERROR_TEXT, attrs.errorText() );
                 }
-                if ( attribute.equals( "*" ) || attribute.equals( ERROR_BY_DAYS ) ) {
-                    put( ERROR_BY_DAYS, attrs.errorByDays() );
+                if ( attribute.equals( "*" ) || attribute.equals( WARNING_TIME_LIMIT ) ) {
+                    put( WARNING_TIME_LIMIT, attrs.warningTimeLimit() );
                 }
                 if ( attribute.equals( "*" ) || attribute.equals( RULE_GROUP ) ) {
                     String ruleGroupId = attrs.ruleGroup() != null ? attrs.ruleGroup().getId() : LprRuleGroup.NONE.getId();

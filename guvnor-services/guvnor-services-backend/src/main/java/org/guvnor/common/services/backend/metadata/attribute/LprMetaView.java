@@ -171,8 +171,8 @@ public class LprMetaView
             }
 
             @Override
-            public Integer errorByDays() {
-                return ( Integer ) content.get( ERROR_BY_DAYS );
+            public Integer warningTimeLimit() {
+                return ( Integer ) content.get( WARNING_TIME_LIMIT );
             }
 
             @Override

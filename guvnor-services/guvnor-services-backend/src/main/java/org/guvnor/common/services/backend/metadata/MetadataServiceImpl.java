@@ -514,8 +514,8 @@ public class MetadataServiceImpl
                         }
 
                         @Override
-                        public Integer errorByDays() {
-                            return metadata.getErrorByDays();
+                        public Integer warningTimeLimit() {
+                            return metadata.getWarningTimeLimit();
                         }
 
                         @Override

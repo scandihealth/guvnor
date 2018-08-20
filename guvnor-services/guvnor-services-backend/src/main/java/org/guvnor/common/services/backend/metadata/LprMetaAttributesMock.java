@@ -27,7 +27,7 @@ public class LprMetaAttributesMock implements LprMetaAttributes, Cloneable {
     public boolean isValidForDUSASSpecialityReports = false;
     public boolean isValidForPrimarySectorReports = true;
     public Long errorNumber = 1L;
-    public Integer errorByDays = null;
+    public Integer warningTimeLimit = null;
     public LprErrorType errorType = LprErrorType.ERROR;
     public LprRuleType ruleType = LprRuleType.REPORT_VALIDATION;
     public String errorText = "Vi tester LPR";
@@ -123,7 +123,7 @@ public class LprMetaAttributesMock implements LprMetaAttributes, Cloneable {
     }
 
     @Override
-    public Integer errorByDays() {
+    public Integer warningTimeLimit() {
         return null;
     }
 
