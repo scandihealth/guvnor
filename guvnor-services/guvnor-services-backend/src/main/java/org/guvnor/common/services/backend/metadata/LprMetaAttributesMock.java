@@ -25,7 +25,7 @@ public class LprMetaAttributesMock implements LprMetaAttributes, Cloneable {
     public boolean isValidForLPRReports = true;
     public boolean isValidForDUSASAbroadReports = false;
     public boolean isValidForDUSASSpecialityReports = false;
-    public boolean isValidForPrimarySectorReports = true;
+    public boolean isValidForPrivateSectorReports = true;
     public Long errorNumber = 1L;
     public Integer warningTimeLimit = null;
     public LprErrorType errorType = LprErrorType.ERROR;
@@ -113,8 +113,8 @@ public class LprMetaAttributesMock implements LprMetaAttributes, Cloneable {
     }
 
     @Override
-    public boolean isValidForPrimarySectorReports() {
-        return isValidForPrimarySectorReports;
+    public boolean isValidForPrivateSectorReports() {
+        return isValidForPrivateSectorReports;
     }
 
     @Override

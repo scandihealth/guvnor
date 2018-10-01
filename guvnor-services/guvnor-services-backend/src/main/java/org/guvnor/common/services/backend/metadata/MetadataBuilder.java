@@ -76,7 +76,7 @@ public final class MetadataBuilder {
     private boolean isValidForLPRReports;
     private boolean isValidForDUSASAbroadReports;
     private boolean isValidForDUSASSpecialityReports;
-    private boolean isValidForPrimarySectorReports;
+    private boolean isValidForPrivateSectorReports;
     private Long errorNumber;
     private String errorText;
     private Integer warningTimeLimit;
@@ -241,8 +241,8 @@ public final class MetadataBuilder {
         this.isValidForDUSASSpecialityReports = isValidForDUSASSpecialityReports;
         return this;
     }
-    public MetadataBuilder withIsValidForPrimarySectorReports( final boolean isValidForPrivateSectorReports ) {
-        this.isValidForPrimarySectorReports = isValidForPrivateSectorReports;
+    public MetadataBuilder withIsValidForPrivateSectorReports( final boolean isValidForPrivateSectorReports ) {
+        this.isValidForPrivateSectorReports = isValidForPrivateSectorReports;
         return this;
     }
 
@@ -303,7 +303,7 @@ public final class MetadataBuilder {
                 isValidForLPRReports,
                 isValidForDUSASAbroadReports,
                 isValidForDUSASSpecialityReports,
-                isValidForPrimarySectorReports,
+                isValidForPrivateSectorReports,
                 errorNumber,
                 errorText,
                 warningTimeLimit,

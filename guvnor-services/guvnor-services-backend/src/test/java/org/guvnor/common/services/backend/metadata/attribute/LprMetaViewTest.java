@@ -54,7 +54,7 @@ public class LprMetaViewTest {
             put( IS_VALID_FOR_LPR_REPORTS, true);
             put( IS_VALID_FOR_DUSAS_ABROAD_REPORTS, false);
             put( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS, false);
-            put( IS_VALID_FOR_PRIMARY_SECTOR_REPORTS, true);
+            put( IS_VALID_FOR_PRIVATE_SECTOR_REPORTS, true);
         }};
 
         AttrsStorage attrsStorage = mock(AttrsStorage.class);
@@ -90,6 +90,6 @@ public class LprMetaViewTest {
         assertEquals( mockAttrs.get( IS_VALID_FOR_LPR_REPORTS ), returnedAttrs.isValidForLPRReports() );
         assertEquals( mockAttrs.get( IS_VALID_FOR_DUSAS_ABROAD_REPORTS ), returnedAttrs.isValidForDUSASSpecialityReports() );
         assertEquals( mockAttrs.get( IS_VALID_FOR_DUSAS_SPECIALITY_REPORTS ), returnedAttrs.isValidForDUSASSpecialityReports() );
-        assertEquals( mockAttrs.get( IS_VALID_FOR_PRIMARY_SECTOR_REPORTS ), returnedAttrs.isValidForPrimarySectorReports() );
+        assertEquals( mockAttrs.get( IS_VALID_FOR_PRIVATE_SECTOR_REPORTS ), returnedAttrs.isValidForPrivateSectorReports() );
     }
 }

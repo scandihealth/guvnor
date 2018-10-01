@@ -63,7 +63,7 @@ public class Metadata {
     private boolean isValidForLPRReports;
     private boolean isValidForDUSASAbroadReports;
     private boolean isValidForDUSASSpecialityReports;
-    private boolean isValidForPrimarySectorReports;
+    private boolean isValidForPrivateSectorReports;
     private Long errorNumber;
     private String errorText;
     private Integer warningTimeLimit;
@@ -113,7 +113,7 @@ public class Metadata {
                      final boolean isValidForLPRReports,
                      final boolean isValidForDUSASAbroadReports,
                      final boolean isValidForDUSASSpecialityReports,
-                     final boolean isValidForPrimarySectorReports,
+                     final boolean isValidForPrivateSectorReports,
                      final Long errorNumber,
                      final String errorText,
                      final Integer warningTimeLimit,
@@ -151,7 +151,7 @@ public class Metadata {
         this.isValidForLPRReports = isValidForLPRReports;
         this.isValidForDUSASAbroadReports = isValidForDUSASAbroadReports;
         this.isValidForDUSASSpecialityReports = isValidForDUSASSpecialityReports;
-        this.isValidForPrimarySectorReports = isValidForPrimarySectorReports;
+        this.isValidForPrivateSectorReports = isValidForPrivateSectorReports;
         this.errorNumber = errorNumber;
         this.errorText = errorText;
         this.warningTimeLimit = warningTimeLimit;
@@ -377,7 +377,7 @@ public class Metadata {
         if ( isValidForDUSASSpecialityReports != metadata.isValidForDUSASSpecialityReports ) {
             return false;
         }
-        if ( isValidForPrimarySectorReports != metadata.isValidForPrimarySectorReports ) {
+        if ( isValidForPrivateSectorReports != metadata.isValidForPrivateSectorReports ) {
             return false;
         }
         if ( ruleGroup != null ? !ruleGroup.equals( metadata.ruleGroup ) : metadata.ruleGroup != null ) {
@@ -459,7 +459,7 @@ public class Metadata {
         result = ~~result;
         result = 31 * result + (isValidForDUSASSpecialityReports ? 1 : 0);
         result = ~~result;
-        result = 31 * result + (isValidForPrimarySectorReports ? 1 : 0);
+        result = 31 * result + (isValidForPrivateSectorReports ? 1 : 0);
         result = ~~result;
         result = 31 * result + (ruleGroup != null ? ruleGroup.hashCode() : 0);
         result = ~~result;
@@ -588,12 +588,12 @@ public class Metadata {
         isValidForDUSASSpecialityReports = validForDUSASSpecialityReports;
     }
 
-    public boolean isValidForPrimarySectorReports() {
-        return isValidForPrimarySectorReports;
+    public boolean isValidForPrivateSectorReports() {
+        return isValidForPrivateSectorReports;
     }
 
-    public void setValidForPrimarySectorReports( boolean validForPrimarySectorReports ) {
-        isValidForPrimarySectorReports = validForPrimarySectorReports;
+    public void setValidForPrivateSectorReports( boolean validForPrivateSectorReports ) {
+        isValidForPrivateSectorReports = validForPrivateSectorReports;
     }
 
     public Long getEncounterEndFromDate() {
