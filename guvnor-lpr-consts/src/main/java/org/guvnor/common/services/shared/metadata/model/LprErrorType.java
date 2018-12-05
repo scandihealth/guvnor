@@ -6,10 +6,8 @@ import java.util.Map;
 //todo ttn consider if this enum should be declared in LPR3 and imported as maven dependency in drools-wb
 public enum LprErrorType {
     //these matches values in LPR enum ErrorVO.Severity
-    OK( "", "0" ),
-    WARN( "Advarsel", "1" ),
     ERROR( "Fejl", "2" ),
-    FATAL( "Fatal", "3" );
+    WARN( "Advarsel", "1" );
 
     private String id;
     private static final Map<String, LprErrorType> _idMap = new HashMap<String, LprErrorType>();

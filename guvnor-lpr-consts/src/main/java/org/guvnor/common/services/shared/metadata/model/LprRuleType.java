@@ -7,8 +7,6 @@ import java.util.Map;
 public enum LprRuleType {
     NOT_LPR("0"), //used to filter out all non-lpr related Drools-WB resources
     REPORT_VALIDATION("1");
-    //VALIDATION_EXEMPTION("2");
-    //todo if exemptions are stored in Drools-WB they should be added as rule type
 
     private String id;
     private static final Map<String, LprRuleType> _idMap = new HashMap<String, LprRuleType>();

@@ -182,7 +182,7 @@ public class LprMetaView
 
             @Override
             public LprErrorType errorType() {
-                return content.containsKey( ERROR_TYPE ) ? LprErrorType.getById( ( String ) content.get( ERROR_TYPE ) ) : LprErrorType.OK;
+                return content.containsKey( ERROR_TYPE ) ? LprErrorType.getById( ( String ) content.get( ERROR_TYPE ) ) : LprErrorType.ERROR;
             }
         };
     }

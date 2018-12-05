@@ -32,7 +32,7 @@ public class LprMetaAttributesUtilTest {
             put( EPISODE_OF_CARE_START_TO_DATE, 100L);
             put( ERROR_NUMBER, 300L);
             put( ERROR_TEXT, TEST_ERROR_TEXT);
-            put( ERROR_TYPE, LprErrorType.FATAL);
+            put( ERROR_TYPE, LprErrorType.ERROR);
             put( RULE_GROUP, TEST_RULE_GROUP);
             put( PRODUCTION_DATE, false);
             put( ARCHIVED_DATE, true);
