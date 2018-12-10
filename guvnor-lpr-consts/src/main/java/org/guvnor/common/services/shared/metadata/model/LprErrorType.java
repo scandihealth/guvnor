@@ -3,9 +3,7 @@ package org.guvnor.common.services.shared.metadata.model;
 import java.util.HashMap;
 import java.util.Map;
 
-//todo ttn consider if this enum should be declared in LPR3 and imported as maven dependency in drools-wb
 public enum LprErrorType {
-    //these matches values in LPR enum ErrorVO.Severity
     ERROR( "Fejl", "2" ),
     WARN( "Advarsel", "1" );
 
@@ -41,6 +39,7 @@ public enum LprErrorType {
      * @see #getId()
      */
     public static LprErrorType getById( String id ) {
-        return _idMap.get( id );
+        LprErrorType errorType = _idMap.get( id );
+        return errorType != null ? errorType : LprErrorType.values()[0];
     }
 }
