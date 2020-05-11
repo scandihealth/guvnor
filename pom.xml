@@ -27,6 +27,7 @@
 
   <groupId>org.guvnor</groupId>
   <artifactId>guvnor</artifactId>
+    <version>${revision}</version>
   <packaging>pom</packaging>
 
   <name>Guvnor</name>
@@ -34,6 +35,8 @@
 
   <properties>
     <jdk.min.version>1.7.0</jdk.min.version>
+    <revision>6.5.0.csc${changelist}</revision>
+    <changelist>-SNAPSHOT</changelist>
   </properties>
 
   <distributionManagement>
