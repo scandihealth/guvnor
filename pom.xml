@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.kie</groupId>
     <artifactId>kie-parent-with-dependencies</artifactId>
-    <version>6.5.0.csc.5</version>
+    <version>6.5.0.csc-SNAPSHOT</version>
   </parent>
 
   <groupId>org.guvnor</groupId>
