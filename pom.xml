@@ -50,7 +50,6 @@
   </distributionManagement>
 
   <modules>
-    <module>guvnor-lpr-consts</module>
     <module>guvnor-test-utils</module>
     <module>guvnor-structure</module>
     <module>guvnor-services</module>
