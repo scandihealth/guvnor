@@ -22,12 +22,11 @@
   <parent>
     <groupId>org.kie</groupId>
     <artifactId>kie-parent-with-dependencies</artifactId>
-    <version>6.5.0.csc.5</version>
+    <version>6.5.0.csc-SNAPSHOT</version>
   </parent>
 
   <groupId>org.guvnor</groupId>
   <artifactId>guvnor</artifactId>
-    <version>${revision}</version>
   <packaging>pom</packaging>
 
   <name>Guvnor</name>
@@ -35,8 +34,6 @@
 
   <properties>
     <jdk.min.version>1.7.0</jdk.min.version>
-    <revision>6.5.0.csc${changelist}</revision>
-    <changelist>-SNAPSHOT</changelist>
   </properties>
 
   <distributionManagement>
@@ -53,7 +50,6 @@
   </distributionManagement>
 
   <modules>
-    <module>guvnor-lpr-consts</module>
     <module>guvnor-test-utils</module>
     <module>guvnor-structure</module>
     <module>guvnor-services</module>
